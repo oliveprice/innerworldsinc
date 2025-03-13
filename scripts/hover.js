@@ -5,28 +5,28 @@ const underlineAnimations = {
     renderer: 'svg',
     loop: false,
     autoplay: false,
-    path: './resources/animations/underline.json', // Path to your underline animation
+    path: './resources/animations/hover/underline.json', 
   }),
   'change-log': lottie.loadAnimation({
     container: document.getElementById('underline-change-log'),
     renderer: 'svg',
     loop: false,
     autoplay: false,
-    path: './resources/animations/underline.json', // Path to your underline animation
+    path: './resources/animations/hover/underline.json', 
   }),
   'colophon': lottie.loadAnimation({
     container: document.getElementById('underline-colophon'),
     renderer: 'svg',
     loop: false,
     autoplay: false,
-    path: './resources/animations/underline.json', // Path to your underline animation
+    path: './resources/animations/hover/underline.json', 
   }),
   'guestbook': lottie.loadAnimation({
     container: document.getElementById('underline-guestbook'),
     renderer: 'svg',
     loop: false,
     autoplay: false,
-    path: './resources/animations/underline.json', // Path to your underline animation
+    path: './resources/animations/hover/underline.json', 
   }),
 };
 
