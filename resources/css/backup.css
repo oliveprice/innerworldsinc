@@ -1,0 +1,78 @@
+body {
+    background-image: url('../images/8.png');
+    background-repeat: repeat;
+    background-size: 100%;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+
+.layer-1::before {
+    background-size: contain; /* Prevents unnecessary stretching */
+}
+
+
+.layer-1 {
+    border: 1px solid #cebb9e; /* Inner border */
+    outline: 2px solid #cebb9e; /* Outer border */
+    outline-offset: 3px; /* Space between borders */
+    display: flex;
+    top: 0%;
+    bottom: 0%;
+    left: 0%;
+    right: 0%;
+    z-index: -1; /* Ensures it's behind content */
+    width: 100%;
+display: flex;
+justify-content: center;
+}
+
+.layer-2 {
+    background-image: url('../images/top.png');
+    background-repeat: no-repeat;
+    background-size: 103%;
+    width: 100%;
+ background-position: center top; /* Centers the background image */
+display: flex;
+flex-direction: column;
+align-items: center;
+
+}
+/* Pseudo-element to apply background image with transparency */
+
+
+
+
+
+.hero-container {
+display: flex;
+align-items: center;
+flex-direction: column;
+
+}
+
+.hero-frame {
+width: 85%;
+z-index: 100;
+padding-top: 169px;
+
+}
+
+.angel {
+filter: brightness(1.25);
+position: absolute;
+top: -55px;
+}
+
+.octo {
+margin: -20px;
+width: 50%;
+
+
+}
+
+.chapter-frame {
+margin-top: -20px;
+width: 52%;
+}

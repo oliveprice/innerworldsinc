@@ -1,0 +1,17 @@
+
+.container {
+display: flex;
+justify-content: center;
+
+}
+
+.inset-0 {
+padding: 1rem;
+
+
+}
+
+
+.width-1300 {
+max-width: 1366px;
+}

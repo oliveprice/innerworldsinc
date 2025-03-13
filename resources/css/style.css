@@ -1,0 +1,15 @@
+
+@import url('reset.css');
+@import url('mini-classes.css');
+@import url('typography.css');
+@import url('background.css');
+@import url('structure.css');
+@import url('layered-background.css');
+
+
+:root {
+  --gold: #ddbe97;
+  --bg-texture: url('../images/pink-paper-cover.png');
+
+
+}

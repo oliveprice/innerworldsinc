@@ -1,0 +1,184 @@
+body {
+  margin: 0;
+}
+
+/*  Background texture for the whole site */
+.background-layer-1 {
+  background-image: var(--bg-texture);
+  background-repeat: repeat;
+  background-size: auto 375vh; /* Keep height fixed, width adjusts naturally */
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+
+/*  Keeps the frame container with its own background */
+.background-layer-2 {
+  position: relative;
+  border: 1px solid var(--gold);
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  width: 95%; 
+  margin: 0 auto;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-image: url('../images/assets-together.png');
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: auto; /* keeps the image at its original size, allows you to see more with a wider screen */
+}
+
+/* ✅Fully blocks the angel from appearing inside the frame */
+.frame-bg {
+  width: 1200px; /* Same as hero frame */
+  height: 554px;
+  aspect-ratio: 16 / 9; /* Adjust if needed */
+  background-image: var(--bg-texture);
+  background-repeat: repeat;
+  background-size: 100%;
+  z-index: 2; /* Higher than the angel */
+}
+
+.chapters {
+  width: 482px; /* Same as hero frame */
+  height: 1270px;
+  aspect-ratio: 16 / 9; /* Adjust if needed */
+  background-image: var(--bg-texture);
+  background-repeat: repeat;
+  background-size: 100%;
+  z-index: 2; /* Higher than the angel */
+
+}
+
+.footer-bg {
+  width: 100vw; /* Same as hero frame */
+  height: 300px;
+  aspect-ratio: 16 / 9; /* Adjust if needed */
+  background-image: var(--bg-texture);
+  background-repeat: repeat;
+  background-size: 100%;
+  z-index: 2; /* Higher than the angel */
+
+}
+
+/* 📜 Decorative frame remains on top */
+.hero-frame {
+  width: 1200px;
+  height: auto;
+  display: block;
+  pointer-events: none; 
+  z-index: 3; /* Ensures it's above everything */
+}
+
+/* 🪽 Angel Video */
+.angel-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1; /* Behind the frame background */
+}
+
+.angel-video {
+ width: auto;
+    height: auto;
+    opacity: 0.9;
+    filter: brightness(1.25);
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    top: -93px;
+}
+
+.grid-container {
+  display: grid;
+}
+
+.grid-container-center {
+  display: grid;
+  place-items: center; /* Center items if needed */
+}
+
+.hero-frame, .frame-bg {
+  grid-area: 1 / 1; /* Place both items in the same grid cell */
+}
+
+.hero-frame {
+  z-index: 2; /* Ensure the image is on top */
+}
+
+.frame-bg {
+  z-index: 1; /* Ensure the background is behind the image */
+}
+
+.chapter-frame, .chapters {
+  grid-area: 1 / 1; /* Place both items in the same grid cell */
+}
+
+.chapter-frame {
+  z-index: 2; /* Ensure the image is on top */
+}
+
+.frame-bg {
+  z-index: 1; /* Ensure the background is behind the image */
+}
+
+
+.footer-frame {
+  width: 100vw;
+}
+
+.grid-container.links {
+  display: grid;
+}
+
+.footer-frame, .footer-bg, .links {
+  grid-area: 1 / 1; /* Place all items in the same grid cell */
+}
+
+.footer-frame {
+  z-index: 2; /* Ensure the image is on top */
+}
+
+.footer-bg {
+  z-index: 1; /* Ensure the background is behind the image */
+}
+
+.links {
+  z-index: 3; /* Ensure the links are on top of everything */
+}
+
+
+.offset-margin-top {
+  margin-top: px;
+}
+
+
+.link-container {
+  position: relative;
+  display: inline-block;
+  
+}
+
+.link-container:hover {
+  cursor: pointer !important;
+}
+
+
+.underline-animation {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+transition: opacity 2s ease, transform 2s ease; /* Transition both properties */
+  width: 200px;
+}
+
+.link-container:hover .underline-animation {
+  opacity: 1; /* Show on hover */
+}
