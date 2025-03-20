@@ -155,7 +155,7 @@ body {
 
 
 .offset-margin-top {
-  margin-top: px;
+  height: 100%;
 }
 
 
@@ -185,12 +185,13 @@ transition: opacity 2s ease, transform 2s ease; /* Transition both properties */
 .toc-frame {
   width: 482px;
   height: 1270px;
-  background-image: url('../images/frame.png'), var(--bg-texture); /* Frame on top, texture below */
+  background-image: url('../images/frame.png'), var(--bg-texture);
+  background-position: top center, center;
   background-repeat: no-repeat, repeat;
-  background-size: contain, cover; /* Frame fits, texture fills */
-  background-position: center, center;
+  background-size: contain, 50% auto; /* Shrink the texture */
   display: block;
 }
+
 
 .footer-frame {
   width: 100%;
