@@ -24,7 +24,7 @@ body {
   margin: 0 auto;
   box-sizing: border-box;
   overflow: hidden;
-  background-image: url('../images/assets-together.png');
+  background-image: url('../images/assets_together.png');
   background-position: center top;
   background-repeat: no-repeat;
   background-size: auto; /* keeps the image at its original size, allows you to see more with a wider screen */
@@ -43,7 +43,7 @@ body {
 
 .chapters {
   width: 482px; /* Same as hero frame */
-  height: 1270px;
+  height: 1280px;
   aspect-ratio: 16 / 9; /* Adjust if needed */
   background-image: var(--bg-texture);
   background-repeat: repeat;
@@ -181,4 +181,24 @@ transition: opacity 2s ease, transform 2s ease; /* Transition both properties */
 
 .link-container:hover .underline-animation {
   opacity: 1; /* Show on hover */
+}
+.toc-frame {
+  width: 482px;
+  height: 1270px;
+  background-image: url('../images/frame.png'), var(--bg-texture); /* Frame on top, texture below */
+  background-repeat: no-repeat, repeat;
+  background-size: contain, cover; /* Frame fits, texture fills */
+  background-position: center, center;
+  display: block;
+}
+
+.footer-frame {
+  width: 100%;
+  height: 300px;
+  background-image: url('../images/footer-frame.png'), var(--bg-texture); /* Frame on top, texture below */
+ background-position: top center, center; /* Frame at the very top */
+  background-repeat: no-repeat, repeat;
+  background-size: cover, cover; /* Frame fits, texture fills */
+  background-position: center, center;
+  display: block;
 }

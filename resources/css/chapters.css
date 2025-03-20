@@ -1,0 +1,14 @@
+
+.table-of-contents {
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100%;
+
+}
+
+
+
+.chapter-1 {
+width: 400px;
+}

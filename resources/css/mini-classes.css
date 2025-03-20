@@ -109,3 +109,9 @@ flex: 2;
 width: 80%;
 
 }
+
+.hoverable:hover {
+cursor: pointer;
+
+
+}

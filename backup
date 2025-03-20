@@ -1,0 +1,37 @@
+           <div id="chapter-1-animation-container" class="flex-justify-center margin-top-plus-1"></div>
+
+
+
+
+
+
+
+
+<div class="footer">
+  <div class="grid-container links">
+    <img src="./resources/images/footer-frame.png" alt="Decorative Frame" class="footer-frame">
+    <div class="frame-bg footer-bg"></div>
+    <div class="links flex-row flex-justify-center offset-margin-top flex-align-center gap-plus-1">
+      <!-- About Me Link -->
+      <div class="link-container">
+        <img src="./resources/drawn_typography/about me.png" alt="About Me" class="footer-link">
+        <div id="underline-about-me" class="underline-animation"></div>
+      </div>
+      <!-- Change Log Link -->
+      <div class="link-container">
+        <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link">
+        <div id="underline-change-log" class="underline-animation"></div>
+      </div>
+      <!-- Colophon Link -->
+      <div class="link-container">
+        <img src="./resources/drawn_typography/colophon.png" alt="Colophon" class="footer-link">
+        <div id="underline-colophon" class="underline-animation"></div>
+      </div>
+      <!-- Guestbook Link -->
+      <div class="link-container">
+        <img src="./resources/drawn_typography/guestbook.png" alt="Guestbook" class="footer-link">
+        <div id="underline-guestbook" class="underline-animation"></div>
+      </div>
+    </div>
+  </div>
+</div>

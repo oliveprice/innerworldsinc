@@ -5,7 +5,7 @@
 @import url('background.css');
 @import url('structure.css');
 @import url('layered-background.css');
-
+@import url('chapters.css');
 
 :root {
   --gold: #ddbe97;
