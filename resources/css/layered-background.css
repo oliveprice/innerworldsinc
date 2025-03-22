@@ -182,6 +182,7 @@ transition: opacity 2s ease, transform 2s ease; /* Transition both properties */
 .link-container:hover .underline-animation {
   opacity: 1; /* Show on hover */
 }
+
 .toc-frame {
   width: 482px;
   height: 1270px;
@@ -202,4 +203,42 @@ transition: opacity 2s ease, transform 2s ease; /* Transition both properties */
   background-size: cover, cover; /* Frame fits, texture fills */
   background-position: center, center;
   display: block;
+}
+
+
+/* 🔄 Lottie Loading Screen Styling */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: var(--bg-texture);
+  background-repeat: repeat;
+  background-size: auto 375vh; /* Keep height fixed, width adjusts naturally */
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+
+.display-none {
+  display: none; /* Hide site until Lottie is done */
+}
+
+
+.hero-section-frame {
+  width: 1200px;
+  height: 550px;
+  background-image: url('../images/hero-frame.png'), var(--bg-texture);
+  background-position: center top, center; /* frame first, texture second */
+  background-repeat: no-repeat, repeat;
+  background-size: cover, cover; /* Match size of both layers */
+  display: block;
+  margin-top: 180px;
+  overflow: hidden; /* prevents any visual overflow */
+  position: relative;
+  z-index: 399;
 }
