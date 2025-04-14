@@ -1,3 +1,20 @@
+
+.gap-0 {
+gap: 1rem;
+}
+
+.gap-plus-1 {
+gap: 1.5rem;
+}
+
+.gap-plus-4 {
+gap: 4.5rem;
+}
+
+.inset-plus-8 {
+margin: 8rem 1rem;
+
+}
 .margin-top-0 {
 margin-top: 1rem;
 }
@@ -9,26 +26,6 @@ margin-top: 2rem;
 .margin-top-plus-3 {
 margin-top: 3rem;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .margin-right-plus-3 {
 margin-right: 5rem;
@@ -108,6 +105,10 @@ flex: 2;
 .width-80p {
 width: 80%;
 
+}
+
+.width-85p {
+width: 85%;
 }
 
 .hoverable:hover {

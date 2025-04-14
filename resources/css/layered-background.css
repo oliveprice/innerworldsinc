@@ -2,11 +2,11 @@ body {
   margin: 0;
 }
 
-/*  Background texture for the whole site */
+
 .background-layer-1 {
   background-image: var(--bg-texture);
   background-repeat: repeat;
-  background-size: auto 375vh; /* Keep height fixed, width adjusts naturally */
+  background-size: auto 375vh;
   background-position: center;
   margin: 0;
   padding: 0;
@@ -14,85 +14,86 @@ body {
 }
 
 
-/*  Keeps the frame container with its own background */
+
+
 .background-layer-2 {
   position: relative;
-  border: 1px solid var(--gold);
-  outline: 2px solid var(--gold);
+  border: 1px solid var(--primary);
+  outline: 2px solid var(--primary);
   outline-offset: 3px;
-  width: 95%; 
+  width: 99%; 
   margin: 0 auto;
   box-sizing: border-box;
   overflow: hidden;
-  background-image: url('../images/assets_together.png');
+  background-image: url('../images/assets_together_2.png');
   background-position: center top;
   background-repeat: no-repeat;
-  background-size: auto; /* keeps the image at its original size, allows you to see more with a wider screen */
+  background-size: auto; 
 }
 
-/* ✅Fully blocks the angel from appearing inside the frame */
+
 .frame-bg {
-  width: 1200px; /* Same as hero frame */
+  width: 1200px;
   height: 554px;
-  aspect-ratio: 16 / 9; /* Adjust if needed */
+  aspect-ratio: 16 / 9; 
   background-image: var(--bg-texture);
   background-repeat: repeat;
   background-size: 100%;
-  z-index: 2; /* Higher than the angel */
+  z-index: 2; 
 }
 
 .chapters {
-  width: 482px; /* Same as hero frame */
+  width: 482px; 
   height: 1280px;
-  aspect-ratio: 16 / 9; /* Adjust if needed */
+  aspect-ratio: 16 / 9;
   background-image: var(--bg-texture);
   background-repeat: repeat;
   background-size: 100%;
-  z-index: 2; /* Higher than the angel */
+  z-index: 2; 
 
 }
 
 .footer-bg {
-  width: 100vw; /* Same as hero frame */
+  width: 100vw; 
   height: 300px;
-  aspect-ratio: 16 / 9; /* Adjust if needed */
+  aspect-ratio: 16 / 9; 
   background-image: var(--bg-texture);
   background-repeat: repeat;
   background-size: 100%;
-  z-index: 2; /* Higher than the angel */
+  z-index: 2; 
 
 }
 
-/* 📜 Decorative frame remains on top */
+
 .hero-frame {
   width: 1200px;
   height: auto;
   display: block;
   pointer-events: none; 
-  z-index: 3; /* Ensures it's above everything */
+  z-index: 3; 
 }
 
-/* 🪽 Angel Video */
+
 .angel-container {
   width: 100%;
   display: flex;
   justify-content: center;
   pointer-events: none;
-  z-index: 1; /* Behind the frame background */
+  z-index: 1;
 }
 
 .angel-video {
  width: auto;
     height: auto;
     opacity: 0.9;
-    filter: brightness(1.25);
+    filter: brightness(1.4);
     position: absolute;
     left: 0;
     right: 0;
     display: flex;
     align-self: center;
     justify-self: center;
-    top: -93px;
+    top: -84px;
 }
 
 .grid-container {
@@ -101,31 +102,31 @@ body {
 
 .grid-container-center {
   display: grid;
-  place-items: center; /* Center items if needed */
+  place-items: center; 
 }
 
 .hero-frame, .frame-bg {
-  grid-area: 1 / 1; /* Place both items in the same grid cell */
+  grid-area: 1 / 1; 
 }
 
 .hero-frame {
-  z-index: 2; /* Ensure the image is on top */
+  z-index: 2; 
 }
 
 .frame-bg {
-  z-index: 1; /* Ensure the background is behind the image */
+  z-index: 1; 
 }
 
 .chapter-frame, .chapters {
-  grid-area: 1 / 1; /* Place both items in the same grid cell */
+  grid-area: 1 / 1; 
 }
 
 .chapter-frame {
-  z-index: 2; /* Ensure the image is on top */
+  z-index: 2; 
 }
 
 .frame-bg {
-  z-index: 1; /* Ensure the background is behind the image */
+  z-index: 1; 
 }
 
 
@@ -138,19 +139,19 @@ body {
 }
 
 .footer-frame, .footer-bg, .links {
-  grid-area: 1 / 1; /* Place all items in the same grid cell */
+  grid-area: 1 / 1; 
 }
 
 .footer-frame {
-  z-index: 2; /* Ensure the image is on top */
+  z-index: 2; 
 }
 
 .footer-bg {
-  z-index: 1; /* Ensure the background is behind the image */
+  z-index: 1; 
 }
 
 .links {
-  z-index: 3; /* Ensure the links are on top of everything */
+  z-index: 3; 
 }
 
 
@@ -175,38 +176,27 @@ body {
   left: 50%;
   transform: translateX(-50%);
 
-transition: opacity 2s ease, transform 2s ease; /* Transition both properties */
+transition: opacity 2s ease, transform 2s ease; 
   width: 200px;
 }
 
 .link-container:hover .underline-animation {
-  opacity: 1; /* Show on hover */
-}
-
-.toc-frame {
-  width: 600px;
-  height: 1580px;
-  background-image: url('../images/frame.png'), var(--bg-texture);
-  background-position: top center, center;
-  background-repeat: no-repeat, repeat;
-  background-size: 600px, 50% auto; /* Shrink the texture */
-  display: block;
+  opacity: 1; 
 }
 
 
 .footer-frame {
   width: 100%;
   height: 300px;
-  background-image: url('../images/footer-frame.png'), var(--bg-texture); /* Frame on top, texture below */
- background-position: top center, center; /* Frame at the very top */
+  background-image: url('../images/footer-frame.png'), var(--bg-texture);
+ background-position: top center, center;
   background-repeat: no-repeat, repeat;
-  background-size: cover, cover; /* Frame fits, texture fills */
+  background-size: cover, cover; 
   background-position: center, center;
   display: block;
 }
 
 
-/* 🔄 Lottie Loading Screen Styling */
 .loading-overlay {
   position: fixed;
   inset: 0;
@@ -216,7 +206,7 @@ transition: opacity 2s ease, transform 2s ease; /* Transition both properties */
   justify-content: center;
   background-image: var(--bg-texture);
   background-repeat: repeat;
-  background-size: auto 375vh; /* Keep height fixed, width adjusts naturally */
+  background-size: auto 375vh;
   background-position: center;
   margin: 0;
   padding: 0;
@@ -225,7 +215,7 @@ transition: opacity 2s ease, transform 2s ease; /* Transition both properties */
 
 
 .display-none {
-  display: none; /* Hide site until Lottie is done */
+  display: none; 
 }
 
 
@@ -233,12 +223,12 @@ transition: opacity 2s ease, transform 2s ease; /* Transition both properties */
   width: 1200px;
   height: 550px;
   background-image: url('../images/hero-frame.png'), var(--bg-texture);
-  background-position: center top, center; /* frame first, texture second */
+  background-position: center top, center; 
   background-repeat: no-repeat, repeat;
-  background-size: cover, cover; /* Match size of both layers */
+  background-size: cover, cover; 
   display: block;
   margin-top: 180px;
-  overflow: hidden; /* prevents any visual overflow */
+  overflow: hidden; 
   position: relative;
   z-index: 1000;
 }
@@ -251,3 +241,8 @@ transition: opacity 2s ease, transform 2s ease; /* Transition both properties */
   align-items: center;
 }
 
+.opener {
+width: 90%;
+margin-right: 60px;
+
+}

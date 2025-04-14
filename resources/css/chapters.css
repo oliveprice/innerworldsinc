@@ -1,15 +1,126 @@
+.toc-frame {
+  width: 600px;
+  height: 1565px;
+  background-image: url("../images/frame.png"), var(--bg-texture);
+  background-position: top center, center;
+  background-repeat: no-repeat, repeat;
+  background-size: 600px, 50% auto; /* Shrink the texture */
+  display: block;
+}
 
 .table-of-contents {
-display: flex;
-align-items: center;
-justify-content: center;
-height: 100%;
-flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.asdf {
+  width: 400px;
+}
+
+.chapter-1 {
+  width: 400px;
+}
+
+#chapters-wrapper {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+}
+
+.chapter-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+  overflow: hidden;
+  display: flex;
+  height: 355px;
+  justify-content: center;
+}
+
+.chapter-block-img {
+  width: 350px;
+  height: auto;
+  transition: transform 0.4s ease;
+}
+
+.page-node {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  .text-and-line {
+    .chapter-text {
+      font-family: "Caslon Titling";
+      color: var(--primary);
+      font-size: .8rem;
+      line-height: 0;
+      margin-bottom: 5px;
+      letter-spacing: 1.5px;
+    }
+
+        .chapter-text:hover {
+
+      color: var(--primary-hover);
+      cursor: pointer;
+
+    }
+
+
+
+    img {
+      width: 100%;
+    }
+  }
+
+ .flower-and-number {
+  .chapter-number {
+  line-height: 0;
+    margin-left: 10px;
+    margin-bottom: 8px;
+      font-family: "Caslon Titling";
+      color: var(--primary);
+}
+
+
+}
 
 }
 
 
+.chapter-reveal-stack {
+  position: relative;
+  width: 350px;
+  height: auto;
+}
 
-.chapter-1 {
-width: 400px;
+.chapter-block-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 350px;
+  height: auto;
+  transition: transform 0.8s ease;
+  z-index: 2;
+}
+
+.flex-column-special {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 350px;
+  z-index: 1;
+}
+
+
+.lottie-flower {
+  width: 50px;
+  height: 50px;
+  transform-origin: center center;
+  display: block;
 }

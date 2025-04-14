@@ -33,4 +33,9 @@
     font-style: italic;
 }
 
-
+@font-face {
+    font-family: 'Caslon Titling';
+    src: url('../fonts/Caslon-Titling-MT\ Std-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
