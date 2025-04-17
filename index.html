@@ -13,18 +13,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Spectral:wght@200&display=swap" rel="stylesheet">
-    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
-    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
-    <link rel="stylesheet" href="bower_components/aos/dist/aos.css" />
-    <script src="bower_components/aos/dist/aos.js"></script>
+   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="background-layer-1">
 
-
-  <div class="container inset-0">
     <div class="background-layer-2">
+    <div class="background-layer-3">
       <div class="flex-column flex-align-center">
 
         <div class="video-container">
@@ -45,15 +41,20 @@
         </div>
         </div>
                 
-        <img src="./resources/images/octo.png" alt="" class="">
+<div class="octo-container">
+<video id="octo" class="octo-video" autoplay loop muted playsinline>
+  <source src="./resources/animations/octo-loop.webm" type="video/webm">
+</video>
 
+
+</div>
 
 
    
 
 
 
-<div class="toc-frame margin-bottom-plus-2 ">
+<div class="toc-frame  ">
 
 <ul class="table-of-contents"> 
 
@@ -75,8 +76,23 @@
 </div>
 
 
+<div class="mermaid-container left">
+<video id="mermaid" class="mermaid-video " autoplay loop muted playsinline>
+  <source src="./resources/animations/mermaid.webm" type="video/webm">
+</video>
 
 
+</div>
+
+
+
+<div class="mermaid-container right">
+<video id="mermaid" class="mermaid-video " autoplay loop muted playsinline>
+  <source src="./resources/animations/mermaid.webm" type="video/webm">
+</video>
+
+
+</div>
 
 
 
@@ -125,11 +141,14 @@
 
 
 
-
+<script>
+  AOS.init();
+</script>
 <script src="./scripts/chapters-animation.js"></script>
 <script src="./scripts/hover.js"></script>
 <script src="./scripts/load.js"></script>
 <script src="./scripts/opener.js"></script>
+<script src="./scripts/moving-parts.js"></script>
 
 
 </body>

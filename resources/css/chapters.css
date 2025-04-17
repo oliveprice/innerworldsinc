@@ -6,6 +6,8 @@
   background-repeat: no-repeat, repeat;
   background-size: 600px, 50% auto; /* Shrink the texture */
   display: block;
+  z-index: 1000;
+margin-bottom: 390px;
 }
 
 .table-of-contents {
@@ -123,4 +125,9 @@
   height: 50px;
   transform-origin: center center;
   display: block;
+}
+
+.chapter-block-img:hover {
+
+cursor: pointer;
 }

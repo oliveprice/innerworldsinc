@@ -32,7 +32,7 @@ const underlineAnimations = {
 
 
 Object.values(underlineAnimations).forEach((anim) => {
-  anim.setSpeed(3); // 2x speed
+  anim.setSpeed(3); 
 });
 
 
@@ -41,20 +41,20 @@ document.querySelectorAll('.link-container').forEach((link) => {
   const anim = underlineAnimations[linkId];
 
   link.addEventListener('mouseenter', () => {
-    anim.setDirection(1); // play forward
-    anim.goToAndStop(0, true); // reset to the start
+    anim.setDirection(1); 
+    anim.goToAndStop(0, true); 
     anim.play();
   });
 
   link.addEventListener('mouseleave', () => {
-    anim.setDirection(-1); // play in reverse
+    anim.setDirection(-1); 
     anim.play();
   });
 
-  // ensure the animation reverses even if it has finished playing
+  
   anim.addEventListener('complete', () => {
     if (!link.matches(':hover')) {
-      anim.setDirection(-1); // play in reverse
+      anim.setDirection(-1); 
       anim.play();
     }
   });

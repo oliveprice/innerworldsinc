@@ -280,7 +280,7 @@
    // });
  // }
 
- // // MODIFIED: initChapterReveal to include reverse trigger
+ // // initChapterReveal to include reverse trigger
  // this is a helper called 'initChapterReveal' that handles part of the animation
    // grab a specific element or group of elements from the page
 

@@ -1,3 +1,5 @@
+let activeTimeouts = [];
+
 
 // array of all chapters with their content
 const chapters = [
@@ -37,10 +39,8 @@ const chapters = [
   ]
 }
 
-
-
 ,
-  // add more here...
+
 ];
 
 function createChapterHTML(data) {
@@ -155,10 +155,12 @@ function revealPageNodesInOrder(container) {
 
 // LEVEL 3: Animate a single page node’s elements
 function revealPageNodeInSequence(node) {
-  setTimeout(() => animateFlower(node), 0);
-  setTimeout(() => animateNumber(node), 150);
-  setTimeout(() => animateLine(node), 300);
-  setTimeout(() => animateText(node), 450);
+activeTimeouts.push(setTimeout(() => animateFlower(node), 0));
+activeTimeouts.push(setTimeout(() => animateNumber(node), 150));
+activeTimeouts.push(setTimeout(() => animateLine(node), 300));
+activeTimeouts.push(setTimeout(() => animateText(node), 450));
+
+
 }
 
 // BASIC ELEMENT ANIMATIONS
@@ -239,21 +241,21 @@ function reversePageNodesInOrder(container) {
   const pageNodes = Array.from(container.querySelectorAll('.page-node')).reverse();
 
   pageNodes.forEach((node, i) => {
-    setTimeout(() => {
+    activeTimeouts.push(setTimeout(() => {
       reversePageNodeSequence(node);
-    }, i * 500);
+    }, i * 500));
   });
 }
 
 // Reverse animation of one page node's parts
 function reversePageNodeSequence(node) {
-  setTimeout(() => reverseText(node), 0);
-  setTimeout(() => reverseLine(node), 150);
-  setTimeout(() => reverseNumber(node), 300);
-  setTimeout(() => reverseFlower(node), 450);
+  activeTimeouts.push(setTimeout(() => reverseText(node), 0));
+  activeTimeouts.push(setTimeout(() => reverseLine(node), 150));
+  activeTimeouts.push(setTimeout(() => reverseNumber(node), 300));
+  activeTimeouts.push(setTimeout(() => reverseFlower(node), 450));
 }
 
-// Reverse flower
+
 function reverseFlower(node) {
   const flower = node.querySelector('.animated-flower');
   if (flower) {
@@ -262,7 +264,7 @@ function reverseFlower(node) {
   }
 }
 
-// Reverse number
+
 function reverseNumber(node) {
   const number = node.querySelector('.chapter-number');
   if (number) {
@@ -288,7 +290,6 @@ function reverseLine(node) {
   }
 }
 
-// Reverse text
 function reverseText(node) {
   const text = node.querySelector('.chapter-text');
   if (text) {
@@ -296,7 +297,7 @@ function reverseText(node) {
   }
 }
 
-// 🧠 ADD: Setup initial state for all pieces on load
+// setup initial state for all pieces on load
 function setInitialState(container) {
   const pageNodes = container.querySelectorAll('.page-node');
   pageNodes.forEach((node) => {
@@ -312,7 +313,7 @@ function setInitialState(container) {
   });
 }
 
-// MODIFIED: initChapterReveal to include reverse trigger
+// include reverse trigger
 function initChapterReveal(container) {
   const chapterBlock = container.querySelector('.chapter-block-img');
 
@@ -325,12 +326,14 @@ function initChapterReveal(container) {
     startChapterSequence(container, chapterBlock);
   });
 
-  container.addEventListener('mouseleave', () => {
-    reversePageNodesInOrder(container);
-    setTimeout(() => {
-      slideChapterBlockIn(chapterBlock);
-    }, 500 * 3); // after 3 page nodes reverse
-  });
+container.addEventListener('mouseleave', () => {
+  reversePageNodesInOrder(container);
+  setTimeout(() => {
+    slideChapterBlockIn(chapterBlock);
+  }, 500 * 3);
+});
+
+
 }
 
 // init

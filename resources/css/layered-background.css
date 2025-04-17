@@ -10,25 +10,35 @@ body {
   background-position: center;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+height: 100vh;
+display: flex
+;
+    align-items: center;
+    justify-content: center;
 }
 
-
-
-
 .background-layer-2 {
-  position: relative;
-  border: 1px solid var(--primary);
-  outline: 2px solid var(--primary);
-  outline-offset: 3px;
-  width: 99%; 
-  margin: 0 auto;
-  box-sizing: border-box;
-  overflow: hidden;
-  background-image: url('../images/assets_together_2.png');
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: auto; 
+    border: 1px solid var(--primary);
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+    width: 97%;
+    height: 95vh;
+    overflow: scroll;
+scrollbar-width: none;
+scroll-behavior: smooth;
+}
+
+.background-layer-3 {
+    position: relative;
+    margin: 0 auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-image: url(../images/assets_together_2.png);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: auto;
+   
+    
 }
 
 
@@ -231,6 +241,7 @@ transition: opacity 2s ease, transform 2s ease;
   overflow: hidden; 
   position: relative;
   z-index: 1000;
+margin-bottom: 240px;
 }
 
 .hero-section {
@@ -244,5 +255,44 @@ transition: opacity 2s ease, transform 2s ease;
 .opener {
 width: 90%;
 margin-right: 60px;
+
+}
+
+.octo-container {
+width: auto;
+    height: auto;
+    opacity: 0.9;
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex
+;
+    align-self: center;
+    justify-self: center;
+    top: 670px;
+
+}
+
+
+.mermaid-container {
+position: absolute;
+    bottom: 110px;
+}
+
+.mermaid-video {
+filter: brightness(1.1);
+
+}
+
+
+.right {
+margin-left: -271px;
+
+}
+
+
+.left {
+transform: scaleX(-1);
+margin-right: -290px;
 
 }
