@@ -20,119 +20,11 @@
 <body class="background-layer-1">
 
     <div class="background-layer-2">
-    <div class="background-layer-3">
-      <div class="flex-column flex-align-center">
-
-        <div class="video-container">
-          <video class="angel-video" autoplay loop muted playsinline>
-            <source src="./resources/animations/angel.webm" type="video/webm">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-
-        <div class="hero-section-frame">
-          <div class="hero-section" id="lottie-hero">
-
-                        
-       <div id="opener" class="opener"></div>
 
 
-
-        </div>
-        </div>
-                
-<div class="octo-container">
-<video id="octo" class="octo-video" autoplay loop muted playsinline>
-  <source src="./resources/animations/octo-loop.webm" type="video/webm">
-</video>
-
-
+<div class="screen-container">
+  <div id="open-screen-animation" class="lottie-wrapper"></div>
 </div>
-
-
-   
-
-
-
-<div class="toc-frame  ">
-
-<ul class="table-of-contents"> 
-
-  <li class="asdf">
-
-   <div id="chapter-1-animation-container" class="hoverable chapter-1"></div></li>
-
- <li class="asdf">
-   <div id="chapter-2-animation-container" class="hoverable chapter-2"></div>
- </li>
-
- <li class="asdf">
-   <div id="chapter-3-animation-container" class="hoverable chapter-2"></div>
- </li>
-
-
-</ul>
-
-</div>
-
-
-<div class="mermaid-container left">
-<video id="mermaid" class="mermaid-video " autoplay loop muted playsinline>
-  <source src="./resources/animations/mermaid.webm" type="video/webm">
-</video>
-
-
-</div>
-
-
-
-<div class="mermaid-container right">
-<video id="mermaid" class="mermaid-video " autoplay loop muted playsinline>
-  <source src="./resources/animations/mermaid.webm" type="video/webm">
-</video>
-
-
-</div>
-
-
-
-
-<div class="footer-frame">
-
-
- <div class="links flex-row flex-justify-center offset-margin-top flex-align-center gap-plus-1">
-      <!-- About Me Link -->
-      <div class="link-container">
-        <img src="./resources/drawn_typography/about me.png" alt="About Me" class="footer-link">
-        <div id="underline-about-me" class="underline-animation"></div>
-      </div>
-      <!-- Change Log Link -->
-      <div class="link-container">
-        <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link">
-        <div id="underline-change-log" class="underline-animation"></div>
-      </div>
-      <!-- Colophon Link -->
-      <div class="link-container">
-        <img src="./resources/drawn_typography/colophon.png" alt="Colophon" class="footer-link">
-        <div id="underline-colophon" class="underline-animation"></div>
-      </div>
-      <!-- Guestbook Link -->
-      <div class="link-container">
-        <img src="./resources/drawn_typography/guestbook.png" alt="Guestbook" class="footer-link">
-        <div id="underline-guestbook" class="underline-animation"></div>
-      </div>
-    </div>
-
-
-
-</div>
-
-
-
-          
-                  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js"></script>
-         </div>
-
 
 
       </div>
@@ -140,7 +32,20 @@
   </div>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js"></script>
+<script>
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+  });
 
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
+</script>
 <script>
   AOS.init();
 </script>

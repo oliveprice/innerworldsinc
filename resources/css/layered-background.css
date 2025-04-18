@@ -25,7 +25,9 @@ display: flex
     height: 95vh;
     overflow: scroll;
 scrollbar-width: none;
+-webkit-overflow-scrolling: touch;
 scroll-behavior: smooth;
+
 }
 
 .background-layer-3 {
@@ -280,13 +282,13 @@ position: absolute;
 }
 
 .mermaid-video {
-filter: brightness(1.1);
+filter: brightness(1.2);
 
 }
 
 
 .right {
-margin-left: -271px;
+margin-left: 54px;
 
 }
 
@@ -295,4 +297,8 @@ margin-left: -271px;
 transform: scaleX(-1);
 margin-right: -290px;
 
+}
+
+#my-scrollbar .scrollbar-track {
+  display: none !important;
 }

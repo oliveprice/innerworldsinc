@@ -14,3 +14,13 @@
   --bg-texture: url('../images/pink-paper-cover.png');
 }
 
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
