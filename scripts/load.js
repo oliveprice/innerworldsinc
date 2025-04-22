@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const animation = lottie.loadAnimation({
       container: container,
       renderer: 'svg',
-      loop: false,
+      loop: true,
       autoplay: true,
       path: './resources/animations/open-screen/data.json'
     });

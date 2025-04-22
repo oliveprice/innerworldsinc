@@ -56,5 +56,23 @@
 <script src="./scripts/moving-parts.js"></script>
 
 
+
+<iframe id="preload-frame" src="home.html" style="display:none;"></iframe>
+
+<script>
+  const iframe = document.getElementById("preload-frame");
+
+  iframe.onload = () => {
+    setTimeout(() => {
+      window.location.href = "home.html";
+    }, 3000);
+  };
+
+
+  setTimeout(() => {
+    window.location.href = "home.html";
+  }, 10000);
+</script>
+
 </body>
  </html>
