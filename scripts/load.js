@@ -18,3 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 2000); // redirect after 2 seconds
   }
 });
+
+
+document.addEventListener('touchmove', function (event) {
+  if (event.scale !== 1) {
+    event.preventDefault();
+  }
+}, { passive: false });

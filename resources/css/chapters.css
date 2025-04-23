@@ -131,3 +131,11 @@ margin-bottom: 390px;
 
 cursor: pointer;
 }
+
+p {
+      font-family: "Caslon Titling";
+      color: var(--primary);
+      font-size: 1rem;
+
+
+}

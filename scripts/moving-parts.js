@@ -27,3 +27,17 @@ document.addEventListener("DOMContentLoaded", function () {
   animation.setSpeed(1);
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const octo = document.getElementById('womp-lottie');
+
+  const animation = lottie.loadAnimation({
+    container: octo,
+    renderer: 'svg',
+    loop: false,
+    autoplay: true,
+    path: './resources/animations/womp/data.json'
+  });
+
+  animation.setSpeed(1);
+});
+

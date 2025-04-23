@@ -114,5 +114,9 @@ width: 85%;
 .hoverable:hover {
 cursor: pointer;
 
+}
+
+.height-100 {
+height: 100%;
 
 }
