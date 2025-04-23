@@ -231,8 +231,8 @@ transition: opacity 2s ease, transform 2s ease;
 
 
 .hero-section-frame {
-  width: 1200px;
-  height: 550px;
+width: 1400px;
+    height: 640px;
   background-image: url('../images/hero-frame.png'), var(--bg-texture);
   background-position: center top, center; 
   background-repeat: no-repeat, repeat;
@@ -270,7 +270,7 @@ width: auto;
 ;
     align-self: center;
     justify-self: center;
-    top: 670px;
+    top: 760px;
 
 }
 
