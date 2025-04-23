@@ -57,21 +57,26 @@
 
 
 
+
 <iframe id="preload-frame" src="home.html" style="display:none;"></iframe>
 
 <script>
   const iframe = document.getElementById("preload-frame");
 
-  iframe.onload = () => {
-    setTimeout(() => {
+  function fullyLoaded() {
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    const el = doc.querySelector('.background-layer-3');
+
+    if (el && getComputedStyle(el).opacity === "1") {
       window.location.href = "home.html";
-    }, 20000);
+    } else {
+      setTimeout(fullyLoaded, 100);
+    }
+  }
+
+  iframe.onload = () => {
+    setTimeout(fullyLoaded, 200);
   };
-
-
-  setTimeout(() => {
-    window.location.href = "home.html";
-  }, 10000);
 </script>
 
 </body>
