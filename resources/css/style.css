@@ -7,6 +7,7 @@
 @import url('layered-background.css');
 @import url('chapters.css');
 @import url('responsive.css');
+@import url('modals.css');
 
 :root {
   --primary: #ddbe97;

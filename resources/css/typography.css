@@ -39,3 +39,25 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+  font-family: 'Olive Full';
+  src: url('../fonts/Olive_full_font-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+.handwritten {
+  font-family: 'Olive Full';
+  font-size: 40px;
+  line-height: 10px;
+
+margin: 25px 0px;
+
+}
+
+.small {
+font-size: 27px;
+
+}
