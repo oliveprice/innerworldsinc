@@ -26,7 +26,7 @@ fetch('./change-log-modal.html')
             el.classList.add("commit-item");
             el.innerHTML = `
               <p class="handwritten"><strong>${msg}</strong></p>
-              <p class="handwritten small margin-bottom-plus-3">by ${author} on ${date}</p>
+              <p class="handwritten small">by ${author} on ${date}</p>
             `;
             contentArea.appendChild(el);
           });
