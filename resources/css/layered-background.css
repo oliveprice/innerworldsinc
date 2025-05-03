@@ -231,8 +231,8 @@ transition: opacity 2s ease, transform 2s ease;
 
 
 .hero-section-frame {
-width: 1400px;
-    height: 640px;
+    width: 1210px;
+    height: 559px;
   background-image: url('../images/hero-frame.png'), var(--bg-texture);
   background-position: center top, center; 
   background-repeat: no-repeat, repeat;
@@ -249,8 +249,9 @@ margin-bottom: 240px;
 width: 807px;
     height: 370px;
 margin: 0;
-overflow-y: scroll;
-scrollbar-width: none;
+overflow-y: hidden;
+height: 100%;
+
 
 }
 
@@ -275,11 +276,10 @@ width: auto;
     position: absolute;
     left: 0;
     right: 0;
-    display: flex
-;
+    display: flex;
     align-self: center;
     justify-self: center;
-    top: 760px;
+    top: 690px;
 
 }
 
