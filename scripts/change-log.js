@@ -11,25 +11,28 @@ fetch('./change-log-modal.html')
     openTrigger.addEventListener("click", () => {
       modal.classList.remove("hidden");
 
-  
       fetch("https://api.github.com/repos/oliveprice/innerworldsinc/commits")
         .then(res => res.json())
         .then(data => {
           contentArea.innerHTML = ""; // clear it first
 
-          data.slice(0, 10).forEach(commit => {
-            const msg = commit.commit.message;
-            const author = commit.commit.author.name;
-            const date = new Date(commit.commit.author.date).toLocaleString();
+          const cutoff = new Date("2025-04-23"); // EXCLUDES 4/22 and earlier
 
-            const el = document.createElement("div");
-            el.classList.add("commit-item");
-            el.innerHTML = `
-              <p class="handwritten"><strong>${msg}</strong></p>
-              <p class="handwritten small">by ${author} on ${date}</p>
-            `;
-            contentArea.appendChild(el);
-          });
+          data
+            .filter(commit => new Date(commit.commit.author.date) >= cutoff)
+            .forEach(commit => {
+              const msg = commit.commit.message;
+              const author = commit.commit.author.name;
+              const date = new Date(commit.commit.author.date).toLocaleString();
+
+              const el = document.createElement("div");
+              el.classList.add("commit-item");
+              el.innerHTML = `
+                <p class="handwritten"><strong>${msg}</strong></p>
+                <p class="handwritten small">by ${author} on ${date}</p>
+              `;
+              contentArea.appendChild(el);
+            });
         })
         .catch(err => {
           contentArea.innerHTML = "<p>Failed to load commits.</p>";

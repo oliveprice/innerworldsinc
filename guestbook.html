@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Inner Worlds Inc.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <link rel="icon" href="./resources/images/favicons/favicon-96x96.png">           
+    <link rel="stylesheet" href="./resources/css/style.css" /> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://kit.fontawesome.com/cf45e25b55.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Spectral:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
+    <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
+<script src="https://cdn.jsdelivr.net/npm/smooth-scrollbar@8.7.4/dist/smooth-scrollbar.js"></script>
+
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.35/bundled/lenis.min.js"></script>
+<style>
+    body { font-family: sans-serif; padding: 2rem; background: #fdfaf5; }
+    .entry { margin-bottom: 1.5rem; border-bottom: 1px solid #ccc; padding-bottom: 1rem; }
+    .small { font-size: 0.8rem; color: #666; }
+    input, textarea, button {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+  </style>
+ 
+</head>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guestbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #fdfaf5; }
+    .entry { margin-bottom: 1.5rem; border-bottom: 1px solid #ccc; padding-bottom: 1rem; }
+    .small { font-size: 0.8rem; color: #666; }
+    input, textarea, button {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Guestbook</h1>
+
+  <textarea id="comment" placeholder="Leave a message..."></textarea>
+  <button id="submit">Submit</button>
+
+  <hr>
+
+  <div id="entries"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5GY0wS3a4vmDIECJnvnDs4xEL0AE0v9w",
+      authDomain: "innerworldsguestbook.firebaseapp.com",
+      projectId: "innerworldsguestbook",
+      storageBucket: "innerworldsguestbook.firebasestorage.app",
+      messagingSenderId: "78775217030",
+      appId: "1:78775217030:web:ae61048d08d156f3e51a07"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const messagesRef = collection(db, "guestbook");
+
+    const entries = document.getElementById("entries");
+    const commentInput = document.getElementById("comment");
+    const submitButton = document.getElementById("submit");
+
+    async function loadMessages() {
+      const q = query(messagesRef, orderBy("timestamp", "desc"));
+      const snapshot = await getDocs(q);
+      entries.innerHTML = "";
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.classList.add("entry");
+        div.innerHTML = `<p>${data.text}</p><p class="small">${new Date(data.timestamp?.seconds * 1000).toLocaleString()}</p>`;
+        entries.appendChild(div);
+      });
+    }
+
+    submitButton.addEventListener("click", async () => {
+      const text = commentInput.value.trim();
+      if (!text) return;
+
+      await addDoc(messagesRef, {
+        text,
+        timestamp: serverTimestamp()
+      });
+
+      commentInput.value = "";
+      loadMessages();
+    });
+
+    loadMessages();
+  </script>
+</body>
+</html>
+
+ </html>

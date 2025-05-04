@@ -118,10 +118,11 @@
         <div id="underline-colophon" class="underline-animation"></div>
       </div>
       <!-- Guestbook Link -->
-      <div class="link-container">
-        <img src="./resources/drawn_typography/guestbook.png" alt="Guestbook" class="footer-link">
-        <div id="underline-guestbook" class="underline-animation"></div>
-      </div>
+     <div class="link-container" onclick="window.location.href='guestbook.html'">
+       <img src="./resources/drawn_typography/guestbook.png" alt="Guestbook" class="footer-link">
+       <div id="underline-guestbook" class="underline-animation"></div>
+     </div>
+
     </div>
 
 
@@ -166,6 +167,26 @@ Scrollbar.init(document.querySelector('#my-scrollbar'), options);
 <div id="modal-container"></div>
 <script src="./scripts/change-log.js"></script>
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyB5GY0wS3a4vmDIECJnvnDs4xEL0AE0v9w",
+  authDomain: "innerworldsguestbook.firebaseapp.com",
+  projectId: "innerworldsguestbook",
+  storageBucket: "innerworldsguestbook.firebasestorage.app",
+  messagingSenderId: "78775217030",
+  appId: "1:78775217030:web:ae61048d08d156f3e51a07"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Make available globally if needed later
+  window.guestbookDB = db;
+  window.firebaseFns = { collection, addDoc, getDocs, serverTimestamp, query, orderBy };
+</script>
 
 
 
