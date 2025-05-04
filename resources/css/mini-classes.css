@@ -35,6 +35,10 @@ margin-right: 5rem;
 margin-top: 170px;
 }
 
+.margin-bottom-240 {
+margin-bottom: 240px;
+}
+
 .margin-plus-1 {
 margin: 5rem;
 }
@@ -50,6 +54,10 @@ margin-bottom: 3rem;
 
 .margin-top-160 {
 margin-top: 160px;
+}
+
+.margin-top-180 {
+margin-top: 180px;
 }
 
 .flex-column {

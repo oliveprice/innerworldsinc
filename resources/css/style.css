@@ -8,6 +8,7 @@
 @import url('chapters.css');
 @import url('responsive.css');
 @import url('modals.css');
+@import url('forms.css');
 
 :root {
   --primary: #ddbe97;
