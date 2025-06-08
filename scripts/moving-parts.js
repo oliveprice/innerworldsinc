@@ -13,19 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-  const octo = document.getElementById('octo-lottie');
-
-  const animation = lottie.loadAnimation({
-    container: octo,
-    renderer: 'svg',
-    loop: true,
-    autoplay: true,
-    path: './resources/animations/final-octo-test/data.json'
-  });
-
-  animation.setSpeed(1);
-});
 
 document.addEventListener("DOMContentLoaded", function () {
   const octo = document.getElementById('womp-lottie');
@@ -59,12 +46,17 @@ if (supportsWebMAlpha()) {
   // Use Lottie for Safari and friends
   container.innerHTML = `<div id="octo-lottie" class="octo-video"></div>`;
 
-  // Load the Lottie player
-  lottie.loadAnimation({
-    container: document.getElementById('octo-lottie'),
-    renderer: 'canvas',
+document.addEventListener("DOMContentLoaded", function () {
+  const octo = document.getElementById('octo-lottie');
+
+  const animation = lottie.loadAnimation({
+    container: octo,
+    renderer: 'svg',
     loop: true,
     autoplay: true,
-    path: './resources/animations/octo-loop-lottie.json'
+    path: './resources/animations/final-octo-test/data.json'
   });
+
+  animation.setSpeed(1);
+});
 }
