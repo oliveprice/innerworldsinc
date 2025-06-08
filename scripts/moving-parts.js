@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     renderer: 'svg',
     loop: true,
     autoplay: true,
-    path: './resources/animations/octopus/data.json'
+    path: './resources/animations/final-octo-test/data.json'
   });
 
   animation.setSpeed(1);
@@ -41,3 +41,30 @@ document.addEventListener("DOMContentLoaded", function () {
   animation.setSpeed(1);
 });
 
+function supportsWebMAlpha() {
+  const video = document.createElement('video');
+  return video.canPlayType('video/webm; codecs="vp8, vorbis"') !== '';
+}
+
+const container = document.getElementById('octo-placeholder');
+
+if (supportsWebMAlpha()) {
+  // Use WebM for Chrome/Firefox/Edge
+  container.innerHTML = `
+    <video class="octo-video" autoplay loop muted playsinline>
+      <source src="./resources/animations/octo-loop.webm" type="video/webm">
+    </video>
+  `;
+} else {
+  // Use Lottie for Safari and friends
+  container.innerHTML = `<div id="octo-lottie" class="octo-video"></div>`;
+
+  // Load the Lottie player
+  lottie.loadAnimation({
+    container: document.getElementById('octo-lottie'),
+    renderer: 'canvas',
+    loop: true,
+    autoplay: true,
+    path: './resources/animations/octo-loop-lottie.json'
+  });
+}
