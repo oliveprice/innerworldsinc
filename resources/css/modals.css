@@ -35,12 +35,33 @@ flex-direction: column;
 
 }
 
+.modal-content.size-plus-1 {
+width: 670px;
+height: 800px;
+}
+
 .modal-layer-1 {
     position: relative;
     margin: 0 auto;
     box-sizing: border-box;
     overflow: hidden;
     background-image: url(../images/frillies.png);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-layer-1.colophon {
+    position: relative;
+    margin: 0 auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-image: url(../images/colophon_drawing.png);
     background-position: center top;
     background-repeat: no-repeat;
     background-size: 100% 100%;

@@ -7,6 +7,8 @@ const scripts = [
   "./change-log.js"
 ];
 
+
+
 scripts.forEach(name => {
   const script = document.createElement("script");
   script.src = `./scripts/${name}`;

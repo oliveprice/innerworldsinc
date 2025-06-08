@@ -95,16 +95,14 @@ scroll-behavior: smooth;
 }
 
 .angel-video {
- width: 615px;
-    height: 377px;
-    opacity: 0.9;
-    position: absolute;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-self: center;
-    justify-self: center;
-    top: -84px;
+  width: 615px;
+  height: 377px;
+  position: absolute;
+  top: -84px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.9;
+  z-index: 10; /* if needed */
 }
 
 .grid-container {
