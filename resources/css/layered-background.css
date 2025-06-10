@@ -102,8 +102,10 @@ scroll-behavior: smooth;
   left: 50%;
   transform: translateX(-50%);
   opacity: 0.9;
-  z-index: 10; /* if needed */
+  z-index: 10; 
 }
+
+
 
 .grid-container {
   display: grid;
@@ -262,20 +264,21 @@ width: 90%;
 margin-right: 60px;
 
 }
-
 .octo-container {
-width: auto;
-    height: auto;
-    opacity: 0.9;
-    position: absolute;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-self: center;
-    justify-self: center;
-    top: 690px;
-
+  position: absolute;
+  top: 930px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: auto;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10; /* adjust as needed */
 }
+
 
 
 .mermaid-container {

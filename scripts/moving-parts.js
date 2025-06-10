@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
 document.addEventListener("DOMContentLoaded", function () {
   const octo = document.getElementById('womp-lottie');
 
@@ -28,35 +27,29 @@ document.addEventListener("DOMContentLoaded", function () {
   animation.setSpeed(1);
 });
 
-function supportsWebMAlpha() {
-  const video = document.createElement('video');
-  return video.canPlayType('video/webm; codecs="vp8, vorbis"') !== '';
-}
-
 const container = document.getElementById('octo-placeholder');
 
-if (supportsWebMAlpha()) {
-  // Use WebM for Chrome/Firefox/Edge
-  container.innerHTML = `
-    <video class="octo-video" autoplay loop muted playsinline>
-      <source src="./resources/animations/octo-loop.webm" type="video/webm">
-    </video>
-  `;
-} else {
-  // Use Lottie for Safari and friends
-  container.innerHTML = `<div id="octo-lottie" class="octo-video"></div>`;
+console.log("🧪 TEST MODE: Forcing Lottie everywhere");
 
-document.addEventListener("DOMContentLoaded", function () {
-  const octo = document.getElementById('octo-lottie');
+container.innerHTML = `<div id="octo-lottie" class="octo-video"></div>`;
 
-  const animation = lottie.loadAnimation({
-    container: octo,
-    renderer: 'svg',
-    loop: true,
-    autoplay: true,
-    path: './resources/animations/final-octo-test/data.json'
-  });
-
-  animation.setSpeed(1);
+lottie.loadAnimation({
+  container: document.getElementById('octo-lottie'),
+  renderer: 'svg', // stick with svg — it fixed the canvas issues
+  loop: true,
+  autoplay: true,
+  path: './resources/animations/final-octo-test/data.json'
 });
-}
+
+
+console.log("🧜‍♀️ Forcing Lottie mermaid everywhere");
+
+const mermaidContainer = document.getElementById('mermaid-lottie');
+
+lottie.loadAnimation({
+  container: mermaidContainer,
+  renderer: 'svg',
+  loop: true,
+  autoplay: true,
+  path: './resources/animations/final-mermaid/data.json'
+});
