@@ -13,7 +13,7 @@
 :root {
   --primary: #ddbe97;
   --primary-hover: #ffddb2;
-  --bg-texture: url('../images/pink-paper-cover.png');
+  --bg-texture: url('../images/pink-paper-cover.webp');
 }
 
 .fade-in {
