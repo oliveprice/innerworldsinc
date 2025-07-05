@@ -88,7 +88,7 @@ height: 800px;
   right: 1rem;
   font-size: 1.5rem;
   cursor: pointer;
-  color: var(--primary)
+ color: #ffffff00;
 }
 
 .commit-container {
@@ -107,4 +107,78 @@ scrollbar-width: none;          /* Firefox */
 
 .commit-item {
 margin-bottom: 3rem;
+}
+
+
+.about-me-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(4px);
+  background: rgb(30 22 31 / 61%);
+  overflow: auto;               
+  z-index: 9999;
+  padding: 2rem 0; 
+  display: flex;
+  justify-content: center;         
+}
+
+.about-me-overlay.hidden {
+  display: none;
+}
+
+.about-me-close-button {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  color: #ffffff00;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.about-me-image-container {
+  position: relative;
+  max-width: 500px;
+  max-height: 90vh;
+}
+
+.about-me-image {
+  width: 100%;
+height: 1914px;
+  display: block;
+    padding-bottom: 200px;
+
+}
+
+.about-me-text-overlay {
+  position: absolute;
+  top: 688px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;     
+  text-align: center;
+  color: #e0cba8; 
+  font-size: 1.1rem;
+}
+
+.about-me-text-overlay .handwritten {
+font-size: 30px;
+line-height: 40px;
+text-align: left;
+}
+
+#modal-container {
+
+
+z-index: 20000000;
+}
+
+.aboutmecomic {
+    width: 345px;
+    margin-left: -4px;
+
+
 }

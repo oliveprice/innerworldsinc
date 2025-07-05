@@ -3,14 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const aboutContainer = linkContainers[0]; // "About Me" is first
 
   aboutContainer?.addEventListener("click", () => {
-    // If it's already loaded, show it immediately
     const existing = document.getElementById("about-me-modal");
+
     if (existing) {
       existing.classList.remove("hidden");
+      
+      // ✅ Ensure click-outside and close button still work
+      setupAboutMeListeners(existing);
+      
       return;
     }
 
-    // Otherwise, fetch and inject, THEN show it
     fetch('./about-me-modal.html')
       .then(res => res.text())
       .then(html => {
@@ -18,16 +21,24 @@ document.addEventListener("DOMContentLoaded", () => {
         container.innerHTML = html;
 
         const modal = document.getElementById("about-me-modal");
-        const closeBtn = modal.querySelector(".close-button");
 
-        // Attach listeners
-        closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
-        window.addEventListener("click", (e) => {
-          if (e.target === modal) modal.classList.add("hidden");
-        });
+        // ✅ Attach listeners
+        setupAboutMeListeners(modal);
 
-        // ✅ Now show it after loading + setup
         modal.classList.remove("hidden");
       });
   });
+
+  function setupAboutMeListeners(modal) {
+    const closeBtn = modal.querySelector(".about-me-close-button");
+    
+    // Avoid multiple bindings
+    closeBtn.onclick = () => modal.classList.add("hidden");
+
+    modal.onclick = (e) => {
+      if (!modal.querySelector('.about-me-image-container').contains(e.target)) {
+        modal.classList.add("hidden");
+      }
+    };
+  }
 });
