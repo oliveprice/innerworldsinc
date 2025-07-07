@@ -4,7 +4,7 @@
       <title>Inner Worlds Inc.</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-      <link rel="icon" href="./resources/images/favicons/favicon-96x96.png">
+      <link rel="icon" href="./resources/favicon/favicon-32x32.png"> 
       <link rel="preload" as="image" href="./resources/images/assets_together_2.webp" type="image/webp">
       <link rel="stylesheet" href="./resources/css/style.css" />
       <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,15 +57,15 @@
                         <img src="./resources/drawn_typography/about me.png" alt="About Me" class="footer-link">
                         <div id="underline-about-me" class="underline-animation"></div>
                      </div>
-                     <!-- Change Log Link -->
-                     <div class="link-container">
-                        <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link">
-                        <div id="underline-change-log" class="underline-animation"></div>
-                     </div>
                      <!-- Colophon Link -->
                      <div class="link-container">
                         <img src="./resources/drawn_typography/colophon.png" alt="Colophon" class="footer-link">
                         <div id="underline-colophon" class="underline-animation"></div>
+                     </div>
+                     <!-- Change Log Link -->
+                     <div class="link-container">
+                        <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link">
+                        <div id="underline-change-log" class="underline-animation"></div>
                      </div>
                   </div>
                </div>
@@ -92,12 +92,12 @@
       <script src="./scripts/load.js"></script>
       <script src="./scripts/opener.js"></script>
       <script src="./scripts/moving-parts.js"></script>
-      <div id="modal-container"></div>
+    <div id="change-log-container"></div>
       <script src="./scripts/change-log.js"></script>
       <div id="about-me-container"></div>
      <script src="./scripts/about-me.js"></script>
-      <!-- <div id="colophon-container"></div> 
-      <script src="./scripts/colophon-modal.js"></script> -->
+     <div id="colophon-container"></div>
+      <script src="./scripts/colophon-modal.js"></script>
       <script type="module">
          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
          import { getFirestore, collection, addDoc, getDocs, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";

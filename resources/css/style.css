@@ -13,6 +13,7 @@
 :root {
   --primary: #ddbe97;
   --primary-hover: #ffddb2;
+  --primary-dark: #8a6d4f;
   --bg-texture: url('../images/pink-paper-cover.webp');
 }
 
