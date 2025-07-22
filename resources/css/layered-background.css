@@ -2,6 +2,9 @@ body {
   margin: 0;
 }
 
+#my-scrollbar {
+  outline: 2px solid var(--primary) !important;
+}
 
 .background-layer-1 {
   background-image: var(--bg-texture);
@@ -28,6 +31,10 @@ scrollbar-width: none;
 -webkit-overflow-scrolling: touch;
 scroll-behavior: smooth;
 
+}
+
+.background-layer-2.medium-width {
+width: 1275px;
 }
 
 .background-layer-3 {

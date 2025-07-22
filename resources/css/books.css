@@ -15,13 +15,13 @@
   padding: 2rem;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease, transform 0.6s ease;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: var(--primary)
+  color: var(--primary);
 }
+
 
 #book .book-page.visible {
   opacity: 1;
@@ -29,34 +29,46 @@
 }
 
 .book-page h1 {
-font-size: 80px;
-font-family: "Libre Baskerville", serif;
+font-size: 88px;
+font-family: 'PP Editorial';
 text-transform: uppercase;
 letter-spacing: 3px;
 }
 
 .book-page h2 {
 font-size: 53.333px;
-font-family: "Libre Baskerville", serif;
+font-family: 'PP Editorial';
+margin: 0px;
 
 }
 
 .book-page h3 {
-font-family: "Libre Baskerville", serif;
+font-family: 'PP Editorial';
 font-weight: 400;
 font-style: italic;
-font-size: 35.556px;
+font-size: 39.111px;
+letter-spacing: 1px;
+
 }
 
 .book-page h4 {
-font-size: 15.1802px;
-font-family: "Libre Baskerville", serif;
+font-size: 26.074px;
+font-family: 'PP Editorial';
 letter-spacing: 3px;
 text-transform: uppercase;
+margin: 0px;
+}
+
+.book-page h5 {
+font-size: 17.383px;
+font-family: 'PP Editorial';
+letter-spacing: 3px;
+text-transform: uppercase;
+margin: 0px;
 }
 
 .measure {
-font-family: "Libre Baskerville", serif;
+font-family: 'PP Editorial';
 font-size: 20px;
     line-height: 31px;
 width: 480px;
@@ -79,4 +91,73 @@ width: 480px;
   font-family: "Libre Baskerville", serif;
   font-weight: 400;
   font-style: italic;
+}
+
+.book-page .flex-row {
+
+gap: 1rem;
+}
+
+.book-page .flex-column.width-300 {
+
+width: 300px;
+}
+
+.book-page .flex-column.wide {
+
+width: 600px;
+}
+
+.blog-image {
+    border: 2px solid var(--primary);
+
+}
+
+.measure-col {
+  width: 870px;
+  height: max-content;
+  position: absolute;
+  transform: translate(-50%, -50%);
+border: 2px solid var(--primary);
+  background-image: var(--bg-texture);
+padding: 2rem 3rem;
+}
+
+.measure-col p {
+    font-family: 'PP Editorial';
+    font-size: 21px;
+    letter-spacing: .5px;
+    line-height: 33px;
+    margin: 0;
+}
+
+.drop-cap {
+  float: left;
+  font-size: 66px;
+  line-height: 0.8;
+  padding-right: 0.15em;
+  font-family: 'PP Editorial', serif; /* or any elegant font */
+  font-weight: 300;
+  color: var(--primary);
+margin-top: 10px;
+}
+
+.measure-col .footnote {
+  font-family: "Libre Baskerville", serif;
+  font-size: 14px;
+  line-height: 20px;
+  opacity: 0.8;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+
+.footnote-rule {
+  margin-top: 4rem;
+  display: block;
+  width: 300px;
+  border-top: 1px solid var(--primary);
+  margin-bottom: 0.5rem;
+}
+em {
+font-style: italic;
 }

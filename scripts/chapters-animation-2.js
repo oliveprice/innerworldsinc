@@ -33,9 +33,8 @@ const chapters = [
   chapterName: 'DEEP THOUGHT',
   lineImage: './resources/animations/chapter-3/images/img_7.png',
   pages: [
-    { name: 'social media & narcissism', number: '6' },
-    { name: 'the death of peprsonal style', number: '7' },
-    { name: 'power through transmutation', number: '8' }
+  
+    { name: 'power through transmutation', number: '6' }
   ]
 }
 
@@ -87,7 +86,17 @@ function createPageNode(page, index) {
 
   const chapterText = document.createElement('p');
   chapterText.classList.add('chapter-text');
-  chapterText.textContent = page.name;
+
+  if (page.name.toLowerCase() === 'power through transmutation') {
+    const link = document.createElement('a');
+    link.href = '/blogs/power-through-transmutation.html';
+    link.textContent = page.name;
+    link.style.textDecoration = 'none';
+    link.style.color = 'inherit';
+    chapterText.appendChild(link);
+  } else {
+    chapterText.textContent = page.name;
+  }
 
   const lineImg = document.createElement('img');
   lineImg.src = './resources/animations/chapter-1/images/img_1.png';
@@ -116,6 +125,7 @@ function createPageNode(page, index) {
   pageNode.appendChild(flowerAndNumber);
   return pageNode;
 }
+
 
 // ENTRY POINT: When user hovers a chapter
 function initChapterReveal(container) {

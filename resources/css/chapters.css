@@ -58,9 +58,9 @@ margin-bottom: 390px;
 
   .text-and-line {
     .chapter-text {
-      font-family: "Caslon Titling";
+      font-family: 'Olive Full';
       color: var(--primary);
-      font-size: .8rem;
+      font-size: 1.8rem;
       line-height: 0;
       margin-bottom: 5px;
       letter-spacing: 1.5px;
@@ -94,6 +94,9 @@ margin-bottom: 390px;
 
 }
 
+.chapter-text a {
+    margin-right: 20px;
+}
 
 .chapter-reveal-stack {
   position: relative;
