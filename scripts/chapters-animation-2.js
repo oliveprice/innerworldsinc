@@ -1,7 +1,8 @@
+
 let activeTimeouts = [];
+let leaveTimeout = null;
+let activeContainer = null;
 
-
-// array of all chapters with their content
 const chapters = [
   {
     id: 'chapter-1',
@@ -11,7 +12,6 @@ const chapters = [
     chapterName: 'CODE RED',
     lineImage: './resources/animations/chapter-1/images/img_7.png'
   },
-
   {
     id: 'chapter-2',
     blockImage: './resources/animations/chapter-2/images/img_0.png',
@@ -24,22 +24,17 @@ const chapters = [
       { name: 'Process Life Through Music', number: '5' }
     ]
   },
-
-{
-  id: 'chapter-3',
-  blockImage: './resources/animations/chapter-3/images/img_0.png',
-  flowerLottie: './resources/animations/chapter-3/images/img_1.png',
-  chapterNumber: '3',
-  chapterName: 'DEEP THOUGHT',
-  lineImage: './resources/animations/chapter-3/images/img_7.png',
-  pages: [
-  
-    { name: 'power through transmutation', number: '6' }
-  ]
-}
-
-,
-
+  {
+    id: 'chapter-3',
+    blockImage: './resources/animations/chapter-3/images/img_0.png',
+    flowerLottie: './resources/animations/chapter-3/images/img_1.png',
+    chapterNumber: '3',
+    chapterName: 'DEEP THOUGHT',
+    lineImage: './resources/animations/chapter-3/images/img_7.png',
+    pages: [
+      { name: 'power through transmutation', number: '6' }
+    ]
+  }
 ];
 
 function createChapterHTML(data) {
@@ -59,11 +54,10 @@ function createChapterHTML(data) {
   flexColumn.classList.add('flex-column-special', 'gap-0');
 
   const pages = data.pages || [
-  { name: 'Kody Joliet', number: '1' },
-  { name: 'Code Red', number: '2' },
-  { name: 'r8r.world', number: '3' }
-];
-
+    { name: 'Kody Joliet', number: '1' },
+    { name: 'Code Red', number: '2' },
+    { name: 'r8r.world', number: '3' }
+  ];
 
   pages.forEach((page, index) => {
     const pageNode = createPageNode(page, index);
@@ -126,54 +120,72 @@ function createPageNode(page, index) {
   return pageNode;
 }
 
+function setInitialState(container) {
+  const pageNodes = container.querySelectorAll('.page-node');
+  pageNodes.forEach((node) => {
+    const text = node.querySelector('.chapter-text');
+    text.style.opacity = '0';
+    text.style.transform = 'translateY(10px)';
+    node.querySelector('.text-and-line img').style.opacity = '0';
+    node.querySelector('.text-and-line img').style.transform = 'translateX(40px)';
+    node.querySelector('.chapter-number').style.opacity = '0';
+    node.querySelector('.chapter-number').style.transform = 'translateY(10px)';
+    node.querySelector('.animated-flower').style.transform = 'scale(0)';
+    node.querySelector('.animated-flower').style.opacity = '0';
+  });
+}
 
-// ENTRY POINT: When user hovers a chapter
 function initChapterReveal(container) {
   const chapterBlock = container.querySelector('.chapter-block-img');
 
   chapterBlock.style.transform = 'translateX(0)';
   chapterBlock.style.transition = 'transform 0.8s ease';
 
-  container.addEventListener('mouseenter', () => {
+  setInitialState(container);
+
+  container.addEventListener('pointerenter', () => {
+    if (leaveTimeout) {
+      clearTimeout(leaveTimeout);
+      leaveTimeout = null;
+    }
+    if (activeContainer === container) return;
+    activeContainer = container;
     startChapterSequence(container, chapterBlock);
   });
 
-  container.addEventListener('mouseleave', () => {
-    slideChapterBlockIn(chapterBlock);
+  container.addEventListener('pointerleave', () => {
+    leaveTimeout = setTimeout(() => {
+      reversePageNodesInOrder(container);
+      slideChapterBlockIn(chapterBlock);
+      activeContainer = null;
+    }, 600); // Add delay before reverse starts
   });
 }
 
-// LEVEL 1: Chapter hover → trigger whole sequence
 function startChapterSequence(container, chapterBlock) {
   slideChapterBlockOut(chapterBlock);
-
   setTimeout(() => {
     revealPageNodesInOrder(container);
   }, 500);
 }
 
-// LEVEL 2: Stagger in page nodes, one per second
 function revealPageNodesInOrder(container) {
   const pageNodes = container.querySelectorAll('.page-node');
 
   pageNodes.forEach((node, i) => {
-    setTimeout(() => {
+    activeTimeouts.push(setTimeout(() => {
       revealPageNodeInSequence(node);
-    }, i * 500);
+    }, i * 500));
   });
 }
 
-// LEVEL 3: Animate a single page node’s elements
 function revealPageNodeInSequence(node) {
-activeTimeouts.push(setTimeout(() => animateFlower(node), 0));
-activeTimeouts.push(setTimeout(() => animateNumber(node), 150));
-activeTimeouts.push(setTimeout(() => animateLine(node), 300));
-activeTimeouts.push(setTimeout(() => animateText(node), 450));
-
-
+  activeTimeouts.push(setTimeout(() => animateFlower(node), 0));
+  activeTimeouts.push(setTimeout(() => animateNumber(node), 150));
+  activeTimeouts.push(setTimeout(() => animateLine(node), 300));
+  activeTimeouts.push(setTimeout(() => animateText(node), 450));
 }
 
-// BASIC ELEMENT ANIMATIONS
 function animateFlower(node) {
   const flower = node.querySelector('.animated-flower');
   if (flower) {
@@ -191,16 +203,6 @@ function animateNumber(node) {
   }
 }
 
-function reverseNumber(node) {
-  const number = node.querySelector('.chapter-number');
-  if (number) {
-    number.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
-    number.style.opacity = '0';
-    number.style.transform = 'translateY(10px)';
-  }
-}
-
-
 function animateLine(node) {
   const line = node.querySelector('.text-and-line img');
   if (line) {
@@ -210,16 +212,6 @@ function animateLine(node) {
   }
 }
 
-function reverseLine(node) {
-  const line = node.querySelector('.text-and-line img');
-  if (line) {
-    line.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
-    line.style.opacity = '0';
-    line.style.transform = 'translateX(40px)';
-  }
-}
-
-
 function animateText(node) {
   const text = node.querySelector('.chapter-text');
   if (text) {
@@ -227,6 +219,26 @@ function animateText(node) {
     text.style.opacity = '1';
     text.style.transform = 'translateY(0)';
   }
+}
+
+function reversePageNodesInOrder(container) {
+  activeTimeouts.forEach(timeout => clearTimeout(timeout));
+  activeTimeouts = [];
+
+  const pageNodes = Array.from(container.querySelectorAll('.page-node')).reverse();
+
+  pageNodes.forEach((node, i) => {
+    activeTimeouts.push(setTimeout(() => {
+      reversePageNodeSequence(node);
+    }, i * 500));
+  });
+}
+
+function reversePageNodeSequence(node) {
+  activeTimeouts.push(setTimeout(() => reverseText(node), 0));
+  activeTimeouts.push(setTimeout(() => reverseLine(node), 150));
+  activeTimeouts.push(setTimeout(() => reverseNumber(node), 300));
+  activeTimeouts.push(setTimeout(() => reverseFlower(node), 450));
 }
 
 function reverseText(node) {
@@ -238,59 +250,6 @@ function reverseText(node) {
   }
 }
 
-
-function slideChapterBlockOut(chapterBlock) {
-  chapterBlock.style.transform = 'translateX(-150%)';
-}
-
-function slideChapterBlockIn(chapterBlock) {
-  chapterBlock.style.transform = 'translateX(0)';
-}
-// Reverse all page nodes in order, from last to first
-function reversePageNodesInOrder(container) {
-  const pageNodes = Array.from(container.querySelectorAll('.page-node')).reverse();
-
-  pageNodes.forEach((node, i) => {
-    activeTimeouts.push(setTimeout(() => {
-      reversePageNodeSequence(node);
-    }, i * 500));
-  });
-}
-
-// Reverse animation of one page node's parts
-function reversePageNodeSequence(node) {
-  activeTimeouts.push(setTimeout(() => reverseText(node), 0));
-  activeTimeouts.push(setTimeout(() => reverseLine(node), 150));
-  activeTimeouts.push(setTimeout(() => reverseNumber(node), 300));
-  activeTimeouts.push(setTimeout(() => reverseFlower(node), 450));
-}
-
-
-function reverseFlower(node) {
-  const flower = node.querySelector('.animated-flower');
-  if (flower) {
-    flower.style.transform = 'scale(0)';
-    flower.style.opacity = '0';
-  }
-}
-
-
-function reverseNumber(node) {
-  const number = node.querySelector('.chapter-number');
-  if (number) {
-    number.style.opacity = '0';
-  }
-}
-
-function animateLine(node) {
-  const line = node.querySelector('.text-and-line img');
-  if (line) {
-    line.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
-    line.style.opacity = '1';
-    line.style.transform = 'translateX(0)';
-  }
-}
-
 function reverseLine(node) {
   const line = node.querySelector('.text-and-line img');
   if (line) {
@@ -300,53 +259,31 @@ function reverseLine(node) {
   }
 }
 
-function reverseText(node) {
-  const text = node.querySelector('.chapter-text');
-  if (text) {
-    text.style.opacity = '0';
+function reverseNumber(node) {
+  const number = node.querySelector('.chapter-number');
+  if (number) {
+    number.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
+    number.style.opacity = '0';
+    number.style.transform = 'translateY(10px)';
   }
 }
 
-// setup initial state for all pieces on load
-function setInitialState(container) {
-  const pageNodes = container.querySelectorAll('.page-node');
-  pageNodes.forEach((node) => {
-    const text = node.querySelector('.chapter-text');
-    text.style.opacity = '0';
-    text.style.transform = 'translateY(10px)';
-    node.querySelector('.text-and-line img').style.opacity = '0';
-    node.querySelector('.text-and-line img').style.transform = 'translateX(40px)';
-    node.querySelector('.chapter-number').style.opacity = '0';
-    node.querySelector('.chapter-number').style.transform = 'translateY(10px)';
-    node.querySelector('.animated-flower').style.transform = 'scale(0)';
-    node.querySelector('.animated-flower').style.opacity = '0';
-  });
+function reverseFlower(node) {
+  const flower = node.querySelector('.animated-flower');
+  if (flower) {
+    flower.style.transform = 'scale(0)';
+    flower.style.opacity = '0';
+  }
 }
 
-// include reverse trigger
-function initChapterReveal(container) {
-  const chapterBlock = container.querySelector('.chapter-block-img');
+function slideChapterBlockOut(chapterBlock) {
+  chapterBlock.style.transform = 'translateX(-150%)';
+}
 
+function slideChapterBlockIn(chapterBlock) {
   chapterBlock.style.transform = 'translateX(0)';
-  chapterBlock.style.transition = 'transform 0.8s ease';
-
-  setInitialState(container); // <-- new
-
-  container.addEventListener('mouseenter', () => {
-    startChapterSequence(container, chapterBlock);
-  });
-
-container.addEventListener('mouseleave', () => {
-  reversePageNodesInOrder(container);
-  setTimeout(() => {
-    slideChapterBlockIn(chapterBlock);
-  }, 500 * 3);
-});
-
-
 }
 
-// init
 chapters.forEach((chapterData) => {
   const chapterEl = createChapterHTML(chapterData);
   document.querySelector('#chapters-wrapper').appendChild(chapterEl);
