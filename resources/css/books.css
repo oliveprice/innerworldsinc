@@ -160,3 +160,59 @@ margin-top: 10px;
 em {
 font-style: italic;
 }
+
+#book {
+  cursor: none;
+  position: relative;
+}
+
+#butterfly-cursor {
+  position: absolute;
+  width: 50px;
+  height: auto;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--primary);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.3; /* lower this for more transparency */
+  filter: blur(1px);
+  animation: sparkle-fade 1.2s ease-out forwards;
+}
+
+@keyframes sparkle-fade {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes butterflyFloat {
+  0%   { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  50%  { transform: translate(-50%, -52%) rotate(2deg) scale(1.05); }
+  100% { transform: translate(-50%, -50%) rotate(-2deg) scale(1); }
+}
+
+#butterfly-cursor {
+  position: absolute;
+  width: 150px;
+  height: auto;
+  pointer-events: none;
+  z-index: 9999;
+  display: none;
+  transform: translate(-50%, -50%) rotateZ(0deg);
+  transition: transform 0.2s ease;
+ 
+}

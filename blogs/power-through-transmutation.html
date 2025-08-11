@@ -21,6 +21,8 @@
   </head>
   <body class="background-layer-1">
     <div id="" class="background-layer-2">
+<img id="butterfly-cursor" src="../resources/images/butterfly.png" alt="cursor" />
+
       <div id="book">
         <div class="book-page flex-column">
           <div class="flex-column flex-justify-start">
@@ -210,5 +212,68 @@
         orderBy
       };
     </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const butterfly = document.getElementById('butterfly-cursor');
+  const book = document.getElementById('book');
+
+  let mouseX = 0, mouseY = 0;
+  let currentX = 0, currentY = 0;
+  let lastMouseX = 0;
+  let tilt = 0;
+
+  book.addEventListener('mouseenter', () => {
+    butterfly.style.display = 'block';
+  });
+
+  book.addEventListener('mouseleave', () => {
+    butterfly.style.display = 'none';
+  });
+
+  book.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    const dx = mouseX - lastMouseX;
+
+    // More dramatic tilt
+    if (dx > 2) {
+      tilt = 35; // right
+    } else if (dx < -2) {
+      tilt = -35; // left
+    } else {
+      tilt = 0; // no tilt
+    }
+
+    lastMouseX = mouseX;
+
+    // Sparkle trail
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = `${e.clientX}px`;
+    sparkle.style.top = `${e.clientY}px`;
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 1200);
+  });
+
+  function animateButterfly() {
+    currentX += (mouseX - currentX) * 0.1;
+    currentY += (mouseY - currentY) * 0.1;
+
+    butterfly.style.left = `${currentX}px`;
+    butterfly.style.top = `${currentY}px`;
+    butterfly.style.transform = `translate(-50%, -50%) rotateZ(${tilt}deg)`;
+
+    requestAnimationFrame(animateButterfly);
+  }
+
+  animateButterfly();
+});
+</script>
+
+
+
+
+
   </body>
 </html>
