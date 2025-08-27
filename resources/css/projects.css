@@ -1,0 +1,105 @@
+
+
+.gallery {
+display: flex;
+flex-direction: row;
+align-items: center;
+flex-wrap: wrap;
+gap: 2rem;
+margin: 0rem 100px 100px;
+justify-content: center;
+
+
+}
+
+
+.piece {
+  height: 277px;
+  width: 300px;
+  border: 1px solid #ddbe97;
+  background-image: var(--bg-texture);
+  padding: 1rem;
+
+
+  --rx: 0deg;  /* rotateX */
+  --ry: 0deg;  /* rotateY */
+
+  transform: perspective(800px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 120ms ease-out;
+  transform-origin: center;
+}
+
+.piece.is-animating {
+  /* while the cursor is moving we’ll ease fast; when it stops, this keeps it snappy */
+  transition: transform 60ms linear;
+  cursor: pointer;
+}
+
+/* reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .piece { transition: none; transform: none; }
+}
+
+.piece.open {
+  transform: none;
+  width: max-content;
+  height: max-content;
+}
+
+.piece video {
+min-width: 100%;
+min-height: 95%;
+max-width: 900px;
+
+
+
+}
+
+.piece .header {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+margin-bottom: 1rem;
+
+}
+
+.illustration {
+width: 100%;
+}
+
+.stamp {
+width: 55px;
+}
+
+.piece {
+  position: relative;
+  overflow: hidden;                 /* hides contents during grow */
+  border-width: var(--bw, 1px);     /* lets us animate border thickness */
+  transition:
+    border-width 300ms cubic-bezier(.2,.8,.2,1),
+    border-color 300ms cubic-bezier(.2,.8,.2,1);
+}
+
+/* header/img fade when we start opening */
+.piece.fading .header,
+.piece.fading .illustration {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.piece .header,
+.piece .illustration {
+  transition: opacity 160ms ease, transform 200ms ease;
+}
+
+/* video fades in when open */
+.piece video {
+  opacity: 0;                       /* default: hidden */
+  transition: opacity 220ms ease 120ms;
+  display: block;                   /* avoids inline gaps */
+}
+.piece.open video {
+  opacity: 1;
+}
+
+/* make the “grown” border feel deliberate */
+.piece.open { --bw: 1px; } 

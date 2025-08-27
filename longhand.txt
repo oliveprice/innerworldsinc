@@ -1,0 +1,600 @@
+[:main
+ [:section
+  [:div
+   {:class "container centered"}
+   [:div
+    {:class "tab-scroll-container"}
+    [:div
+     {:class "row navigation-tabs large huge-margin-bottom"}
+     [:div
+      {:class "column"}
+      [:div {:class "container"} [:h3 "All Videos"]]]
+     [:div {:class "column"} [:div {:class "container"} [:h3 "ACME®"]]]
+     [:div
+      {:class "column active"}
+      [:div {:class "container"} [:h3 "My Library"]]]
+     [:div
+      {:class "column"}
+      [:div {:class "container"} [:h3 "Free Videos"]]]]]
+   [:div
+    {:class "video-filters carousel-width"}
+    [:div
+     [:div
+      {:class "video-series"}
+      [:div
+       {:class "header-part"}
+       [:div {:class "series-title"} [:h2 "Feature-Length Episodes"]]]
+      [:div
+       {:class "videos-part carousel-width"}
+       [:div
+        {:class "slick-slider videos-list slick-initialized"}
+        [:div
+         {:class "slick-list"}
+         [:div
+          {:class "slick-track",
+           :style
+           {:width "756px",
+            :opacity "1",
+            :transform "translate3d(0px 0px 0px)"}}
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active slick-current",
+            :data-index "0",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail"}
+              [:img
+               {:class "static-thumbnail",
+                :src
+                "https://d26o5k45lnmm4v.cloudfront.net/YmluYXJ5OjIxNzA1Nw"}]]
+             [:a
+              {:href "/episode/clean-code-episode-0"}
+              [:div
+               {:class "text-container"}
+               [:h4 "0. The Last Programming Language"]
+               [:p [:span "59m"] [:span "1.38GB"] [:span "Apr 2011"]]
+               [:p {:class "price"} [:strong "Free!"]]]]
+             [:a
+              {:class "button primary",
+               :href "/episode/clean-code-episode-0"}
+              "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "1",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src
+                "https://d26o5k45lnmm4v.cloudfront.net/68efb53b01da48a2995307521ac5efd4"}]]
+             [:a
+              {:href "/episode/clean-code-episode-1"}
+              [:div
+               {:class "text-container"}
+               [:h4 "1. Clean Code"]
+               [:p [:span "54m"] [:span "1.50GB"] [:span "Feb 2011"]]
+               [:p {:class "price"} [:strong "Free!"]]]]
+             [:a
+              {:class "button primary",
+               :href "/episode/clean-code-episode-1"}
+              "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "2",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail"}
+              [:img
+               {:class "static-thumbnail",
+                :src
+                "https://d26o5k45lnmm4v.cloudfront.net/57921c30-5809-47e1-a632-f853ae0cd286"}]]
+             [:a
+              {:href "/episode/programming-101-episode-1"}
+              [:div
+               {:class "text-container"}
+               [:h4 "1. Programming 101"]
+               [:p [:span "1h33m"] [:span "1.21GB"] [:span "Jul 2016"]]
+               [:p {:class "price"} [:strong "Free!"]]]]
+             [:a
+              {:class "button primary",
+               :href "/episode/programming-101-episode-1"}
+              "Watch Now"]]]]]]]]]
+     [:div
+      {:class "video-series"}
+      [:div
+       {:class "header-part"}
+       [:div {:class "series-title"} [:h2 "Series Previews"]]]
+      [:div
+       {:class "videos-part carousel-width"}
+       [:div
+        {:class "slick-slider videos-list slick-initialized"}
+        [:button
+         {:class "slick-arrow slick-prev slick-disabled",
+          :data-role "none",
+          :style {:display "block"},
+          :type "button"}]
+        [:div
+         {:class "slick-list"}
+         [:div
+          {:class "slick-track",
+           :style
+           {:width "1260px",
+            :opacity "1",
+            :transform "translate3d(0px 0px 0px)"}}
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active slick-current",
+            :data-index "0",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src
+                "https://d26o5k45lnmm4v.cloudfront.net/57f6ace4-f446-4d0b-bae3-095f6983ec0a"}]]
+             [:a
+              {:href "/episode/mobile-app-case-study-episode-0"}
+              [:div
+               {:class "text-container"}
+               [:h4 "0. Mobile App Case Study: Introduction"]
+               [:p [:span "3m"] [:span "0.09GB"] [:span "Oct 2016"]]
+               [:p {:class "price"} [:strong "Free!"]]]]
+             [:a
+              {:class "button primary",
+               :href "/episode/mobile-app-case-study-episode-0"}
+              "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "1",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src
+                "https://d26o5k45lnmm4v.cloudfront.net/5e961147-d546-447b-98ac-43ce51ba8509"}]]
+             [:a
+              {:href "/episode/go_with_intensity-episode-9"}
+              [:div
+               {:class "text-container"}
+               [:h4 "9. GO With Intensity: Introduction"]
+               [:p [:span "3m"] [:span "0.07GB"] [:span "Dec 2017"]]
+               [:p {:class "price"} [:strong "Free!"]]]]
+             [:a
+              {:class "button primary",
+               :href "/episode/go_with_intensity-episode-9"}
+              "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "2",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src
+                "https://d26o5k45lnmm4v.cloudfront.net/5afd6ee7-4fdf-4593-a145-b507c26f846d"}]]
+             [:a
+              {:href "/episode/FsharpFollies-episode-8"}
+              [:div
+               {:class "text-container"}
+               [:h4 "8. F# Follies: Introduction"]
+               [:p [:span "8m"] [:span "0.53GB"] [:span "Jun 2018"]]
+               [:p {:class "price"} [:strong "Free!"]]]]
+             [:a
+              {:class "button primary",
+               :href "/episode/FsharpFollies-episode-8"}
+              "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "3",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src
+                "https://d26o5k45lnmm4v.cloudfront.net/5c38ddb6-42d4-4b43-b691-8884b18a9813"}]]
+             [:a
+              {:href "/episode/elixir-eh-episode-9"}
+              [:div
+               {:class "text-container"}
+               [:h4 "9. Elixir Case Study: Introduction"]
+               [:p [:span "3m"] [:span "0.12GB"] [:span "Dec 2018"]]
+               [:p {:class "price"} [:strong "Free!"]]]]
+             [:a
+              {:class "button primary",
+               :href "/episode/elixir-eh-episode-9"}
+              "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "4",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src
+                "https://d26o5k45lnmm4v.cloudfront.net/5e961147-d546-447b-98ac-43ce51ba8509"}]]
+             [:a
+              {:href "/episode/elixir-eh-episode-9"}
+              [:div
+               {:class "text-container"}
+               [:h4 "0. GO With Intensity: Why Go?"]
+               [:p [:span "5m"] [:span "0.14GB"] [:span "Dec 2017"]]
+               [:p {:class "price"} [:strong "Free!"]]]]
+             [:a
+              {:class "button primary",
+               :href "/episode/go_with_intensity-episode-0"}
+              "Watch Now"]]]]]]]]]
+     [:div
+      {:class "video-series"}
+      [:div
+       {:class "header-part"}
+       [:div
+        {:class "series-title"}
+        [:h2 "Science Lessons with Uncle Bob"]]]
+      [:div
+       {:class "videos-part youtube carousel-width"}
+       [:div
+        {:class "slick-slider videos-list slick-initialized"}
+        [:button
+         {:class "slick-arrow slick-prev slick-disabled",
+          :data-role "none",
+          :style {:display "block"},
+          :type "button"}]
+        [:div
+         {:class "slick-list"}
+         [:div
+          {:class "slick-track",
+           :style
+           {:width "4788px",
+            :opacity "1",
+            :transform "translate3d(0px 0px 0px)"}}
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active slick-current",
+            :data-index "0",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/tLlvZH1mi40/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div {:class "text-container"} [:h4 "Black Holes"]]]
+             [:a {:class "button primary", :href "#"} "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "1",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/LUrTw1SW-28/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div {:class "text-container"} [:h4 "Neutron Stars"]]]
+             [:a {:class "button primary", :href "#"} "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "2",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/Dx46jnou-vo/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div
+               {:class "text-container"}
+               [:h4 "The Great Galaxy Debate"]]]
+             [:a {:class "button primary", :href "#"} "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "3",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/_2wEcKSM3Cg/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div
+               {:class "text-container"}
+               [:h4 "History of the Earth"]]]
+             [:a {:class "button primary", :href "#"} "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "4",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/F05FWo3jwOg/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div
+               {:class "text-container"}
+               [:h4 "White Dwarf Star"]]]
+             [:a {:class "button primary", :href "#"} "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "5",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/8JrDjCSsdek/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div
+               {:class "text-container"}
+               [:h4 "Wave Particle Duality"]]]
+             [:a {:class "button primary", :href "#"} "Watch Now"]]]]]]
+        [:button
+         {:class "slick-arrow slick-next",
+          :data-role "none",
+          :style {:display "block"},
+          :type "button"}]
+        [:ul
+         {:class "slick-dots", :style {:display "block"}}
+         [:li {:class "slick-active"} [:button "1"]]
+         [:li [:button "2"]]
+         [:li [:button "3"]]
+         [:li [:button "4"]]
+         [:li [:button "5"]]]]]]
+     [:div
+      {:class "video-series"}
+      [:div
+       {:class "header-part"}
+       [:div
+        {:class "series-title"}
+        [:h2 "Cleaning Code with Doc Norton"]]]
+      [:div
+       {:class "videos-part youtube carousel-width"}
+       [:div
+        {:class "slick-slider videos-list slick-initialized"}
+        [:div
+         {:class "slick-list"}
+         [:div
+          {:class "slick-track",
+           :style
+           {:width "1008px",
+            :opacity "1",
+            :transform "translate3d(0px 0px 0px)"}}
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active slick-current",
+            :data-index "0",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/kJ7wobBaoEQ/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div
+               {:class "text-container"}
+               [:h4 "Episode One JDepend"]]]
+             [:a {:class "button primary", :href "#"} "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "1",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/uhC9BGI-7WQ/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div
+               {:class "text-container"}
+               [:h4 "Episode Two JDepend"]]]
+             [:a {:class "button primary", :href "#"} "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "2",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/t_lg5_S60us/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div
+               {:class "text-container"}
+               [:h4 "Episode Three JDepend"]]]
+             [:a {:class "button primary", :href "#"} "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "3",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/oyIEBL5EwtY/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div
+               {:class "text-container"}
+               [:h4 "Episode Four JDepend"]]]
+             [:a
+              {:class "button primary", :href "#"}
+              "Watch Now"]]]]]]]]]
+     [:div
+      {:class "video-series"}
+      [:div
+       {:class "header-part"}
+       [:div {:class "series-title"} [:h2 "Miscellaneous"]]]
+      [:div
+       {:class "videos-part youtube carousel-width"}
+       [:div
+        {:class "slick-slider videos-list slick-initialized"}
+        [:div
+         {:class "slick-list"}
+         [:div
+          {:class "slick-track",
+           :style
+           {:width "756px",
+            :opacity "1",
+            :transform "translate3d(0px 0px 0px)"}}
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active slick-current",
+            :data-index "0",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/kScFczWbwRM/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div
+               {:class "text-container"}
+               [:h4 "April 2020 Webinar with Unclebob"]]]
+             [:a {:class "button primary", :href "#"} "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "1",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/Go9jtFoedRE/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div
+               {:class "text-container"}
+               [:h4 "How to Make a Clean Coders Video"]]]
+             [:a {:class "button primary", :href "#"} "Watch Now"]]]]
+          [:div
+           {:aria-hidden "false",
+            :class "slick-slide slick-active",
+            :data-index "2",
+            :style {:outline "none", :width "252px"},
+            :tabindex "-1"}
+           [:div
+            [:div
+             {:class "card"}
+             [:div
+              {:class "video-thumbnail play-button"}
+              [:img
+               {:class "static-thumbnail",
+                :src "https://img.youtube.com/vi/jH-oI-XpUaI/0.jpg"}]]
+             [:a
+              {:href "#"}
+              [:div
+               {:class "text-container"}
+               [:h4 "Christmas 2013 Greeting"]]]
+             [:a
+              {:class "button primary", :href "#"}
+              "Watch Now"]]]]]]]]]]]]]]

@@ -25,18 +25,18 @@
             <div class="card title margin-bottom-plus-5">
           <img src="./resources/drawn_typography/passion-projects.png">
 
+
             </div>
 
 
             <ul class="gallery">
   
-            <li class="piece" data-video="./resources/videos/0826.mov">
-    <div class="header">
-      <h4>KJP</h4>
-      <img src="./resources/images/project_stamps/stamp1.png" class="stamp">
-    </div>
-    <img src="./resources/images/project_stamps/heartdrawing.png" class="illustration">
-  </li>
+              <li class="piece open">
+              <video autoplay muted playsinline loop preload="auto">
+             <source src="./resources/videos/0826.mov" type="video/mp4" class="teaser">
+             </video>
+                
+              </li>
 
   
               <li class="piece">
@@ -101,7 +101,7 @@
       </div>
       </div>
 <script>
-  document.querySelectorAll('.piece').forEach(card => {
+  document.querySelectorAll('.piece:not(.open)').forEach(card => {
     let raf = null;
 
     function setTilt(e) {
@@ -141,7 +141,6 @@
   });
 </script>
 
-
       <script src="dist/smooth-scrollbar.js"></script>
 
       <script>
@@ -155,11 +154,11 @@
          
          
       </script>
-    
-     <script src="./scripts/projects.js"></script>
+      <script src="./scripts/chapters-animation-2.js"></script>
       <script src="./scripts/hover.js"></script>
       <script src="./scripts/load.js"></script>
       <script src="./scripts/opener.js"></script>
+      <script src="./scripts/moving-parts.js"></script>
     <div id="change-log-container"></div>
       <script src="./scripts/change-log.js"></script>
       <div id="about-me-container"></div>

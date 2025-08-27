@@ -124,3 +124,28 @@ a:hover {
   font-weight: 300;
   font-style: italic;
 }
+
+
+
+h1, h2, h3, h4, h5, h6 {
+font-family: 'PP Editorial-light'; 
+color: var(--primary);
+margin: 0px;
+
+}
+
+h1 {
+font-size: 135px;
+}
+
+h2 {
+font-size: 90px;
+}
+
+h3 {
+font-size: 60px;
+}
+
+h4 {
+font-size: 40px;
+}
