@@ -92,6 +92,65 @@
      <script src="./scripts/about-me.js"></script>
      <div id="colophon-container"></div>
       <script src="./scripts/colophon-modal.js"></script>
+<script>
+/* Make chapter rows (like "Kody Joliet") open projects.html?open=<key> */
+(() => {
+  const ROOT = document.getElementById('chapters-wrapper');
+  if (!ROOT) return;
+
+  const slug = (t) => (t||'').toLowerCase().trim()
+    .replace(/\s+/g,'-').replace(/[^a-z0-9.-]+/g,'');
+
+  // Map visible titles -> canonical keys used by projects.html data-key
+  const MAP = new Map([
+    ['kody-joliet', 'kjp'],          // <-- important: "Kody Joliet" -> kjp
+    ['kody-joliet-photos', 'kjp'],
+    ['r8r.world', 'r8r.world'],
+    ['scent', 'scent'],
+    // add more if your home labels differ from data-key
+  ]);
+
+  ROOT.addEventListener('click', (e) => {
+    // If user clicked a real link (e.g., blog), let it work unless it's to projects.html
+    const a = e.target.closest('a[href]');
+    if (a && !/projects\.html(?:$|\?)/.test(a.getAttribute('href'))) return;
+
+    // Find the chapter row that was clicked
+    const row = e.target.closest('.page-node, .chapter-text');
+    if (!row || !ROOT.contains(row)) return;
+
+    // Derive label from the row’s visible text
+    const labelEl = row.querySelector('.chapter-text') || row;
+    const label = slug(labelEl.textContent || '');
+
+    // Map to the key your projects page uses
+    const key = MAP.get(label) || label;
+    if (!key) return;
+
+    // Persist key as a fallback and go
+    try { sessionStorage.setItem('openProjectKey', key); } catch {}
+    e.preventDefault();
+
+    const url = new URL(a && /projects\.html/.test(a.getAttribute('href')) ? a.getAttribute('href') : 'projects.html', location.href);
+    url.searchParams.set('open', key);
+    location.href = url.toString();
+  });
+
+  // Keyboard support if rows are focusable
+  ROOT.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const row = e.target.closest('.page-node, .chapter-text');
+    if (!row || !ROOT.contains(row)) return;
+    e.preventDefault();
+    row.click();
+  });
+})();
+</script>
+
+
+
+
+
       <script type="module">
          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
          import { getFirestore, collection, addDoc, getDocs, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";

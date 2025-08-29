@@ -1,7 +1,22 @@
+// chapters-animation-2.js  — FULL FILE (keeps ALL your existing behavior)
+// Adds: more project names in the fallback list + deep-link to projects.html
+// Clicking a known project row will navigate to projects.html?open=<key>
+// and your projects page will auto-open that card (using your existing script).
 
 let activeTimeouts = [];
 let leaveTimeout = null;
 let activeContainer = null;
+
+// Known projects -> canonical keys used by projects.html (.piece[data-key])
+// Left-hand side should match the VISIBLE NAME on the home page (case-insensitive).
+const projectKeyMap = {
+  'kody joliet': 'kjp',
+  'kody joliet photos': 'kjp',
+  'r8r.world': 'r8r.world',
+  'scent': 'scent',
+  'hiccup tool': 'hiccup-tool',
+  'viridian': 'viridian'
+};
 
 const chapters = [
   {
@@ -9,8 +24,9 @@ const chapters = [
     blockImage: './resources/animations/chapter-1/images/img_12.png',
     flowerLottie: './resources/animations/chapter-1/images/img_1.png',
     chapterNumber: '1',
-    chapterName: 'CODE RED',
+    chapterName: 'Viridian',
     lineImage: './resources/animations/chapter-1/images/img_7.png'
+    // no pages -> will use the fallback list defined in createChapterHTML()
   },
   {
     id: 'chapter-2',
@@ -20,6 +36,7 @@ const chapters = [
     chapterName: 'BLAH BLAH',
     lineImage: './resources/animations/chapter-2/images/img_7.png',
     pages: [
+      // These look like non-project entries, so they remain plain text.
       { name: 'Learn through Imitation', number: '4' },
       { name: 'Process Life Through Music', number: '5' }
     ]
@@ -32,6 +49,7 @@ const chapters = [
     chapterName: 'DEEP THOUGHT',
     lineImage: './resources/animations/chapter-3/images/img_7.png',
     pages: [
+      // Blog entry stays a real <a> to your blog page.
       { name: 'power through transmutation', number: '6' }
     ]
   }
@@ -53,10 +71,13 @@ function createChapterHTML(data) {
   const flexColumn = document.createElement('div');
   flexColumn.classList.add('flex-column-special', 'gap-0');
 
+  // EXPANDED FALLBACK: show all your project names when a chapter doesn't specify pages.
   const pages = data.pages || [
     { name: 'Kody Joliet', number: '1' },
-    { name: 'Code Red', number: '2' },
-    { name: 'r8r.world', number: '3' }
+    { name: 'r8r.world',   number: '2' },
+    { name: 'Scent',       number: '3' },
+    { name: 'Hiccup Tool', number: '4' },
+    { name: 'Viridian',    number: '5' } // keep if you want Viridian listed here too
   ];
 
   pages.forEach((page, index) => {
@@ -81,6 +102,7 @@ function createPageNode(page, index) {
   const chapterText = document.createElement('p');
   chapterText.classList.add('chapter-text');
 
+  // BLOG: keep your original behavior
   if (page.name.toLowerCase() === 'power through transmutation') {
     const link = document.createElement('a');
     link.href = '/blogs/power-through-transmutation.html';
@@ -89,7 +111,14 @@ function createPageNode(page, index) {
     link.style.color = 'inherit';
     chapterText.appendChild(link);
   } else {
+    // For everything else, render the plain text…
     chapterText.textContent = page.name;
+
+    // …and if it's a known project, make the ENTIRE ROW navigate to projects.html
+    const key = projectKeyFor(page);
+    if (key) {
+      makeRowDeepLink(pageNode, key);
+    }
   }
 
   const lineImg = document.createElement('img');
@@ -120,6 +149,40 @@ function createPageNode(page, index) {
   return pageNode;
 }
 
+// --- Deep link helpers ---
+function slug(t) {
+  return (t || '').toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9.-]+/g, '');
+}
+
+function projectKeyFor(page) {
+  // allow page.key override if you start adding keys directly in the data
+  if (page.key) return page.key;
+  const label = (page.name || '').toLowerCase().trim();
+  if (projectKeyMap[label]) return projectKeyMap[label];
+  // fallback: use slugged label (projects.html auto-open script can also match by <h4> title)
+  return slug(label);
+}
+
+function makeRowDeepLink(rowEl, key) {
+  rowEl.dataset.openProject = key;
+  rowEl.tabIndex = 0;
+  rowEl.setAttribute('role', 'link');
+  rowEl.style.cursor = 'pointer';
+
+  const go = () => {
+    try { sessionStorage.setItem('openProjectKey', key); } catch {}
+    const url = new URL('projects.html', location.href);
+    url.searchParams.set('open', key);
+    location.href = url.toString();
+  };
+
+  rowEl.addEventListener('click', go);
+  rowEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+  });
+}
+
+// --- Animation pipeline (UNCHANGED) ---
 function setInitialState(container) {
   const pageNodes = container.querySelectorAll('.page-node');
   pageNodes.forEach((node) => {
@@ -158,7 +221,7 @@ function initChapterReveal(container) {
       reversePageNodesInOrder(container);
       slideChapterBlockIn(chapterBlock);
       activeContainer = null;
-    }, 600); // Add delay before reverse starts
+    }, 600); // delay before reverse starts
   });
 }
 
@@ -284,6 +347,7 @@ function slideChapterBlockIn(chapterBlock) {
   chapterBlock.style.transform = 'translateX(0)';
 }
 
+// ----- boot -----
 chapters.forEach((chapterData) => {
   const chapterEl = createChapterHTML(chapterData);
   document.querySelector('#chapters-wrapper').appendChild(chapterEl);

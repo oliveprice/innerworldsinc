@@ -4,7 +4,7 @@
       <title>Inner Worlds Inc.</title>
       <meta name="viewport" content="width=1280, user-scalable=yes">
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-      <link rel="icon" href="./resources/favicon/favicon-32x32.png"> 
+      <link rel="icon" href="./resources/favicon/favicon-32x32.png">
       <link rel="preload" as="image" href="./resources/images/assets_together_2.webp" type="image/webp">
       <link rel="stylesheet" href="./resources/css/style.css" />
       <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,136 +14,149 @@
       <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Spectral:wght@200&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
       <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
-
       <script src="https://cdn.jsdelivr.net/npm/smooth-scrollbar@8.7.4/dist/smooth-scrollbar.js"></script>
       <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/bundled/lenis.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
    </head>
    <body class="background-layer-1">
       <div id="my-scrollbar" class="background-layer-2">
          <div class="background-layer-3 sky fade-in">
             <div class="flex-column flex-align-center" style="height: max-content;">
-            <div class="card title margin-bottom-plus-5">
-          <img src="./resources/drawn_typography/passion-projects.png">
-
-            </div>
-
-
-            <ul class="gallery">
-  
-            <li class="piece" data-video="./resources/videos/0826.mov">
-    <div class="header">
-      <h4>KJP</h4>
-      <img src="./resources/images/project_stamps/stamp1.png" class="stamp">
-    </div>
-    <img src="./resources/images/project_stamps/heartdrawing.png" class="illustration">
-  </li>
-
-  
-              <li class="piece">
-                 <div class="header">
-                   <h4> Viridian </h4>
-                   <img src="./resources/images/project_stamps/stamp1.png" class="stamp" >
-                 </div>
-                 <img src="./resources/images/project_stamps/heartdrawing.png" class="illustration">
-              </li>
-
-
-
-  
-              <li class="piece">
-                 <div class="header">
-                   <h4> r8r.world </h4>
-                   <img src="./resources/images/project_stamps/stamp1.png" class="stamp" >
-                 </div>
-                 <img src="./resources/images/project_stamps/heartdrawing.png" class="illustration">
-              </li>
-
-
-
-  
-              <li class="piece">
-                 <div class="header">
-                   <h4> Scent </h4>
-                   <img src="./resources/images/project_stamps/stamp1.png" class="stamp" >
-                 </div>
-                 <img src="./resources/images/project_stamps/heartdrawing.png" class="illustration">
-              </li>
-
-
-
-               <!-- Put my converter project here -->
-              <li class="piece">
-                 <div class="header">
-                   <h4> hiccup tool </h4>
-                   <img src="./resources/images/project_stamps/stamp1.png" class="stamp" >
-                 </div>
-                 <img src="./resources/images/project_stamps/heartdrawing.png" class="illustration">
-              </li>
-              
-             
-            
-  
-
-            </ul>
-
-
-
-
-
-
-
-
-
+               <div class="card title margin-bottom-plus-5">
+                  <img src="./resources/drawn_typography/passion-projects.png">
+               </div>
+               <ul class="gallery">
+                  <li class="piece" data-key="kjp" data-video="./resources/videos/0826.mov">
+                     <div class="header">
+                        <h4>KJP</h4>
+                        <img src="./resources/images/project_stamps/stamp1.png" class="stamp">
+                     </div>
+                     <img src="./resources/images/project_stamps/heartdrawing.png" class="illustration">
+                  </li>
+                  <li class="project-info" data-key="kjp">
+                     <div class="inliner flex-space-between">
+                        <h4>Kody Joliet Photos</h4>
+                        <img class="stamp" src="./resources/images/project_stamps/stamp1.png">
+                     </div>
+                     <p class="handwritten">custom blurb for this project...</p>
+                  </li>
+                  <li class="piece">
+                     <div class="header">
+                        <h4> Scent </h4>
+                        <img src="./resources/images/project_stamps/stamp1.png" class="stamp" >
+                     </div>
+                     <img src="./resources/images/project_stamps/heartdrawing.png" class="illustration">
+                  </li>
+                  <li class="piece" data-key="r8r.world" data-video="./resources/videos/r8r.mov">
+                     <div class="header">
+                        <h4>r8r.world</h4>
+                        <img class="stamp" src="./resources/images/project_stamps/stamp1.png">
+                     </div>
+                     <img class="illustration" src="./resources/images/project_stamps/heartdrawing.png">
+                  </li>
+                  <li class="project-info" data-key="r8r.world">
+                     <div class="inliner flex-space-between">
+                        <h4>r8r.world</h4>
+                        <img class="stamp" src="./resources/images/project_stamps/stamp1.png">
+                     </div>
+                     <p class="handwritten">custom blurb for this project...</p>
+                  </li>
+                  <li class="piece" data-key="scent">
+                     <div class="header">
+                        <h4> Scent </h4>
+                        <img src="./resources/images/project_stamps/stamp1.png" class="stamp" >
+                     </div>
+                     <img src="./resources/images/project_stamps/heartdrawing.png" class="illustration">
+                  </li>
+                  <li class="project-info" data-key="scent">
+                     <div class="inliner flex-space-between">
+                        <h4>Scent</h4>
+                        <img class="stamp" src="./resources/images/project_stamps/stamp1.png">
+                     </div>
+                     <p class="handwritten">custom blurb for this project...</p>
+                  </li>
+                  <!-- Put my converter project here -->
+                  <li class="piece" data-key="hiccup-tool">
+                     <div class="header">
+                        <h4> hiccup tool </h4>
+                        <img src="./resources/images/project_stamps/stamp1.png" class="stamp" >
+                     </div>
+                     <img src="./resources/images/project_stamps/heartdrawing.png" class="illustration">
+                  </li>
+                  <li class="project-info" data-key="hiccup-tool">
+                     <div class="inliner flex-space-between">
+                        <h4>Hiccup Tool</h4>
+                        <img class="stamp" src="./resources/images/project_stamps/stamp1.png">
+                     </div>
+                     <p class="handwritten">custom blurb for this project...</p>
+                  </li>
+               </ul>
                <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
                <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js"></script>
+            </div>
+            <div class="footer-frame">
+               <div class="links flex-row flex-justify-center offset-margin-top flex-align-center gap-plus-1">
+                  <!-- About Me Link -->
+                  <div class="link-container">
+                     <img src="./resources/drawn_typography/about me.png" alt="About Me" class="footer-link">
+                     <div id="underline-about-me" class="underline-animation"></div>
+                  </div>
+                  <!-- Colophon Link -->
+                  <div class="link-container">
+                     <img src="./resources/drawn_typography/colophon.png" alt="Colophon" class="footer-link">
+                     <div id="underline-colophon" class="underline-animation"></div>
+                  </div>
+                  <!-- Change Log Link -->
+                  <div class="link-container">
+                     <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link">
+                     <div id="underline-change-log" class="underline-animation"></div>
+                  </div>
+               </div>
             </div>
          </div>
       </div>
       </div>
-<script>
-  document.querySelectorAll('.piece').forEach(card => {
-    let raf = null;
-
-    function setTilt(e) {
-      const r = card.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
-
-      // normalize to [-1, 1]
-      const nx = (x / r.width) * 2 - 1;
-      const ny = (y / r.height) * 2 - 1;
-
-      // max tilt in degrees (tweak to taste)
-      const MAX = 10;
-
-      // rotateY follows x, rotateX follows y (invert X for natural feel)
-      const ry = (nx * MAX).toFixed(2) + 'deg';
-      const rx = (-ny * MAX).toFixed(2) + 'deg';
-
-      card.style.setProperty('--rx', rx);
-      card.style.setProperty('--ry', ry);
-    }
-
-    function onMove(e) {
-      card.classList.add('is-animating');
-      if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => setTilt(e));
-    }
-
-    function onLeave() {
-      card.classList.remove('is-animating');
-      card.style.setProperty('--rx', '0deg');
-      card.style.setProperty('--ry', '0deg');
-    }
-
-    card.addEventListener('pointermove', onMove);
-    card.addEventListener('pointerleave', onLeave);
-  });
-</script>
-
-
+      <script>
+         document.querySelectorAll('.piece').forEach(card => {
+           let raf = null;
+         
+           function setTilt(e) {
+             const r = card.getBoundingClientRect();
+             const x = e.clientX - r.left;
+             const y = e.clientY - r.top;
+         
+             // normalize to [-1, 1]
+             const nx = (x / r.width) * 2 - 1;
+             const ny = (y / r.height) * 2 - 1;
+         
+             // max tilt in degrees (tweak to taste)
+             const MAX = 10;
+         
+             // rotateY follows x, rotateX follows y (invert X for natural feel)
+             const ry = (nx * MAX).toFixed(2) + 'deg';
+             const rx = (-ny * MAX).toFixed(2) + 'deg';
+         
+             card.style.setProperty('--rx', rx);
+             card.style.setProperty('--ry', ry);
+           }
+         
+           function onMove(e) {
+             card.classList.add('is-animating');
+             if (raf) cancelAnimationFrame(raf);
+             raf = requestAnimationFrame(() => setTilt(e));
+           }
+         
+           function onLeave() {
+             card.classList.remove('is-animating');
+             card.style.setProperty('--rx', '0deg');
+             card.style.setProperty('--ry', '0deg');
+           }
+         
+           card.addEventListener('pointermove', onMove);
+           card.addEventListener('pointerleave', onLeave);
+         });
+      </script>
       <script src="dist/smooth-scrollbar.js"></script>
-
       <script>
          var options = {
            damping: 0.02, 
@@ -155,17 +168,94 @@
          
          
       </script>
-    
-     <script src="./scripts/projects.js"></script>
+      <script src="./scripts/projects.js"></script>
+<script>
+  (function () {
+    const OPEN_DELAY_MS = 1000; // "see all closed" → open after a beat
+
+    const slug = (t) => (t||'').toLowerCase().trim()
+      .replace(/\s+/g,'-').replace(/[^a-z0-9.-]+/g,'');
+
+    function getRequestedKey() {
+      const p = new URLSearchParams(location.search);
+      return (p.get('open') || p.get('project') || p.get('p') || '').trim();
+    }
+
+    function findPieceByKey(key) {
+      if (!key) return null;
+      // 1) data-key
+      let el = document.querySelector(`.piece[data-key="${CSS.escape(key)}"]`);
+      if (el) return el;
+      // 2) slugged <h4>
+      const want = slug(key);
+      for (const p of document.querySelectorAll('.piece')) {
+        const h = p.querySelector('h4');
+        if (slug(h?.textContent || '') === want) return p;
+      }
+      return null;
+    }
+
+    function scrollToPiece(piece) {
+      try {
+        const scrollerEl = document.querySelector('#my-scrollbar');
+        const sb = window.Scrollbar && scrollerEl ? Scrollbar.get(scrollerEl) : null;
+        if (sb) {
+          const r = piece.getBoundingClientRect();
+          const sr = scrollerEl.getBoundingClientRect();
+          const relTop = r.top - sr.top;
+          const target = sb.scrollTop + relTop - Math.max(0, (sb.size.container.height - r.height)/2);
+          sb.scrollTo(0, target, 600);
+        } else {
+          piece.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } catch {}
+    }
+
+    function openRequestedPiece() {
+      const key = getRequestedKey();
+      if (!key) return;
+      const piece = findPieceByKey(key);
+      if (!piece) return;
+
+      // make sure nothing's marked open
+      document.querySelectorAll('.piece.open').forEach(p => p.classList.remove('open'));
+
+      // center, then click to invoke your opener
+      scrollToPiece(piece);
+      setTimeout(() => {
+        piece.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      }, OPEN_DELAY_MS);
+    }
+
+    // try after DOM ready; retry briefly in case scripts attach late
+    function bootWithRetries(tries = 10) {
+      if (!document.querySelector('.piece')) return setTimeout(() => bootWithRetries(tries), 100);
+      try { openRequestedPiece(); }
+      catch (e) { if (tries) setTimeout(() => bootWithRetries(tries - 1), 150); }
+    }
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      setTimeout(bootWithRetries, 0);
+    } else {
+      document.addEventListener('DOMContentLoaded', () => setTimeout(bootWithRetries, 0));
+    }
+  })();
+</script>
+
       <script src="./scripts/hover.js"></script>
       <script src="./scripts/load.js"></script>
-      <script src="./scripts/opener.js"></script>
-    <div id="change-log-container"></div>
+      <!-- <script src="./scripts/opener.js"></script> -->
+      <div id="change-log-container"></div>
       <script src="./scripts/change-log.js"></script>
       <div id="about-me-container"></div>
-     <script src="./scripts/about-me.js"></script>
-     <div id="colophon-container"></div>
+      <script src="./scripts/about-me.js"></script>
+      <div id="colophon-container"></div>
       <script src="./scripts/colophon-modal.js"></script>
+
+
+
+
+
       <script type="module">
          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
          import { getFirestore, collection, addDoc, getDocs, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
@@ -186,6 +276,5 @@
          window.guestbookDB = db;
          window.firebaseFns = { collection, addDoc, getDocs, serverTimestamp, query, orderBy };
       </script>
-
    </body>
 </html>

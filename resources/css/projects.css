@@ -2,7 +2,7 @@
 
 .gallery {
 display: flex;
-flex-direction: row;
+flex-direction: column;
 align-items: center;
 flex-wrap: wrap;
 gap: 2rem;
@@ -12,6 +12,30 @@ justify-content: center;
 
 }
 
+/* tooltip box */
+.project-info {
+  position: relative;                  /* anchor the arrow */
+  width: 750px;
+  height: 200px;
+  padding: 1rem;
+  border: 1px solid #ddbe97;           /* gold-ish */
+  background-image: var(--bg-texture); /* your parchment texture */
+  background-repeat: repeat;           /* or 'no-repeat' if you use a single image */
+  background-size: cover;              /* or 'auto'/'contain' per your texture */
+  overflow: visible;                   /* allow the arrow to stick out */
+  margin-bottom: -50px;
+  /* tweakables */
+  --tip-size: 12px;                    /* triangle height */
+  --tip-offset: 50%;                   /* 50% = centered; use '2rem' for left offset etc. */
+  --tip-outline: #ddbe97;              /* gold outline color */
+}
+
+.project-info .handwritten {
+  line-height: 35px;
+}
+
+
+
 
 .piece {
   height: 277px;
@@ -19,13 +43,13 @@ justify-content: center;
   border: 1px solid #ddbe97;
   background-image: var(--bg-texture);
   padding: 1rem;
-
+  z-index: 10;
 
   --rx: 0deg;  /* rotateX */
   --ry: 0deg;  /* rotateY */
 
   transform: perspective(800px) rotateX(var(--rx)) rotateY(var(--ry));
-  transition: transform 120ms ease-out;
+
   transform-origin: center;
 }
 
@@ -42,15 +66,14 @@ justify-content: center;
 
 .piece.open {
   transform: none;
-  width: max-content;
-  height: max-content;
+
 }
 
 .piece video {
 min-width: 100%;
 min-height: 95%;
 max-width: 900px;
-
+    border: 1px solid var(--primary);
 
 
 }
@@ -103,3 +126,6 @@ width: 55px;
 
 /* make the “grown” border feel deliberate */
 .piece.open { --bw: 1px; } 
+
+
+.piece { overflow: hidden; display: block; }

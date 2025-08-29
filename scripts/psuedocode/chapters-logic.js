@@ -6,7 +6,7 @@
      // blockImage: './resources/animations/chapter-1/images/img_12.png',
      // flowerLottie: './resources/animations/chapter-1/images/img_1.png',
      // chapterNumber: '1',
-     // chapterName: 'CODE RED',
+     // chapterName: 'Viridian',
      // lineImage: './resources/animations/chapter-1/images/img_7.png'
    // },
    // // add more here...
@@ -30,7 +30,7 @@
 
    // define something we're going to use
      // { name: 'Kody Joliet', number: '1' },
-     // { name: 'Code Red', number: '2' },
+     // { name: 'Viridian', number: '2' },
      // { name: 'r8r.world', number: '3' }
    // ];
 
