@@ -43,7 +43,7 @@ justify-content: center;
   border: 1px solid #ddbe97;
   background-image: var(--bg-texture);
   padding: 1rem;
-  z-index: 10;
+  z-index: ;
 
   --rx: 0deg;  /* rotateX */
   --ry: 0deg;  /* rotateY */
@@ -117,7 +117,7 @@ width: 55px;
 /* video fades in when open */
 .piece video {
   opacity: 0;                       /* default: hidden */
-  transition: opacity 220ms ease 120ms;
+  transitio: opacity 220ms ease 120ms;
   display: block;                   /* avoids inline gaps */
 }
 .piece.open video {
