@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Hiccup Shorthand Converter</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="Convert HTML into shorthand hiccup syntax in your browser." />
+      <link rel="icon" href="/favicon.ico" />
+      <link rel="stylesheet" href="./resources/css/style.css" />
+   </head>
+   <body class="background-layer-1">
+      <div id="my-scrollbar" class="background-layer-2">
+         <div class="background-layer-3 sky fade-in">
+            <div class="flex-column flex-align-center inset-plus-1" style="height: 100vh;"> 
+            
+               <div class="card title margin-bottom-plus-5">
+                  <img src="./resources/drawn_typography/html.png" style="padding-bottom: 15px;">
+               </div>
+<div class="wrap width-100">
+
+            <main class="grid margin-bottom-0" aria-label="Editor panels">
+               <!-- INPUT -->
+               <section class="panel" aria-labelledby="input-title">
+                  <header>
+                     <h2 id="input-title">Input - HTML </h2>
+                  </header>
+           
+<textarea class="code" id="input" spellcheck="false" aria-label="Input textarea" 
+  placeholder="paste html here, e.g.
+[:div {:id &quot;hero&quot; :class [&quot;banner&quot; &quot;primary&quot;]}]
+[:h1 {:class &quot;title&quot;} &quot;Hello&quot;]
+[:p {:class &quot;lead&quot;} &quot;Some copy&quot;]]">
+</textarea>
+
+
+             
+               </section>
+               <!-- OUTPUT -->
+               <section class="panel" aria-labelledby="output-title">
+                  <header>
+                     <h2 id="output-title"> Output - Shorthand Hiccup</h2>
+                  </header>
+                  
+<textarea class="code readonly" id="output" spellcheck="false" 
+  aria-label="Output textarea" readonly
+  placeholder="output will appear here, e.g.
+[:div#hero.banner.primary
+[:h1.title &quot;Hello&quot;]
+[:p.lead &quot;Some copy&quot;]]">
+</textarea>
+
+      
+               </section>
+
+            </main>
+            <div class="toolbar" role="toolbar" aria-label="Actions">
+               <button class="btn primary" id="convert-btn" aria-label="Convert">Convert</button>
+               <button class="btn" id="copy-output-btn" aria-label="Copy output">Copy output</button>
+               <button class="btn" id="clear-btn" aria-label="Clear">Clear</button>
+               <div class="tool-spacer"></div>
+            </div>
+         </div>
+         <!-- script hooks come later -->
+
+     <script src="./scripts/hiccup-converter.js"></script>
+     <script src="./scripts/html-converter.js"></script>
+
+      </div>
+      </div>
+</div>
+   </body>
+</html>

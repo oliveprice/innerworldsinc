@@ -5,7 +5,7 @@
   // ------ config ------
   const DUR = 0.8;
   const EASE = "power2.inOut";
-  const TARGET_W = 900;
+  const TARGET_W = 770;
   const DEFAULT_VIDEO = "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
   const INFO_EASE_IN = "power2.out";
   const INFO_EASE_OUT = "power1.in";
