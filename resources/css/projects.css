@@ -119,7 +119,7 @@ width: 55px;
 /* video fades in when open */
 .piece video {
   opacity: 0;                       /* default: hidden */
-  transitio: opacity 220ms ease 120ms;
+  transition: opacity 220ms ease 120ms;
   display: block;                   /* avoids inline gaps */
 }
 .piece.open video {
