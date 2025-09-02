@@ -6,6 +6,86 @@ body {
   outline: 2px solid var(--primary) !important;
 }
 
+.tabs {
+width: 100%;
+margin: 0;
+margin-bottom: 4px;
+display: flex;
+flex-direction: row;
+}
+
+.tab {
+  background-image: var(--bg-texture);
+   border-left: 1px solid var(--primary);
+   border-top: 1px solid var(--primary);
+   border-right: 1px solid var(--primary);
+   padding: 10px 20px;
+   width: max-content;
+   margin-top: 10px;
+   text-transform: uppercase;
+   margin-left: 30px;
+   opacity: .3;
+  transition: 
+    opacity 0.25s ease, 
+    color 0.25s ease,
+    background-color 0.25s ease,
+    transform 0.25s ease;
+    border-radius: 3px;
+}
+
+.tab.active {
+  background-color: var(--primary);
+  color: var(--bg-texture);
+opacity: 1;
+}
+
+.tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+ }
+ 
+ .tab-close {
+   border: none;
+   background: none;
+   font-size: 16px;
+ 
+   color: var(--primary);
+   cursor: pointer;
+   padding: 0;
+   line-height: 1;
+margin-left: 10px;
+ }
+ 
+ .tab-close:hover {
+   color: var(--primary-hover);
+ }
+ .tab:hover { cursor: pointer; 
+              color: var(--primary);
+              opacity: 1;
+   
+ 
+ }
+ .tab .tab-close { cursor: pointer; } /* you already have this, just keeping it explicit */
+ 
+.tab {
+  margin-left: 0; /* reset default */
+}
+
+/* first tab (home) */
+.tab:first-child {
+  margin-left: 30px;
+}
+
+/* every tab after the first */
+.tab + .tab {
+  margin-left: 10px;
+}
+
+ 
+
+
 .background-layer-1 {
   background-image: var(--bg-texture);
   background-repeat: repeat;
@@ -14,10 +94,10 @@ body {
   margin: 0;
   padding: 0;
 height: 100vh;
-display: flex
-;
+display: flex;
     align-items: center;
     justify-content: center;
+flex-direction: column;
 }
 
 .background-layer-2 {
