@@ -105,7 +105,8 @@ flex-direction: column;
     outline: 2px solid var(--primary);
     outline-offset: 3px;
     width: 97%;
-    height: 95vh;
+    height: calc(100vh - 47px);
+
     overflow: scroll;
 scrollbar-width: none;
 -webkit-overflow-scrolling: touch;

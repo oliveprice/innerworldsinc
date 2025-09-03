@@ -73,13 +73,12 @@
       </div>
       <script src="dist/smooth-scrollbar.js"></script>
 <script>
-  const options = {
-    damping: 0.12,          // higher = shorter, subtler glide (try 0.08–0.15)
-    renderByPixels: true,
-  };
+Scrollbar.init(document.querySelector('#my-scrollbar'), {
+  damping: 0.12,      // more friction
+  renderByPixels: true,
+  alwaysShowTracks: true
+});
 
-  const el = document.querySelector('#my-scrollbar');
-  const sb = Scrollbar.init(el, options);
 </script>
 
       <script src="./scripts/chapters-animation-2.js"></script>

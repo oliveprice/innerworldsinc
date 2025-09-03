@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Letter Mutations — Randomized Blocks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,MONO,CASL@-15..0,300..1000,0..1,0..1&display=swap" rel="stylesheet">
+
+<style>
+  body { font-family: system-ui, sans-serif; display:grid; place-items:center; min-height:100vh; background:#f7f7f7; }
+  .mutant {
+    font-family: "Recursive", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-size: clamp(28px, 8vw, 80px);
+    line-height: 1.05;
+    color: #111;
+  }
+  .mutant span {
+    display:inline-block;
+    position:relative; /* needed for the block background */
+    transition: transform .2s ease, background-color .2s ease, color .2s ease, box-shadow .2s ease;
+    will-change: transform, background-color, color, box-shadow;
+  }
+  .space { display:inline-block; width:0.42em; } /* word spacing */
+
+  .w-bold { font-variation-settings: "wght" 900, "CASL" 1, "MONO" 0, "slnt" 0; font-weight: 900; }
+
+  /* BLOCK = draw the black tile BEHIND the glyph with random insets */
+  .w-block { color:#fff; z-index:0; }
+  .w-block::after {
+    content:"";
+    position:absolute;
+    z-index:-1;         /* sit behind the glyph */
+    /* random per-letter insets via CSS vars set from JS */
+    inset: var(--bt, -0.02em) var(--br, -0.12em) var(--bb, -0.06em) var(--bl, -0.12em);
+    background:#111;
+    border-radius:.18em;
+    box-shadow:0 .03em .06em rgba(0,0,0,.35);
+  }
+
+  .w-rotate { transform: rotate(var(--rot,0deg)); transform-origin: 50% 60%; }
+</style>
+</head>
+<body>
+
+<p class="mutant" id="mutant">Make it look different every time</p>
+
+<script>
+(() => {
+  const CONFIG = {
+    MUTATION_RATE: 0.38,
+    MAX_RUN: 2,
+    BLOCK_RATE: 0.85,
+    ROTATE_RATE: 0.55,
+    ROTATE_MIN: -18,
+    ROTATE_MAX: 18
+  };
+
+  const el = document.getElementById('mutant');
+  const text = el.textContent;
+  el.textContent = '';
+
+  // Build spans (preserve spaces as dedicated nodes)
+  const frag = document.createDocumentFragment();
+  for (const ch of text) {
+    if (ch === ' ') {
+      const sp = document.createElement('span');
+      sp.className = 'space';
+      frag.appendChild(sp);
+      continue;
+    }
+    const s = document.createElement('span');
+    s.textContent = ch;
+    s.setAttribute('data-char', ch);
+    frag.appendChild(s);
+  }
+  el.appendChild(frag);
+
+  const rnd = (min, max) => Math.random() * (max - min) + min;
+
+  let run = 0;
+  el.querySelectorAll('span:not(.space)').forEach(span => {
+    const mutate = Math.random() < CONFIG.MUTATION_RATE && run < CONFIG.MAX_RUN;
+    if (!mutate) { run = 0; return; }
+
+    if (Math.random() < CONFIG.BLOCK_RATE) {
+      span.classList.add('w-block','w-bold');
+
+      // Randomize the block's rectangle independently of glyph side-bearings:
+      // Use a mix of slight negative and positive insets so the black tile
+      // sometimes hugs left, sometimes right/top/bottom.
+      span.style.setProperty('--bl', (rnd(-0.18, 0.10)).toFixed(3) + 'em'); // left
+      span.style.setProperty('--br', (rnd(-0.18, 0.10)).toFixed(3) + 'em'); // right
+      span.style.setProperty('--bt', (rnd(-0.08, 0.10)).toFixed(3) + 'em'); // top
+      span.style.setProperty('--bb', (rnd(-0.10, 0.12)).toFixed(3) + 'em'); // bottom
+
+      // Optional rotation
+      if (Math.random() < CONFIG.ROTATE_RATE) {
+        span.classList.add('w-rotate');
+        span.style.setProperty('--rot', rnd(CONFIG.ROTATE_MIN, CONFIG.ROTATE_MAX).toFixed(1) + 'deg');
+      }
+    } else {
+      span.classList.add('w-bold');
+    }
+
+    run++;
+  });
+})();
+</script>
+</body>
+</html>
+
