@@ -1,279 +1,457 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Inner Worlds Inc.</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <link rel="icon" href="./resources/favicon/favicon-32x32.png">
-    <link rel="preload" as="image" href="./resources/images/assets_together_2.webp" type="image/webp">
-    <link rel="stylesheet" href="../resources/css/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <script src="https://kit.fontawesome.com/cf45e25b55.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Spectral:wght@200&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
-    <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/bundled/lenis.min.js"></script>
-  </head>
-  <body class="background-layer-1">
-    <div id="" class="background-layer-2">
-<img id="butterfly-cursor" src="../resources/images/butterfly.png" alt="cursor" />
-
-      <div id="book">
-        <div class="book-page flex-column">
-          <div class="flex-column flex-justify-start">
-            <h1 style="font-size: 48.5px; letter-spacing: 30px; margin: 0px; "> Power Through</h1>
-            <h1 style="margin-top: 15px; margin-bottom: -5px;"> Transmutation</h1>
-          </div>
-          <h3>the Cruel Nature of Metamorphosis</h3>
-          <img src="../resources/images/power-through-transmutation.png" class="margin-bottom-plus-5">
-          <h5> by Olive Price </h5>
-        </div>
-        <div class="book-page">
-          <img src="./images/1.png" style="width: 950px;
-    border: 2px solid #ddbe97;">
-          <div class="measure-col" style="position: absolute;
-    margin-left: -150px;
-    margin-top: -400px;
-    width: max-content;
-    padding: 10px 12px;
-    text-transform: uppercase;
-    transform: rotate(345deg);">
-          <h5>I. Introduction </h5>
-          </div>
-        </div>
-        <div class="book-page flex-row">
-         <img src="./images/1.jpg" class="blog-image">
-         <img src="./images/last.jpg" class="blog-image">
-         <div class="measure-col" style="width: 70%; position: absolute; top: 200px; left: 50%;">
-          <p>
-            <span class="drop-cap">W</span>hat are you supposed to do with overwhelming sorrow, grief, anxiety, pain, anger, heartbreak, suspicion, insecurity, obsessive thought, resentment, fear, dread, jealousy, or shame? These afflictions, so unimaginably capable of governing the mind and your perception of reality, often arise from unexpectedly losing someone you love or a traumatic occurrence that changed the way you see the world.
-          </p>
-         <span class="footnote-rule"></span>
-         <p class="footnote">
-          <em>The Last Day of Pompeii</em> (Karl Bryullov, 1830-1833). Detail fragments (left) show figures from the original composition.
-        </p>
-
-        </div>
-
-
-
-        </div>
-        <div class="book-page">
-          <div class="flex-row">
-            <div class="flex-column">
-              <p class="measure"> The energy you might have used to set goals and move intentionally toward what you want in life, is now being spent just trying to hold yourself together or mask your feelings away to survive.</p>
-              <p class="measure"> The easiest or most natural thing to do, when you find yourself in this position, may be to escape. This comes in many forms. Binge-watching shows or movies, gaming for hours, scrolling mindlessly, drinking, abusing any substance that numbs you, and using other people to feel less lonely. Of course some of these practices are more harmful than others, but they are still all the same at their core. </p>
+   <head>
+      <title>Inner Worlds Inc.</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+      <link rel="icon" href="./resources/favicon/favicon-32x32.png">
+      <link rel="preload" as="image" href="./resources/images/assets_together_2.webp" type="image/webp">
+      <link rel="stylesheet" href="../resources/css/style.css" />
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <script src="https://kit.fontawesome.com/cf45e25b55.js" crossorigin="anonymous"></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Spectral:wght@200&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
+      <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+      <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/bundled/lenis.min.js"></script>
+   </head>
+   <body class="background-layer-1">
+      <div id="" class="background-layer-2">
+         <img id="butterfly-cursor" src="../resources/images/butterfly.png" alt="cursor" />
+         <div id="book">
+            <div class="book-page flex-column">
+               <div class="flex-column flex-justify-start">
+                  <h1 style="font-size: 48.5px; letter-spacing: 30px; margin: 0px; "> Power Through</h1>
+                  <h1 style="margin-top: 15px; margin-bottom: 1rem;"> Transmutation</h1>
+               </div>
+               <h3 class="margin-bottom-plus-3">the Cruel Nature of Metamorphosis</h3>
+               <img src="../resources/images/power-through-transmutation.png" class="margin-bottom-plus-5">
+               <h5> by Olive Price </h5>
             </div>
-            <div class="flex-column">
-              <p class="measure"> Or Instead, you may succumb to these entities completely, fully embracing the paralysis they have put you in. You isolate yourself, drown in sadness and manically pick at your wound until it becomes the only thing you see. Perhaps you don't even stay stuck. Maybe you keep moving forward, but on autopilot, numb, and without any sense of purpose. <br> <br> Whatever you do, it hurts all the same. </p>
+            <div class="book-page flex-row">
+               <img src="./images/1.jpg" class="blog-image">
+               <img src="./images/last.jpg" class="blog-image">
+               <div class="measure-col" style="width: 50%; position: absolute; top: 220px; left: 50%;">
+                  <p>
+                     <span class="drop-cap">W</span>hat are you supposed to do with overwhelming sorrow, grief, anxiety, pain, anger, heartbreak, suspicion, insecurity, obsessive thought, resentment, fear, dread, jealousy, or shame? These afflictions, so unimaginably capable of governing the mind and your perception of reality, often arise from unexpectedly losing someone you love or a traumatic occurrence that changed the way you see the world.
+                  </p>
+                  <span class="footnote-rule"></span>
+                  <p class="footnote">
+                     <em>The Last Day of Pompeii</em> (Karl Bryullov, 1830-1833). Detail fragments (left) show figures from the original composition.
+                  </p>
+               </div>
             </div>
-          </div>
-        </div>
-        <div class="book-page">
-          <h2>II. The Nature of Pain </h1>
-        </div>
-        <div class="book-page">
-          <div class="flex-row">
-            <div class="flex-column">
-              <p class="measure"> </p>
+            <div class="book-page">
+               <img src="../blogs/images/3.jpeg" class="page-background">
+               <div class="flex-row flex-wrap">
+                  <div class="flex-column">
+                     <div class="measure default">
+                        <p>
+                           These entities are so thoroughly consuming that they occupy every corner of the mind. There is no room left for any other kind of thought.
+                        </p>
+                        <p>
+                           The energy you might have devoted to setting goals and moving toward them is instead spent on simply holding yourself together, or masking your feelings away just to get through. In such a state, it's easy to forget what you once wanted for yourself.
+                        </p>
+                        <span class="footnote-rule"></span>
+                        <p class="footnote">
+                           <em>The Mourning Virgin; Christ Crowned with Thorns</em>. Artist: Posthumous Workshop Copy after Dieric Bouts (Netherlandish, Leuven, ca. 1525). Oil on oak.
+                        </p>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <div class="flex-column">
-              <p class="measure"> Or Instead, you may succumb to these entities completely, fully embracing the paralysis they have put you in. You isolate yourself, drown in sadness and manically pick at your wound until it becomes the only thing you see. Perhaps you don't even stay stuck. Maybe you keep moving forward, but on autopilot, numb, and without any sense of purpose. <br> <br> Whatever you do, it hurts all the same. </p>
+
+            <div class="book-page">
+               <img src="../blogs/images/4.jpeg" class="page-background">
+               <div class="flex-row flex-wrap">
+                  <div class="flex-column">
+                     <div class="measure default">
+                        <p>
+                           The most immediate and natural impulse, when caught in such a state, is to escape. <br> <br> This presents itself in many forms: the endless indulgence of shows or games, scrolling on screens, abusing any substance that numbs you, or using other people to feel less lonely. Some diversions may be gentler or less harmful than others, but at their root, they are very much the same.
+                        </p>
+                     </div>
+                  </div>
+                  <div class="flex-column">
+                     <div class="measure default">
+                        <p>
+                          Other times you may not escape at all, but instead surrender entirely. Maybe you turn inward, isolate yourself, sink beneath sorrow, and tend so incessantly to your wound that it becomes the only thing you see. Or, perhaps you can keep moving forward, but on autopilot, numb, and without any sense of purpose. 
+
+                        </p>
+                        <p>
+                        Whatever you do, it hurts all the same.</p>
+                        <span class="footnote-rule"></span>
+                          <p class="footnote">
+                          <em>Poem Written in a Boat on the Wu River</em>. Calligrapher: Mi Fu (Chinese, 1051–1107). Period: Northern Song dynasty (960–1127). Date: ca. 1095.
+                        </p>
+
+                     </div>
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
+            <div class="book-page">
+               <h2>
+               II. The Nature of Pain </h1>
+            </div>
+               <div class="book-page">
+               <img src="../blogs/images/5.jpeg" class="page-background">
+               <div class="flex-row flex-wrap">
+                  <div class="flex-column">
+                     <div class="measure default">
+                        <p>
+                         Pain has a way of making itself known; it will not be brushed aside or silenced. The notion that “the only way out is through” may not be particularly welcome, but it is profoundly true. Many belief systems encourage detachment, and in many areas of life I find that practice both wise and necessary. 
+                        </p>
+                        <p>
+                         Yet I hold, too, that to honor one's pain, to meet it with honesty and with care, is not any less important. To feel with depth is not a weakness but a mark of a life lived with integrity.
+                        </p>
+                     </div>
+                  </div>
+                  <div class="flex-column">
+                     <div class="measure default">
+                        <p>
+                         Grief may be understood as the final translation of love. It is the giving of devotion to one who can no longer receive it as once they did. It is a sacred reminder of what you once shared, and of the depth of feeling for which you were fortunate enough to know.  This deserves to be cherished. It shouldn't go to waste.
+
+                        </p>
+                        <p>
+                        Anger has a purpose. It is the voice of the self perceiving that it has been dishonored, mistreated, or deprived of what it values. It rises in defense of your dignity, boundaries, and of those things most dear to you.</p>
+                        <span class="footnote-rule"></span>
+                          <p class="footnote">
+                       <em>The Lamentation</em>. Artist: Ludovico Carracci (Italian, Bologna, 1555–1619). Date: ca. 1582. Medium: Oil on canvas.
+                     </p>
+
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+
+               <div class="book-page">
+               <img src="../blogs/images/6.jpeg" class="page-background">
+               <div class="flex-row flex-wrap">
+                  <div class="flex-column">
+                     <div class="measure default">
+                        <p>
+                        It is the brain's job to download painful experiences. The fight, flight, or freeze response is a default setting of the brain. The human amygdala has been divinely designed to alert us when we are in danger, and/or out of alignment, and/or experiencing a threat to homeostasis. 
+                        <p>
+                        We are all animals inclined to run from pain. And so, when safety, whether of the heart, the body, or the mind, feels threatened, this small sentinel does its duty. A sudden memory, smell, or trigger all may stir it. And when the heart races, the palms sweat, and the stomach churns, none of this is error. It is the body's way of declaring: <em> you are under siege, and I will protect you. </em>
+                     </div>
+                  </div>
+                  <div class="flex-column">
+                     <div class="measure default">
+      
+                        <p>
+                        To surrender to these feelings is not to fall beneath them, but to discover within their depths what you long for, what you require, and what must be changed. Pain does not come to ruin you, nor is the body an enemy. It comes as a messenger only, asking to be acknowledged, to be understood, to be held, and (in time) to be transmuted. Because of this each one of us is called to the difficult work of threading past experiences into the present, so that it ceases to burden and instead instructs.</p>
+                        <span class="footnote-rule"></span>
+                           <p class="footnote">
+                            <em>Watson and the Shark</em>. Artist: John Singleton Copley (American, Boston, Massachusetts, 1738–1815, London). Date: ca. 1778.
+                          </p>
+
+
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="book-page">
+               <h2>
+               III. Alchemy </h1>
+            </div>
+
+
+               <div class="book-page">
+               <img src="../blogs/images/7.jpeg" class="page-background">
+               <div class="flex-row flex-wrap">
+                  <div class="flex-column">
+                     <div class="measure default">
+      
+                        <p>
+What unites your most cherished songwriters, artists, rappers, painters, directors, poets, or novelists? Each is, in truth, a type of alchemist. They have taken sorrow, anger, pain, and heartbreak in their rawest forms, and turned them into stories that outlast their moment.
+                        </p>
+                        <span class="footnote-rule"></span>
+                         <p class="footnote">
+  <em>Allegory of Music</em>. Artist: Laurent de La Hyre (French, Paris, 1606–1656, Paris). Date: 1649. Medium: Oil on canvas.
+</p>
+
+
+
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+
+
+               <div class="book-page">
+               <img src="../blogs/images/8.jpg" class="page-background">
+               <div class="flex-row flex-wrap">
+                  <div class="flex-column">
+                     <div class="measure default">
+                       <h3 class="margin-bottom-plus-3"> My favorite alchemist </h3>
+                        <p>
+J Dilla, confined to a hospital bed and nearing his end, composed <em> Donuts, </em> an album that still beats with irrepressible life, released only days before his last breath. How he accomplished such a thing, I can't say. To create music so impossibly alive while death itself drew near is beyond comprehension. Yet he did it. He turned his pain and mortality into something joyful, celebratory, and uplifting to others. Here lies the reason I cannot help but love humanity, for at its best, it is so tenderly beautiful.
+                        </p>
+          
 
 
 
 
 
-      </div>
-      <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          const book = document.getElementById('book');
-          const pages = book.querySelectorAll('.book-page');
-          let currentPage = 0;
-          let isLocked = false;
-          const transitionTime = 800; // Adjust this as you want
-          function showPage(index) {
-            pages.forEach((page, i) => {
-              if (i === index) {
-                page.classList.add('visible');
-              } else {
-                page.classList.remove('visible');
+
+                     </div>
+                  </div>
+
+                  <div class="flex-column">
+                     <div class="measure default">
+                        <p>
+It amazes me that this work, born on the edge of death, outlives its maker and reaches me still, blasting from my car speakers, giving strength to the hours of my day. Even in our darkest hours, we carry the power to generate something everlasting, touching lives long after our own have ended.
+                        </p>
+                        <span class="footnote-rule"></span>
+<p class="footnote">
+  <em>Untitled</em>. Artist: Olive Price (American, contemporary). Medium: Digital painting, Photoshop.
+</p>
+
+
+
+
+
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+
+               <div class="book-page">
+               <img src="../blogs/images/1.png" class="page-background">
+               <div class="flex-row flex-wrap">
+                  <div class="flex-column">
+                     <div class="measure default">
+                     
+                        <p>
+
+As one who has known suffering, as we all have, let me not be mistaken. Success is not the aim of transmutation. Its purpose is not to fashion pain into achievement, into accolades, or even into recognition. The work lies in the act itself: in laying down what weighs upon us, in drawing meaning from what once was grief, in practicing a kind of alchemy with the material of one’s own life.
+
+                        </p>
+          
+
+<p>
+I can assure you, this is deeply healing work. When one chooses to take that heavy, oppressive energy and use it as fuel, a new clarity of focus will emerge. This is one that may very well save you. Whether it becomes writing, music, the shaping of something with your hands, or even the simplest act of care, the form hardly matters. What matters is that it offers direction. Pain is not erased, but given shape. It ceases to be a force that consumes, and becomes something you carry forward.
+
+</p>
+
+
+
+
+                     </div>
+                  </div>
+
+                  <div class="flex-column">
+                     <div class="measure default">
+                        <p>
+We need not remain at the mercy of our suffering. Moment by moment, we may decide what meaning to make of it, and what legacy it will leave behind. In so doing, we serve not only ourselves, but those who come after us.
+                        </p>
+
+<p>
+ In the end, the question becomes the one posed to me by a wise friend, Nick Meccia: <em> “Do you see the world as something to take from, or something to give to?” </em>
+
+</p>
+                        <span class="footnote-rule"></span>
+<p class="footnote">
+  <em>Donuts</em>. Artist: J Dilla (American, 1974-2006). Released: 2006. Album cover.
+</p>
+
+
+
+
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+         <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const book = document.getElementById('book');
+              const pages = book.querySelectorAll('.book-page');
+              let currentPage = 0;
+              let isLocked = false;
+              const transitionTime = 800; // Adjust this as you want
+              function showPage(index) {
+                pages.forEach((page, i) => {
+                  if (i === index) {
+                    page.classList.add('visible');
+                  } else {
+                    page.classList.remove('visible');
+                  }
+                });
               }
-            });
-          }
-
-          function goToPage(index) {
-            if (index < 0 || index >= pages.length) return;
-            currentPage = index;
-            showPage(currentPage);
-          }
-
-          function lockAndRun(callback) {
-            if (isLocked) return;
-            isLocked = true;
-            callback();
-            setTimeout(() => {
-              isLocked = false;
-            }, transitionTime);
-          }
-          // Scroll handler
-          function handleScroll(e) {
-            e.preventDefault();
-            if (isLocked) return;
-            if (e.deltaY > 10) {
-              lockAndRun(() => goToPage(currentPage + 1));
-            } else if (e.deltaY < -10) {
-              lockAndRun(() => goToPage(currentPage - 1));
-            }
-          }
-          book.addEventListener('wheel', handleScroll, {
-            passive: false
-          });
-          // Touch swipe support
-          let touchStartY = null;
-          book.addEventListener('touchstart', (e) => {
-            touchStartY = e.changedTouches[0].clientY;
-          });
-          book.addEventListener('touchend', (e) => {
-            if (touchStartY === null) return;
-            if (isLocked) {
-              touchStartY = null;
-              return;
-            }
-            const touchEndY = e.changedTouches[0].clientY;
-            const diff = touchStartY - touchEndY;
-            if (Math.abs(diff) > 50) {
-              lockAndRun(() => {
-                if (diff > 0) {
-                  goToPage(currentPage + 1);
-                } else {
-                  goToPage(currentPage - 1);
+            
+              function goToPage(index) {
+                if (index < 0 || index >= pages.length) return;
+                currentPage = index;
+                showPage(currentPage);
+              }
+            
+              function lockAndRun(callback) {
+                if (isLocked) return;
+                isLocked = true;
+                callback();
+                setTimeout(() => {
+                  isLocked = false;
+                }, transitionTime);
+              }
+              // Scroll handler
+              function handleScroll(e) {
+                e.preventDefault();
+                if (isLocked) return;
+                if (e.deltaY > 10) {
+                  lockAndRun(() => goToPage(currentPage + 1));
+                } else if (e.deltaY < -10) {
+                  lockAndRun(() => goToPage(currentPage - 1));
                 }
+              }
+              book.addEventListener('wheel', handleScroll, {
+                passive: false
               });
-            }
-            touchStartY = null;
-          });
-          // Start on first page
-          showPage(currentPage);
-        });
+              // Touch swipe support
+              let touchStartY = null;
+              book.addEventListener('touchstart', (e) => {
+                touchStartY = e.changedTouches[0].clientY;
+              });
+              book.addEventListener('touchend', (e) => {
+                if (touchStartY === null) return;
+                if (isLocked) {
+                  touchStartY = null;
+                  return;
+                }
+                const touchEndY = e.changedTouches[0].clientY;
+                const diff = touchStartY - touchEndY;
+                if (Math.abs(diff) > 50) {
+                  lockAndRun(() => {
+                    if (diff > 0) {
+                      goToPage(currentPage + 1);
+                    } else {
+                      goToPage(currentPage - 1);
+                    }
+                  });
+                }
+                touchStartY = null;
+              });
+              // Start on first page
+              showPage(currentPage);
+            });
+         </script>
+      </div>
+      </div>
+      <script src="./scripts/chapters-animation.js"></script>
+      <script src="./scripts/hover.js"></script>
+      <script src="./scripts/load.js"></script>
+      <script src="./scripts/opener.js"></script>
+      <script src="./scripts/moving-parts.js"></script>
+      <div id="change-log-container"></div>
+      <script src="./scripts/change-log.js"></script>
+      <div id="about-me-container"></div>
+      <script src="./scripts/about-me.js"></script>
+      <div id="colophon-container"></div>
+      <script src="./scripts/colophon-modal.js"></script>
+      <script type="module">
+         import {
+           initializeApp
+         } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+         import {
+           getFirestore,
+           collection,
+           addDoc,
+           getDocs,
+           serverTimestamp,
+           query,
+           orderBy
+         } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+         const firebaseConfig = {
+           apiKey: "AIzaSyB5GY0wS3a4vmDIECJnvnDs4xEL0AE0v9w",
+           authDomain: "innerworldsguestbook.firebaseapp.com",
+           projectId: "innerworldsguestbook",
+           storageBucket: "innerworldsguestbook.firebasestorage.app",
+           messagingSenderId: "78775217030",
+           appId: "1:78775217030:web:ae61048d08d156f3e51a07"
+         };
+         const app = initializeApp(firebaseConfig);
+         const db = getFirestore(app);
+         // Make available globally if needed later
+         window.guestbookDB = db;
+         window.firebaseFns = {
+           collection,
+           addDoc,
+           getDocs,
+           serverTimestamp,
+           query,
+           orderBy
+         };
       </script>
-    </div>
-    </div>
-    <script src="./scripts/chapters-animation.js"></script>
-    <script src="./scripts/hover.js"></script>
-    <script src="./scripts/load.js"></script>
-    <script src="./scripts/opener.js"></script>
-    <script src="./scripts/moving-parts.js"></script>
-    <div id="change-log-container"></div>
-    <script src="./scripts/change-log.js"></script>
-    <div id="about-me-container"></div>
-    <script src="./scripts/about-me.js"></script>
-    <div id="colophon-container"></div>
-    <script src="./scripts/colophon-modal.js"></script>
-    <script type="module">
-      import {
-        initializeApp
-      } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-      import {
-        getFirestore,
-        collection,
-        addDoc,
-        getDocs,
-        serverTimestamp,
-        query,
-        orderBy
-      } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-      const firebaseConfig = {
-        apiKey: "AIzaSyB5GY0wS3a4vmDIECJnvnDs4xEL0AE0v9w",
-        authDomain: "innerworldsguestbook.firebaseapp.com",
-        projectId: "innerworldsguestbook",
-        storageBucket: "innerworldsguestbook.firebasestorage.app",
-        messagingSenderId: "78775217030",
-        appId: "1:78775217030:web:ae61048d08d156f3e51a07"
-      };
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-      // Make available globally if needed later
-      window.guestbookDB = db;
-      window.firebaseFns = {
-        collection,
-        addDoc,
-        getDocs,
-        serverTimestamp,
-        query,
-        orderBy
-      };
-    </script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const butterfly = document.getElementById('butterfly-cursor');
-  const book = document.getElementById('book');
-
-  let mouseX = 0, mouseY = 0;
-  let currentX = 0, currentY = 0;
-  let lastMouseX = 0;
-  let tilt = 0;
-
-  book.addEventListener('mouseenter', () => {
-    butterfly.style.display = 'block';
-  });
-
-  book.addEventListener('mouseleave', () => {
-    butterfly.style.display = 'none';
-  });
-
-  book.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-
-    const dx = mouseX - lastMouseX;
-
-    // More dramatic tilt
-    if (dx > 2) {
-      tilt = 35; // right
-    } else if (dx < -2) {
-      tilt = -35; // left
-    } else {
-      tilt = 0; // no tilt
-    }
-
-    lastMouseX = mouseX;
-
-    // Sparkle trail
-    const sparkle = document.createElement('div');
-    sparkle.className = 'sparkle';
-    sparkle.style.left = `${e.clientX}px`;
-    sparkle.style.top = `${e.clientY}px`;
-    document.body.appendChild(sparkle);
-    setTimeout(() => sparkle.remove(), 1200);
-  });
-
-  function animateButterfly() {
-    currentX += (mouseX - currentX) * 0.1;
-    currentY += (mouseY - currentY) * 0.1;
-
-    butterfly.style.left = `${currentX}px`;
-    butterfly.style.top = `${currentY}px`;
-    butterfly.style.transform = `translate(-50%, -50%) rotateZ(${tilt}deg)`;
-
-    requestAnimationFrame(animateButterfly);
-  }
-
-  animateButterfly();
-});
-</script>
-
-
-
-
-
-  </body>
+      <script>
+         document.addEventListener('DOMContentLoaded', () => {
+           const butterfly = document.getElementById('butterfly-cursor');
+           const book = document.getElementById('book');
+         
+           let mouseX = 0, mouseY = 0;
+           let currentX = 0, currentY = 0;
+           let lastMouseX = 0;
+           let tilt = 0;
+         
+           book.addEventListener('mouseenter', () => {
+             butterfly.style.display = 'block';
+           });
+         
+           book.addEventListener('mouseleave', () => {
+             butterfly.style.display = 'none';
+           });
+         
+           book.addEventListener('mousemove', (e) => {
+             mouseX = e.clientX;
+             mouseY = e.clientY;
+         
+             const dx = mouseX - lastMouseX;
+         
+             // More dramatic tilt
+             if (dx > 2) {
+               tilt = 35; // right
+             } else if (dx < -2) {
+               tilt = -35; // left
+             } else {
+               tilt = 0; // no tilt
+             }
+         
+             lastMouseX = mouseX;
+         
+             // Sparkle trail
+             const sparkle = document.createElement('div');
+             sparkle.className = 'sparkle';
+             sparkle.style.left = `${e.clientX}px`;
+             sparkle.style.top = `${e.clientY}px`;
+             document.body.appendChild(sparkle);
+             setTimeout(() => sparkle.remove(), 1200);
+           });
+         
+           function animateButterfly() {
+             currentX += (mouseX - currentX) * 0.1;
+             currentY += (mouseY - currentY) * 0.1;
+         
+             butterfly.style.left = `${currentX}px`;
+             butterfly.style.top = `${currentY}px`;
+             butterfly.style.transform = `translate(-50%, -50%) rotateZ(${tilt}deg)`;
+         
+             requestAnimationFrame(animateButterfly);
+           }
+         
+           animateButterfly();
+         });
+      </script>
+   </body>
 </html>

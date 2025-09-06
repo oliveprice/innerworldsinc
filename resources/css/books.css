@@ -74,6 +74,15 @@ font-size: 20px;
 width: 480px;
 }
 
+.measure.default {
+  min-height: max-content;
+  max-height: 70vh;
+font-family: 'PP Editorial-light';
+ flex: 1;
+  border: 2px solid var(--primary);
+  background-image: var(--bg-texture);
+  padding: 2rem 3rem;
+}
 
 .libre-baskerville-regular {
   font-family: "Libre Baskerville", serif;
@@ -95,7 +104,7 @@ width: 480px;
 
 .book-page .flex-row {
 
-gap: 1rem;
+gap: 3rem;
 }
 
 .book-page .flex-column.width-300 {
@@ -124,10 +133,11 @@ padding: 2rem 3rem;
 
 .measure-col p {
     font-family: 'PP Editorial';
-    font-size: 21px;
-    letter-spacing: .5px;
-    line-height: 33px;
+    font-size: 18px;
+
+        line-height: 35px;
     margin: 0;
+    letter-spacing: 1px;
 }
 
 .drop-cap {
@@ -141,15 +151,22 @@ padding: 2rem 3rem;
 margin-top: 10px;
 }
 
-.measure-col .footnote {
+p.footnote, .measure p.footnote {
   font-family: "Libre Baskerville", serif;
-  font-size: 14px;
+font-size: 13px;
+    letter-spacing: 1px;
   line-height: 20px;
-  opacity: 0.8;
+  opacity: 0.6;
   color: var(--primary);
   text-transform: uppercase;
 }
 
+.measure p {
+    font-family: 'PP Editorial';
+    font-size: 18px;
+    line-height: 35px;
+    letter-spacing: 1px;
+}
 .footnote-rule {
   margin-top: 4rem;
   display: block;
@@ -215,4 +232,27 @@ font-style: italic;
   transform: translate(-50%, -50%) rotateZ(0deg);
   transition: transform 0.2s ease;
  
+}
+
+
+.page-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* makes sure the image scales like a background */
+  z-index: -1;         /* sends it behind everything else */
+  pointer-events: none; /* so it won’t block clicks */
+}
+
+
+::selection, .highlighted {
+  background: var(--primary); /* highlight color */
+  color: var(--bg);           /* text color */
+}
+
+::-moz-selection, .highlighted {
+  background: var(--primary); /* for Firefox */
+  color: var(--bg);
 }
