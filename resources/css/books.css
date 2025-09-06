@@ -78,7 +78,7 @@ width: 480px;
   min-height: max-content;
   max-height: 70vh;
 font-family: 'PP Editorial-light';
- flex: 1;
+
   border: 2px solid var(--primary);
   background-image: var(--bg-texture);
   padding: 2rem 3rem;
