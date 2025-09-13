@@ -16,34 +16,32 @@
     const pages = Array.from(book.querySelectorAll('.book-page'));
     if (pages.length < 2) return;
 
-    // 1) Create the new single-column page as page 2
+    // --- Create the new single-column page as page 2 ---
     const mobile = document.createElement('div');
     mobile.className = 'book-page mobile-essay';
 
-    const body = document.createElement('div');
-    body.className = 'mobile-essay-body';
+    // One big measure.default for the entire essay
+    const bigMeasure = document.createElement('div');
+    bigMeasure.className = 'measure default mobile-essay-measure';
 
-    // 2) Pull writing blocks from every page after the first
+    // Collect writing blocks from every page after the first
     for (let i = 1; i < pages.length; i++) {
-      const page = pages[i];
-
-      // grab both types you use for text
-      const blocks = page.querySelectorAll('.measure, .measure-col');
+      const blocks = pages[i].querySelectorAll('.measure, .measure-col');
       blocks.forEach((blk) => {
-        const clone = blk.cloneNode(true);
-        // remove any inline positioning from desktop pages
-        clone.removeAttribute('style');
-        clone.classList.add('mobile-block');
-        body.appendChild(clone);
+        // Append children of each block, not the wrapper itself
+        Array.from(blk.childNodes).forEach((node) => {
+          bigMeasure.appendChild(node.cloneNode(true));
+        });
       });
     }
 
-    mobile.appendChild(body);
+    // Append our single measure to the mobile essay page
+    mobile.appendChild(bigMeasure);
 
-    // 3) Insert as the new second page
+    // Insert as the new second page (after the title page)
     pages[0].insertAdjacentElement('afterend', mobile);
 
-    // 4) Mark the original content pages (3..N) so CSS can hide them on mobile
+    // Mark the original content pages (page 2..end) so CSS can hide them on mobile
     pages.slice(1).forEach((p) => p.classList.add('hidden-mobile-original'));
 
     mobileBuilt = true;

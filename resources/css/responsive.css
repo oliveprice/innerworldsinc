@@ -105,3 +105,29 @@ height: 100vh;
     white-space: nowrap;
   }
 }
+
+
+
+@media (max-width: 900px) {
+  .mobile-essay-measure {
+    width: 100%;
+    max-width: 680px;       /* or 720px if you want a wider column */
+    margin: 0 auto;
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    line-height: 1.8;       /* keep consistent spacing */
+    white-space: normal;
+    border: none;
+    padding: 1.5rem;
+    box-sizing: border-box;
+  }
+}
+
+
+
+
+
+
+
+ 
