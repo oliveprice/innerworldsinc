@@ -1,3 +1,105 @@
     @media (max-width: 980px) {
       .card-title { width: 370px;}
     }
+
+
+    @media (max-width: 900px) {
+      h1.small.widely-spaced {
+    font-size: 21.5px;
+    letter-spacing: 14px;
+    white-space: nowrap;
+    }
+
+   h1.huge {
+font-size: 39px;
+
+}
+    
+   .book-title hgroup {
+   align-items: center;
+
+}
+
+.book-page h3 {
+font-size: 19.111px;
+}
+
+ul.tabs, .page-picker, .footnote, .footnote-rule {
+display: none;
+}
+
+.background-layer-1 {
+height: 100vh;
+
+}
+
+}
+
+@media (max-width: 900px) {
+
+
+  #book {
+    height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+
+  #book .book-page {
+    display: none !important;
+  }
+
+
+  #book .book-page.book-title {
+    display: block !important;
+    position: static !important;
+    opacity: 1 !important;
+    transform: none !important;
+    height: auto !important;
+    pointer-events: auto !important;
+    padding: 2rem;
+  }
+
+
+  #book .book-page.mobile-essay {
+    display: block !important;
+    position: static !important;
+    opacity: 1 !important;
+    transform: none !important;
+    height: auto !important;
+    pointer-events: auto !important;
+    padding: 1.25rem 1.5rem;
+  }
+
+  /* ensure original multi-page content is hidden */
+  #book .hidden-mobile-original {
+    display: none !important;
+  }
+
+  /* one-column readable blocks */
+  .mobile-essay .mobile-block,
+  .mobile-essay .measure,
+  .mobile-essay .measure-col {
+    position: static !important;
+    width: 100% !important;
+    max-width: 680px;    
+    margin: 0 auto 1.5rem; 
+    box-sizing: border-box;
+    transform: none !important;
+  }
+
+
+  .mobile-essay .page-background,
+  .mobile-essay .blog-image {
+    display: none !important;
+  }
+
+  ul.tabs, .page-picker { display: none !important; }
+
+
+  h1.small.widely-spaced {
+    font-size: 21.5px;
+    letter-spacing: 14px;
+    white-space: nowrap;
+  }
+}

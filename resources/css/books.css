@@ -76,9 +76,10 @@ width: 480px;
 
 .page-picker {
   border: 1px solid var(--primary);
+padding: 1px;
   background-image: var(--bg-texture);
   height: 80px;
-  width: 300px;
+  width: max-width;
   position: absolute;
 right: 1rem;
 bottom: 1rem;
@@ -91,7 +92,7 @@ color: var(--primary-hover);
 }
 
 .page-picker .active {
-border-bottom: 2px solid var(--primary);
+/* border-bottom: 2px solid var(--primary); */
 font-size: 33px;
     margin-top: -10px;
 }
@@ -277,11 +278,56 @@ font-style: italic;
 }
 
 body:has(.bi-eye:hover) .measure-col,
-body:has(.bi-eye:hover) .measure.default {
+body:has(.bi-eye:hover) .measure.default,
+body:has(.bi-eye:hover) .page-picker {
   opacity: 0.1;
 }
 
 .measure-col,
 .measure.default {
   transition: opacity .2s ease;
+}
+
+h1.small.widely-spaced {
+font-size: 48.5px; 
+letter-spacing: 30px; 
+margin: 0px; 
+
+}
+
+
+/* Firefox */
+* {
+  scrollbar-width: thin;                          /* slim scrollbar */
+  scrollbar-color: var(--primary) transparent;    /* gold thumb, see-through track */
+  background-clip: padding-box;
+}
+
+/* WebKit (Chrome/Safari/Edge/Opera) */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background-image: var(--bg-texture);
+  background-repeat: repeat;
+  background-position: 0 0;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--primary);         /* gold thumb */
+  border-radius: 0px;
+  border: 2px solid transparent;            /* inset spacing */
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary-hover);   /* optional if you have this variable */
+}
+
+*::-webkit-scrollbar-corner {
+  background-image: var(--bg-texture);
+  background-repeat: repeat;
 }

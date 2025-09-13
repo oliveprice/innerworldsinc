@@ -6,11 +6,11 @@
 @import url('structure.css');
 @import url('layered-background.css');
 @import url('chapters.css');
-@import url('responsive.css');
 @import url('modals.css');
 @import url('forms.css');
 @import url('books.css');
 @import url('projects.css');
+@import url('responsive.css');
 
 
 :root {

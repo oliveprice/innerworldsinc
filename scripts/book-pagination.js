@@ -68,7 +68,7 @@
       container.className = 'container inset-0';
 
       const ul = document.createElement('ul');
-      ul.className = 'flex-row pages';
+      ul.className = 'flex-row pages flex-wrap';
 
       for (let i = 0; i < total; i++) {
         const li = document.createElement('li');
