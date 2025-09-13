@@ -74,11 +74,32 @@ font-size: 20px;
 width: 480px;
 }
 
+.page-picker {
+  border: 1px solid var(--primary);
+  background-image: var(--bg-texture);
+  height: 80px;
+  width: 300px;
+  position: absolute;
+right: 1rem;
+bottom: 1rem;
+}
+
+.page:hover {
+cursor: pointer;
+color: var(--primary-hover);
+
+}
+
+.page-picker .active {
+border-bottom: 2px solid var(--primary);
+font-size: 33px;
+    margin-top: -10px;
+}
+
 .measure.default {
   min-height: max-content;
   max-height: 70vh;
 font-family: 'PP Editorial-light';
-
   border: 2px solid var(--primary);
   background-image: var(--bg-texture);
   padding: 2rem 3rem;
@@ -105,6 +126,11 @@ font-family: 'PP Editorial-light';
 .book-page .flex-row {
 
 gap: 3rem;
+}
+
+.book-page .flex-row.pages {
+
+gap: 1rem;
 }
 
 .book-page .flex-column.width-300 {
@@ -179,11 +205,11 @@ font-style: italic;
 }
 
 #book {
-  cursor: none;
+ 
   position: relative;
 }
 
-#butterfly-cursor {
+/* #butterfly-cursor {
   position: absolute;
   width: 50px;
   height: auto;
@@ -191,21 +217,10 @@ font-style: italic;
   z-index: 9999;
   transform: translate(-50%, -50%);
   display: none;
-}
+} */
 
-.sparkle {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: var(--primary);
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0.3; /* lower this for more transparency */
-  filter: blur(1px);
-  animation: sparkle-fade 1.2s ease-out forwards;
-}
 
-@keyframes sparkle-fade {
+/* @keyframes sparkle-fade {
   0% {
     transform: scale(1);
     opacity: 0.3;
@@ -214,15 +229,15 @@ font-style: italic;
     transform: scale(0);
     opacity: 0;
   }
-}
-
+} */
+/* 
 @keyframes butterflyFloat {
   0%   { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
   50%  { transform: translate(-50%, -52%) rotate(2deg) scale(1.05); }
   100% { transform: translate(-50%, -50%) rotate(-2deg) scale(1); }
-}
+} */
 
-#butterfly-cursor {
+/* #butterfly-cursor {
   position: absolute;
   width: 150px;
   height: auto;
@@ -232,7 +247,7 @@ font-style: italic;
   transform: translate(-50%, -50%) rotateZ(0deg);
   transition: transform 0.2s ease;
  
-}
+} */
 
 
 .page-background {
@@ -255,4 +270,18 @@ font-style: italic;
 ::-moz-selection, .highlighted {
   background: var(--primary); /* for Firefox */
   color: var(--bg);
+}
+
+.bi-eye:hover {
+  cursor: pointer;
+}
+
+body:has(.bi-eye:hover) .measure-col,
+body:has(.bi-eye:hover) .measure.default {
+  opacity: 0.1;
+}
+
+.measure-col,
+.measure.default {
+  transition: opacity .2s ease;
 }

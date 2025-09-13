@@ -105,7 +105,7 @@ function createPageNode(page, index) {
   // BLOG: keep your original behavior
   if (page.name.toLowerCase() === 'power through transmutation') {
     const link = document.createElement('a');
-    link.href = '/blogs/power-through-transmutation.html';
+    link.href = './power-through-transmutation.html';
     link.textContent = page.name;
     link.style.textDecoration = 'none';
     link.style.color = 'inherit';

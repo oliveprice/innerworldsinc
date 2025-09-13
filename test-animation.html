@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>AOS Quick Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- AOS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+  <style>
+    :root { --pad: 24px; --gap: 24px; --bg: #0f1115; --card: #171a21; --ink: #e9eef7; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    header.hero {
+      min-height: 60vh; display: grid; place-items: center; text-align: center; padding: var(--pad);
+      background: radial-gradient(1200px 400px at 50% -10%, #1f2633, transparent);
+      border-bottom: 1px solid #222834;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; padding: var(--pad); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--gap); }
+    .card {
+      background: var(--card); border: 1px solid #232a36; border-radius: 16px; padding: var(--pad);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .spacer { height: 60vh; display: grid; place-items: center; opacity: .6; }
+    .debug {
+      position: sticky; top: 0; z-index: 9999; backdrop-filter: blur(8px);
+      background: rgba(15,17,21,.7); border-bottom: 1px solid #222834; padding: 8px 12px;
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    }
+    .debug button {
+      padding: 6px 10px; border-radius: 8px; border: 1px solid #2a3242; background: #0e1218; color: var(--ink); cursor: pointer;
+    }
+    .kicker { letter-spacing: .18em; text-transform: uppercase; opacity: .8; font-size: .8rem; }
+    code { background: #0e1218; padding: 2px 6px; border-radius: 6px; border: 1px solid #232a36; }
+    footer { padding: var(--pad); text-align: center; opacity: .6; }
+  </style>
+</head>
+<body>
+
+  <!-- Debug / Controls -->
+  <div class="debug">
+    <strong>AOS Debug</strong>
+    <button id="btn-init">Init</button>
+    <button id="btn-refresh">Refresh</button>
+    <button id="btn-refresh-hard">Refresh Hard</button>
+    <span id="status" style="opacity:.8">Not initialized</span>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <h1>AOS Quick Test</h1>
+      <p>Scroll down to see blocks animate. Use the debug buttons if you load images or change layout.</p>
+      <p class="kicker">CDN-loaded • no build setup • minimal repro</p>
+    </div>
+  </header>
+
+  <div class="spacer">Scroll ↓</div>
+
+  <main class="wrap">
+    <section class="grid">
+      <!-- Simple fade-up -->
+      <article class="card" data-aos="fade-up">
+        <h2>fade-up</h2>
+        <p>Default options via <code>AOS.init()</code>.</p>
+      </article>
+
+      <!-- Longer duration + offset -->
+      <article class="card" data-aos="fade-right" data-aos-duration="1500" data-aos-offset="200">
+        <h2>fade-right + duration 1500 + offset 200</h2>
+        <p>Use this to test timing and trigger distance.</p>
+      </article>
+
+      <!-- Anchor placement -->
+      <article class="card" data-aos="fade-left" data-aos-anchor-placement="top-bottom">
+        <h2>fade-left + anchorPlacement top-bottom</h2>
+        <p>Adjusts when the animation triggers as you scroll.</p>
+      </article>
+
+      <!-- Image that loads (to test refresh) -->
+      <article class="card" data-aos="zoom-in">
+        <h2>zoom-in + image load</h2>
+        <p>Image below simulates late load; try <em>Refresh</em> if it shifts layout.</p>
+        <img id="late-img" alt="placeholder" width="100%" height="160"
+             style="display:block; width:100%; height:auto; border-radius:12px; border:1px solid #232a36;"
+             src="https://picsum.photos/800/400?random=7">
+      </article>
+
+      <!-- Easing demo -->
+      <article class="card" data-aos="fade-up" data-aos-duration="1200" data-aos-easing="ease-in-out-back">
+        <h2>fade-up + easing ease-in-out-back</h2>
+        <p>Custom easing preview.</p>
+      </article>
+
+      <!-- Mirror pair to check sequencing -->
+      <article class="card" data-aos="flip-left" data-aos-duration="900" data-aos-delay="150">
+        <h2>flip-left + delay 150</h2>
+        <p>Use delay for stagger effects.</p>
+      </article>
+    </section>
+
+    <div class="spacer">More scroll ↓</div>
+
+    <!-- Anchor example: element triggers based on an external anchor -->
+    <section id="anchor-zone" class="wrap" style="padding:0;">
+      <div class="card" style="margin-bottom:24px;">
+        <h2>Anchor Target</h2>
+        <p>This card is the anchor. The card below will use it via <code>data-aos-anchor="#anchor-zone"</code>.</p>
+      </div>
+
+      <div class="card"
+           data-aos="fade-up"
+           data-aos-anchor="#anchor-zone"
+           data-aos-duration="1200"
+           data-aos-offset="100">
+        <h2>Anchored fade-up</h2>
+        <p>Should trigger relative to the anchor above.</p>
+      </div>
+    </section>
+
+    <div class="spacer">Bottom zone</div>
+  </main>
+
+  <footer>End of page</footer>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    // Basic, repeatable init with sensible defaults
+    function initAOS(opts) {
+      if (!window.AOS) {
+        document.getElementById('status').textContent = 'AOS not found';
+        return;
+      }
+      AOS.init(Object.assign({
+        duration: 800,
+        offset: 120,
+        once: false,
+        easing: 'ease-in-out',
+        anchorPlacement: 'top-bottom'
+      }, opts || {}));
+      document.getElementById('status').textContent = 'Initialized';
+    }
+
+    function refreshAOS() {
+      if (window.AOS && AOS.refresh) {
+        AOS.refresh();
+        document.getElementById('status').textContent = 'Refreshed';
+      }
+    }
+
+    function refreshHardAOS() {
+      if (window.AOS && AOS.refreshHard) {
+        AOS.refreshHard();
+        document.getElementById('status').textContent = 'Refreshed (Hard)';
+      }
+    }
+
+    // Wire debug buttons
+    document.getElementById('btn-init').addEventListener('click', () => initAOS());
+    document.getElementById('btn-refresh').addEventListener('click', refreshAOS);
+    document.getElementById('btn-refresh-hard').addEventListener('click', refreshHardAOS);
+
+    // Initialize after first paint
+    window.addEventListener('DOMContentLoaded', () => {
+      // small timeout to ensure layout is stable
+      requestAnimationFrame(() => initAOS());
+    });
+
+    // If images load late and shift layout, refresh
+    document.getElementById('late-img').addEventListener('load', () => {
+      // simulate async layout change
+      setTimeout(refreshHardAOS, 0);
+    });
+
+    // Log AOS events for sanity checks (optional)
+    document.addEventListener('aos:in', ({ detail }) => {
+      // console.log('IN:', detail);
+    });
+    document.addEventListener('aos:out', ({ detail }) => {
+      // console.log('OUT:', detail);
+    });
+  </script>
+</body>
+</html>
