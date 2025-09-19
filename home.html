@@ -35,16 +35,14 @@
                <div class="octo-container">
                  <div id="octo-placeholder" class="octo-video"></div>
                </div>
-               <div class="toc-frame  ">
+               <div class="toc-frame">
                  <div class="flex-justify-center inset-plus-8">
-                 
-               <div id="chapters-wrapper" class="flex-column flex-align-start gap-plus-4">
-               </div>
+                   <div id="chapters-wrapper" class="flex-column flex-align-start gap-plus-4"></div>
                  </div>
                </div>
-              <div class="mermaid-container right">
-                <div id="mermaid-lottie" class="mermaid-video"></div>
-              </div>
+               <div class="mermaid-container right">
+                 <div id="mermaid-lottie" class="mermaid-video"></div>
+               </div>
 
                <div class="footer-frame">
                   <div class="links flex-row flex-justify-center offset-margin-top flex-align-center gap-plus-1">
@@ -65,60 +63,74 @@
                      </div>
                   </div>
                </div>
+
                <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
                <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js"></script>
             </div>
          </div>
       </div>
       </div>
+
       <script src="dist/smooth-scrollbar.js"></script>
-<script>
-Scrollbar.init(document.querySelector('#my-scrollbar'), {
-  damping: 0.12,      // more friction
-  renderByPixels: true,
-  alwaysShowTracks: true
-});
+      <script>
+        Scrollbar.init(document.querySelector('#my-scrollbar'), {
+          damping: 0.12,
+          renderByPixels: true,
+          alwaysShowTracks: true
+        });
+      </script>
 
-</script>
-
+      <!-- Chapters + site scripts -->
       <script src="./scripts/chapters-animation-2.js"></script>
       <script src="./scripts/hover.js"></script>
-            <script src="./scripts/tabs.js"></script>
-
+      <script src="./scripts/tabs.js"></script>
       <script src="./scripts/load.js"></script>
       <script src="./scripts/opener.js"></script>
       <script src="./scripts/moving-parts.js"></script>
-    <div id="change-log-container"></div>
+
+      <!-- Change Log modal: INLINE so it's present on first click -->
+      <div id="change-log-container">
+        <div id="change-log-modal" class="modal hidden">
+          <div class="modal-content">
+            <div class="modal-layer-1">
+              <span class="close-button">&times;</span>
+              <div class="hero-section-frame small">
+                <div class="commit-container">
+                  <!-- change-log.js can still populate here if it wants -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keep your existing JS (it can add content/listeners to the modal if needed) -->
       <script src="./scripts/change-log.js"></script>
+
+      <!-- Other modals -->
       <div id="about-me-container"></div>
-     <script src="./scripts/about-me.js"></script>
-     <div id="colophon-container"></div>
+      <script src="./scripts/about-me.js"></script>
+      <div id="colophon-container"></div>
       <script src="./scripts/colophon-modal.js"></script>
 
-
-
-
-
+      <!-- Firebase (unchanged) -->
       <script type="module">
          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
          import { getFirestore, collection, addDoc, getDocs, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
          
          const firebaseConfig = {
-         apiKey: "AIzaSyB5GY0wS3a4vmDIECJnvnDs4xEL0AE0v9w",
-         authDomain: "innerworldsguestbook.firebaseapp.com",
-         projectId: "innerworldsguestbook",
-         storageBucket: "innerworldsguestbook.firebasestorage.app",
-         messagingSenderId: "78775217030",
-         appId: "1:78775217030:web:ae61048d08d156f3e51a07"
+           apiKey: "AIzaSyB5GY0wS3a4vmDIECJnvnDs4xEL0AE0v9w",
+           authDomain: "innerworldsguestbook.firebaseapp.com",
+           projectId: "innerworldsguestbook",
+           storageBucket: "innerworldsguestbook.firebasestorage.app",
+           messagingSenderId: "78775217030",
+           appId: "1:78775217030:web:ae61048d08d156f3e51a07"
          };
          
          const app = initializeApp(firebaseConfig);
          const db = getFirestore(app);
-         
-         // Make available globally if needed later
          window.guestbookDB = db;
          window.firebaseFns = { collection, addDoc, getDocs, serverTimestamp, query, orderBy };
       </script>
-
    </body>
 </html>

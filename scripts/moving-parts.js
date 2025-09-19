@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const container = document.getElementById('octo-placeholder');
 
-console.log("🧪 TEST MODE: Forcing Lottie everywhere");
+console.log(" TEST MODE: Forcing Lottie everywhere");
 
 container.innerHTML = `<div id="octo-lottie" class="octo-video"></div>`;
 

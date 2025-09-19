@@ -1,7 +1,4 @@
-// chapters-animation-2.js  — FULL FILE (keeps ALL your existing behavior)
-// Adds: more project names in the fallback list + deep-link to projects.html
-// Clicking a known project row will navigate to projects.html?open=<key>
-// and your projects page will auto-open that card (using your existing script).
+
 
 let activeTimeouts = [];
 let leaveTimeout = null;
@@ -17,6 +14,62 @@ const projectKeyMap = {
   'hiccup tool': 'hiccup-tool',
   'viridian': 'viridian'
 };
+
+// ---- LOCKS ----
+// Titles that should NOT navigate; they should show the "no access" modal.
+const LOCKED_TITLES = new Set([
+  'learn through imitation',
+  'process life through music'
+]);
+
+function isLockedPage(page) {
+  return LOCKED_TITLES.has((page?.name || '').trim().toLowerCase());
+}
+
+
+function openAccessGate(msg = "Sorry, but I am still working on this page. You can't see it yet.") {
+  const modal = document.getElementById('change-log-modal');
+  if (!modal) return; // modal comes from change-log.js on home.html
+  const container = modal.querySelector('.commit-container');
+  const closeBtn = modal.querySelector('.close-button');
+
+  // stash original content once
+  if (container && !container.__originalHTML) {
+    container.__originalHTML = container.innerHTML;
+  }
+
+  if (container) {
+    container.innerHTML = `
+      <div class="access-gate" style="padding:1.25rem;">
+        <p class="handwritten" style="margin:0 0rem 1rem 0; line-height: 2rem;">${msg}</p>
+        <div class="flex-justify-center flex-center-center">
+        <img src="../resources/images/angel-girl.png" class="margin-bottom-plus-5">
+      </div> </div>`;
+  }
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+
+  function restore() {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+    if (container && container.__originalHTML != null) {
+      container.innerHTML = container.__originalHTML;
+    }
+  }
+
+  // wire close once
+  if (!modal.__wired) {
+    modal.__wired = true;
+    closeBtn?.addEventListener('click', restore);
+    modal.addEventListener('click', (e) => { if (e.target === modal) restore(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) restore();
+    });
+  }
+
+  // focus for a11y
+  closeBtn?.focus?.();
+}
 
 const chapters = [
   {
@@ -36,8 +89,8 @@ const chapters = [
     chapterName: 'BLAH BLAH',
     lineImage: './resources/animations/chapter-2/images/img_7.png',
     pages: [
-      // These look like non-project entries, so they remain plain text.
-      { name: 'Learn through Imitation', number: '4' },
+      // These two are locked (modal instead of navigation)
+      { name: 'Learn Through Imitation', number: '4' },
       { name: 'Process Life Through Music', number: '5' }
     ]
   },
@@ -49,7 +102,7 @@ const chapters = [
     chapterName: 'DEEP THOUGHT',
     lineImage: './resources/animations/chapter-3/images/img_7.png',
     pages: [
-      // Blog entry stays a real <a> to your blog page.
+  
       { name: 'power through transmutation', number: '6' }
     ]
   }
@@ -71,7 +124,7 @@ function createChapterHTML(data) {
   const flexColumn = document.createElement('div');
   flexColumn.classList.add('flex-column-special', 'gap-0');
 
-  // EXPANDED FALLBACK: show all your project names when a chapter doesn't specify pages.
+  // EXPANDED FALLBACK: show project names when a chapter doesn't specify pages.
   const pages = data.pages || [
     { name: 'Kody Joliet', number: '1' },
     { name: 'r8r.world',   number: '2' },
@@ -102,7 +155,7 @@ function createPageNode(page, index) {
   const chapterText = document.createElement('p');
   chapterText.classList.add('chapter-text');
 
-  // BLOG: keep your original behavior
+  // BLOG: keep original behavior
   if (page.name.toLowerCase() === 'power through transmutation') {
     const link = document.createElement('a');
     link.href = './power-through-transmutation.html';
@@ -114,10 +167,32 @@ function createPageNode(page, index) {
     // For everything else, render the plain text…
     chapterText.textContent = page.name;
 
-    // …and if it's a known project, make the ENTIRE ROW navigate to projects.html
-    const key = projectKeyFor(page);
-    if (key) {
-      makeRowDeepLink(pageNode, key);
+    // Gate or navigate?
+    if (isLockedPage(page)) {
+      // Locked: open modal, do NOT navigate
+      pageNode.style.cursor = 'pointer';
+      pageNode.tabIndex = 0;
+      pageNode.setAttribute('role', 'button');
+
+      const open = (e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        openAccessGate();
+      };
+
+      pageNode.addEventListener('click', open);
+      pageNode.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openAccessGate();
+        }
+      });
+    } else {
+      // Only known projects get deep-linked
+      const key = projectKeyFor(page);
+      if (key) {
+        makeRowDeepLink(pageNode, key);
+      }
     }
   }
 
@@ -150,17 +225,12 @@ function createPageNode(page, index) {
 }
 
 // --- Deep link helpers ---
-function slug(t) {
-  return (t || '').toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9.-]+/g, '');
-}
-
 function projectKeyFor(page) {
   // allow page.key override if you start adding keys directly in the data
   if (page.key) return page.key;
   const label = (page.name || '').toLowerCase().trim();
-  if (projectKeyMap[label]) return projectKeyMap[label];
-  // fallback: use slugged label (projects.html auto-open script can also match by <h4> title)
-  return slug(label);
+  // IMPORTANT: only navigate if it's an explicitly known project
+  return projectKeyMap[label] || null;
 }
 
 function makeRowDeepLink(rowEl, key) {
@@ -176,7 +246,12 @@ function makeRowDeepLink(rowEl, key) {
     location.href = url.toString();
   };
 
-  rowEl.addEventListener('click', go);
+  rowEl.addEventListener('click', (e) => {
+    // if anything marks this node as locked in the future, bail
+    if (rowEl.dataset.locked === '1') return;
+    go();
+  });
+
   rowEl.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
   });
