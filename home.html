@@ -4,7 +4,7 @@
       <title>Inner Worlds Inc.</title>
       <meta name="viewport" content="width=1280, user-scalable=yes">
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-      <link rel="icon" href="./resources/favicon/favicon-32x32.png"> 
+      <link rel="icon" href="./resources/favicon/favicon-96x96.png"> 
       <link rel="preload" as="image" href="./resources/images/assets_together_2.webp" type="image/webp">
       <link rel="stylesheet" href="./resources/css/style.css" />
       <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
 <ul class="tabs" id="site-tabs"></ul>
 
       <div id="my-scrollbar" class="background-layer-2">
-         <div class="background-layer-3 fade-in">
+         <div class="background-layer-3 ">
             <div class="flex-column flex-align-center">
                <div class="video-container">
                   <div id="angel-lottie" class="angel-video"></div>
@@ -74,13 +74,13 @@
       <script src="dist/smooth-scrollbar.js"></script>
       <script>
         Scrollbar.init(document.querySelector('#my-scrollbar'), {
-          damping: 0.12,
+          damping: 0.09,
           renderByPixels: true,
           alwaysShowTracks: true
         });
       </script>
 
-      <!-- Chapters + site scripts -->
+
       <script src="./scripts/chapters-animation-2.js"></script>
       <script src="./scripts/hover.js"></script>
       <script src="./scripts/tabs.js"></script>
@@ -88,7 +88,7 @@
       <script src="./scripts/opener.js"></script>
       <script src="./scripts/moving-parts.js"></script>
 
-      <!-- Change Log modal: INLINE so it's present on first click -->
+
       <div id="change-log-container">
         <div id="change-log-modal" class="modal hidden">
           <div class="modal-content">
@@ -96,24 +96,67 @@
               <span class="close-button">&times;</span>
               <div class="hero-section-frame small">
                 <div class="commit-container">
-                  <!-- change-log.js can still populate here if it wants -->
+         
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Keep your existing JS (it can add content/listeners to the modal if needed) -->
       <script src="./scripts/change-log.js"></script>
-
-      <!-- Other modals -->
       <div id="about-me-container"></div>
       <script src="./scripts/about-me.js"></script>
       <div id="colophon-container"></div>
       <script src="./scripts/colophon-modal.js"></script>
 
-      <!-- Firebase (unchanged) -->
+<script>
+(function () {
+  const el = document.querySelector('.background-layer-3');
+  if (!el) return;
+
+  const STORAGE_KEY = 'IW_home_faded_v1';
+
+  function lockEndState() {
+    el.classList.remove('fade-in');
+    el.style.animation = 'none';
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  }
+
+  const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+  const alreadyFadedThisTab = sessionStorage.getItem(STORAGE_KEY) === '1';
+  const isReload = nav && nav.type === 'reload';
+  const isFirstNavigateThisTab = nav && nav.type === 'navigate' && !alreadyFadedThisTab;
+
+  // Only animate on a reload, or the very first navigate in this tab.
+  const shouldAnimate = isReload || isFirstNavigateThisTab;
+
+  if (shouldAnimate) {
+    el.classList.add('fade-in');
+    // mark immediately so coming back from other pages in your site won't replay
+    sessionStorage.setItem(STORAGE_KEY, '1');
+    el.addEventListener('animationend', () => {
+      el.classList.remove('fade-in');
+    }, { once: true });
+  } else {
+    lockEndState();
+  }
+
+  // If the page is restored from back/forward cache, keep it locked (no re-run)
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) lockEndState();
+  });
+
+  // Tab visibility flips shouldn't re-trigger anything
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && alreadyFadedThisTab) {
+      lockEndState();
+    }
+  });
+})();
+</script>
+
+
       <script type="module">
          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
          import { getFirestore, collection, addDoc, getDocs, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";

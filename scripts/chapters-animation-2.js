@@ -428,3 +428,231 @@ chapters.forEach((chapterData) => {
   document.querySelector('#chapters-wrapper').appendChild(chapterEl);
   initChapterReveal(chapterEl);
 });
+
+
+
+// ---------- HOVER-STABLE PATCH (keeps your pipeline, fixes race conditions) ----------
+
+const _timers = new WeakMap();         // container -> Set<timeoutId>
+const _session = new WeakMap();        // container -> integer session id
+let   _active = null;
+
+function _getSet(container){
+  let s = _timers.get(container);
+  if (!s) { s = new Set(); _timers.set(container, s); }
+  return s;
+}
+function _clearAll(container){
+  const set = _getSet(container);
+  set.forEach(id => clearTimeout(id));
+  set.clear();
+}
+function _bumpSession(container){
+  const n = (_session.get(container) || 0) + 1;
+  _session.set(container, n);
+  return n;
+}
+function _currentSession(container){ return _session.get(container) || 0; }
+function _schedule(container, fn, delay){
+  const mySession = _currentSession(container);
+  const id = setTimeout(() => {
+    if (_currentSession(container) !== mySession) return; // stale
+    fn();
+  }, delay);
+  _getSet(container).add(id);
+  return id;
+}
+
+// Hard reset all rows in a chapter to their baseline (your existing function)
+function _resetChapter(container){
+  setInitialState(container);
+  // also stop any CSS transitions mid-flight by forcing computed style
+  container.querySelectorAll('.page-node .chapter-text, .page-node .text-and-line img, .page-node .chapter-number, .page-node .animated-flower')
+    .forEach(el => { void el.offsetWidth; });
+}
+
+// OVERRIDE: initChapterReveal (only wiring changes)
+function initChapterReveal(container) {
+  const chapterBlock = container.querySelector('.chapter-block-img');
+
+  chapterBlock.style.transform = 'translateX(0)';
+  chapterBlock.style.transition = 'transform 0.8s ease';
+
+  // ensure baseline visuals on first paint
+  setInitialState(container);
+
+  container.addEventListener('pointerenter', () => {
+    // cancel any pending leave for this or other chapters
+    _bumpSession(container);
+    _clearAll(container);
+
+    if (_active && _active !== container) {
+      // instantly restore previously active chapter
+      _bumpSession(_active);
+      _clearAll(_active);
+      _resetChapter(_active);
+      slideChapterBlockIn(_active.querySelector('.chapter-block-img'));
+    }
+    _active = container;
+
+    // before revealing, force a clean baseline every time
+    _resetChapter(container);
+
+    slideChapterBlockOut(chapterBlock);
+    _schedule(container, () => revealPageNodesInOrder(container), 500);
+  });
+
+  container.addEventListener('pointerleave', () => {
+    // nuke everything immediately; no grace delay (delays cause races)
+    _bumpSession(container);
+    _clearAll(container);
+    _resetChapter(container);
+    slideChapterBlockIn(chapterBlock);
+    if (_active === container) _active = null;
+  });
+}
+
+// OVERRIDE: reveal + reverse queue through the scheduler so they auto-cancel
+function revealPageNodesInOrder(container) {
+  const pageNodes = container.querySelectorAll('.page-node');
+  pageNodes.forEach((node, i) => {
+    _schedule(container, () => revealPageNodeInSequence(node), i * 500);
+  });
+}
+
+function reversePageNodesInOrder(container) {
+  // also clear any legacy global timeouts to be safe
+  activeTimeouts.forEach(id => clearTimeout(id));
+  activeTimeouts = [];
+
+  const pageNodes = Array.from(container.querySelectorAll('.page-node')).reverse();
+  pageNodes.forEach((node, i) => {
+    _schedule(container, () => reversePageNodeSequence(node), i * 500);
+  });
+}
+
+
+
+// ================= IMMEDIATE-STOP PATCH =================
+
+// per-container queues (from earlier patch)
+const __timers = new WeakMap();
+const __session = new WeakMap();
+function __set(ctn){ let s=__timers.get(ctn); if(!s){s=new Set(); __timers.set(ctn,s);} return s; }
+function __clear(ctn){ const s=__set(ctn); s.forEach(id=>clearTimeout(id)); s.clear(); }
+function __bump(ctn){ const n=(__session.get(ctn)||0)+1; __session.set(ctn,n); return n; }
+function __cur(ctn){ return __session.get(ctn)||0; }
+function __schedule(ctn, fn, delay){
+  const mine = __cur(ctn);
+  const id = setTimeout(()=>{ if(__cur(ctn)!==mine) return; fn(); }, delay);
+  __set(ctn).add(id);
+  return id;
+}
+
+// hard reset without animating back (instant)
+function __hardReset(container){
+  // kill transitions while we slam baseline
+  const els = container.querySelectorAll(
+    '.page-node .chapter-text, .page-node .text-and-line img, .page-node .chapter-number, .page-node .animated-flower'
+  );
+  els.forEach(el => el.style.transition = 'none');
+
+  // your baseline
+  setInitialState(container);
+
+  // force reflow so styles stick right now
+  // eslint-disable-next-line no-unused-expressions
+  container.offsetHeight;
+
+  // allow future animations again
+  els.forEach(el => el.style.transition = '');
+}
+
+// 1) OVERRIDE startChapterSequence -> session-scoped (no stray 500ms)
+function startChapterSequence(container, chapterBlock) {
+  slideChapterBlockOut(chapterBlock);
+  __schedule(container, () => { revealPageNodesInOrder(container); }, 500);
+}
+
+// 2) OVERRIDE initChapterReveal -> instant stop on leave (kills ALL timers)
+(function patchInit(){
+  const _orig = initChapterReveal;
+  initChapterReveal = function(container){
+    const chapterBlock = container.querySelector('.chapter-block-img');
+
+    // call original to keep your enter wiring (we'll add our leave behavior)
+    _orig(container);
+
+
+    // Enter: kill any stale timeouts and ensure a clean slate
+    container.addEventListener('pointerenter', (ev) => {
+      // make sure we own the session
+      __bump(container);
+      __clear(container);
+      try {
+        if (Array.isArray(activeTimeouts) && activeTimeouts.length){
+          activeTimeouts.forEach(id => clearTimeout(id));
+          activeTimeouts.length = 0;
+        }
+        if (leaveTimeout) { clearTimeout(leaveTimeout); leaveTimeout = null; }
+      } catch {}
+    }, {capture:true});
+    // Remove the original leave listener and replace with immediate stop.
+    // Easiest: add a capturing listener that runs first and cancels everything.
+    container.addEventListener('pointerleave', (ev) => {
+      // cancel any other leave handlers and run first
+      if (ev && ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+      __bump(container);
+__clear(container);
+
+      // also clear any legacy global timeouts used inside revealPageNodeInSequence
+      try {
+        if (Array.isArray(activeTimeouts) && activeTimeouts.length){
+          activeTimeouts.forEach(id => clearTimeout(id));
+          activeTimeouts.length = 0;
+        }
+        if (leaveTimeout) { clearTimeout(leaveTimeout); leaveTimeout = null; }
+      } catch {}
+
+      // snap visuals back NOW (no reverse animation)
+      __hardReset(container);
+      slideChapterBlockIn(chapterBlock);
+      if (typeof activeContainer !== 'undefined' && activeContainer === container) {
+        activeContainer = null;
+      }
+    }, { capture: true }); // run before any bubbling handlers that might queue more work
+  };
+})();
+
+// 3) Make revealPageNodesInOrder also session-scoped (safety)
+(function patchReveal(){
+  const _origReveal = revealPageNodesInOrder;
+  revealPageNodesInOrder = function(container){
+    // Clear any stray legacy timeouts before scheduling fresh
+    if (Array.isArray(activeTimeouts) && activeTimeouts.length){
+      activeTimeouts.forEach(id => clearTimeout(id));
+      activeTimeouts.length = 0;
+    }
+    const nodes = container.querySelectorAll('.page-node');
+    nodes.forEach((node, i) => {
+      __schedule(container, () => { _origReveal.length; revealPageNodeInSequence(node); }, i * 500);
+    });
+  };
+})();
+
+// 4) Optional: ensure reverse queue also cancels instantly if ever called mid-leave
+(function patchReverse(){
+  const _origReverse = reversePageNodesInOrder;
+  reversePageNodesInOrder = function(container){
+    __bump(container); // invalidate any reveals still pending
+    __clear(container);
+    if (Array.isArray(activeTimeouts) && activeTimeouts.length){
+      activeTimeouts.forEach(id => clearTimeout(id));
+      activeTimeouts.length = 0;
+    }
+    _origReverse(container);
+  };
+})();
+
+
+

@@ -19,7 +19,11 @@
   <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
   <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"></noscript>
-  <link rel="icon" href="./resources/images/favicons/favicon-96x96.png">
+   <link rel="icon" type="image/png" href="./resources/favicon/favicon-96x96.png" sizes="96x96" />
+   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+   <link rel="shortcut icon" href="/favicon.ico" />
+   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+   <link rel="manifest" href="/site.webmanifest" />
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script defer src="https://kit.fontawesome.com/cf45e25b55.js" crossorigin="anonymous"></script>
 </head>
@@ -61,72 +65,6 @@
 <script src="./scripts/opener.js"></script>
 <script src="./scripts/moving-parts.js"></script>
 
-<script>
-(() => {
-  // Grab the existing modal and key bits
-  const modal = document.getElementById('change-log-modal');
-  if (!modal) { console.warn('Missing #change-log-modal'); return; }
-
-  const closeBtn = modal.querySelector('.close-button');
-  const content = modal.querySelector('.commit-container');
-  const originalHTML = content ? content.innerHTML : "";
-
-  // Open the modal with a temporary "no access" message
-  function openAccessGate(msg) {
-    if (content) {
-      content.innerHTML = `
-        <div class="access-gate" style="text-align:center; padding: 1.25rem;">
-          <h3 style="margin:0 0 .5rem 0;">You do not currently have access to this page.</h3>
-          ${msg ? `<p style="margin:0; opacity:.8;">${msg}</p>` : ""}
-        </div>`;
-    }
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    closeBtn?.focus();
-  }
-
-  // Restore original modal state
-  function closeAccessGate() {
-    modal.classList.add('hidden');
-    if (content) content.innerHTML = originalHTML;
-    document.body.style.overflow = '';
-  }
-
-  // Close handlers
-  closeBtn?.addEventListener('click', closeAccessGate);
-  modal.addEventListener('click', (e) => { if (e.target === modal) closeAccessGate(); });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeAccessGate();
-  });
-
-  // ---- Gate all clicks inside the "series chapter" area ----
-  // Adjust these selectors to match your markup if needed.
-  const seriesSections = document.querySelectorAll(
-    '.series-chapter, .series .chapter, .chapters .chapter'
-  );
-
-  seriesSections.forEach(section => {
-    // Use capture so we intercept before navigation
-    section.addEventListener('click', (e) => {
-      // Ignore clicks that originate inside the modal itself
-      if (modal.contains(e.target)) return;
-
-      // Only trigger on typical interactive/“card” targets
-      const clickable = e.target.closest('a, button, [role="button"], [data-clickable], .clickable, .card, li, .chapter-tile');
-      if (!clickable) return;
-
-      e.preventDefault();
-      e.stopPropagation();
-      openAccessGate(); // optional: pass a string for extra context
-    }, true);
-  });
-
-  // ---- Optional: mark specific elements anywhere to require access ----
-  document.querySelectorAll('[data-requires-access]').forEach(el => {
-    el.addEventListener('click', (e) => { e.preventDefault(); openAccessGate(); });
-  });
-})();
-</script>
 
 
 
