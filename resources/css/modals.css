@@ -208,6 +208,14 @@ width: 71%;
 
 }
 
+.footer-link {
+width: 218px;
+}
+
+.link-offset {
+width: 261px;
+
+}
 .about-me-text-overlay  p.handwritten {
 font-size: 73px;
 line-height: 72px;
@@ -217,14 +225,8 @@ line-height: 72px;
 }
 }
 
-.footer-link {
-width: 230px;
-}
 
-.link-offset {
-width: 273px;
 
-}
 
 /* Tiny phones: zoom a bit more by giving it even more CSS px */
 @media (max-device-width: 480px) {

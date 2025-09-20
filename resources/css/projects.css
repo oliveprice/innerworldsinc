@@ -152,3 +152,13 @@ width: 55px;
 .pop-up {
   animation: pop-up 0.4s ease-out forwards;
 }
+
+
+@media (max-device-width: 820px) {
+
+
+.piece {
+    height: 615px;
+    width: 763px;
+}
+}
