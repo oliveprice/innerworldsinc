@@ -159,7 +159,7 @@ height: 1914px;
   top: 688px;
   left: 50%;
   transform: translateX(-50%);
-  width: 70%;     
+  width: 72%;     
   text-align: center;
   color: #e0cba8; 
   font-size: 1.1rem;
@@ -167,7 +167,7 @@ height: 1914px;
 
 .about-me-text-overlay .handwritten {
 font-size: 30px;
-line-height: 40px;
+line-height: 33px;
 text-align: left;
 }
 
@@ -201,16 +201,16 @@ height: unset;
 
 .about-me-text-overlay {
 top: 1530px;
-overflow-y: scroll;
         height: 2340px;
 scrollbar-width: none;     /* Firefox */
   -ms-overflow-style: none; 
+width: 71%;
 
 }
 
 .about-me-text-overlay  p.handwritten {
 font-size: 73px;
-        line-height: 5.5rem;
+line-height: 72px;
 }
 .aboutmecomic {
     width: 795px;
