@@ -183,3 +183,44 @@ z-index: 20000000;
 
 
 }
+
+
+
+/* 2) Phone & small tablet without touching your meta viewport */
+@media (max-device-width: 820px) {
+  /* Make the poster “bigger” in CSS px so it appears closer after device scaling */
+  .about-me-image-container {
+    width: 1100px;    /* was: 500px */
+    /* keep it contained */
+    /* crop edges cleanly if needed */
+  }
+  .about-me-overlay { padding: 1.25rem 0; }
+.about-me-image {
+height: unset;
+}
+
+.about-me-text-overlay {
+top: 1530px;
+overflow-y: scroll;
+        height: 2340px;
+scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; 
+
+}
+
+.about-me-text-overlay  p.handwritten {
+font-size: 73px;
+        line-height: 5.5rem;
+}
+.aboutmecomic {
+    width: 795px;
+}
+}
+
+
+/* Tiny phones: zoom a bit more by giving it even more CSS px */
+@media (max-device-width: 480px) {
+  .about-me-image-container {
+    max-width: 1400px;
+  }
+}
