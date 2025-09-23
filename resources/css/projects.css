@@ -173,6 +173,10 @@ display: none;
 
 }
 
+.background-layer-2 {
+
+    height: 98vh;
+}
 
 .tabs span {
 font-size: 40px;

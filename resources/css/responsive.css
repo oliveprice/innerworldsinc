@@ -17,6 +17,7 @@ font-size: 33px;
     
    .book-title hgroup {
    align-items: center;
+margin-top: 170px;
 
 }
 
@@ -55,7 +56,7 @@ height: 100vh;
     position: static !important;
     opacity: 1 !important;
     transform: none !important;
-    height: auto !important;
+        height: 100vh;
     pointer-events: auto !important;
     padding: 2rem;
   }
