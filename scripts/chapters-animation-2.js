@@ -656,3 +656,99 @@ __clear(container);
 
 
 
+
+
+// ================= MOBILE TAP TOGGLE =================
+// For devices that don't really hover. Doesn't affect desktop.
+(function mobileChapterToggle(){
+  const isMobileLike = () => window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+  // Track the currently open chapter (mobile mode only)
+  let mobileOpen = null;
+
+  function openMobileChapter(container){
+    // Close any other open one first
+    if (mobileOpen && mobileOpen !== container) closeMobileChapter(mobileOpen);
+
+    const chapterBlock = container.querySelector('.chapter-block-img');
+    // clean slate and own the session
+    try { __bump(container); __clear(container); } catch {}
+    _resetChapter(container);
+
+    // mark state
+    container.dataset.mobileOpen = '1';
+    mobileOpen = container;
+
+    // run your reveal pipeline
+    slideChapterBlockOut(chapterBlock);
+    __schedule(container, () => revealPageNodesInOrder(container), 500);
+  }
+
+  function closeMobileChapter(container){
+    const chapterBlock = container.querySelector('.chapter-block-img');
+    try { __bump(container); __clear(container); } catch {}
+    __hardReset(container);                // instant snap-back
+    slideChapterBlockIn(chapterBlock);
+    delete container.dataset.mobileOpen;
+    if (mobileOpen === container) mobileOpen = null;
+  }
+
+  function toggleMobileChapter(container){
+    if (container.dataset.mobileOpen === '1') {
+      closeMobileChapter(container);
+    } else {
+      openMobileChapter(container);
+    }
+  }
+
+  // Wire per-chapter handlers
+  function enableMobileTap(container){
+    const chapterBlock = container.querySelector('.chapter-block-img');
+    if (!chapterBlock) return;
+
+    // Tap on the block toggles open/close in mobile mode
+    chapterBlock.addEventListener('click', (e) => {
+      if (!isMobileLike()) return; // ignore on desktop
+      e.preventDefault();
+      e.stopPropagation();
+      toggleMobileChapter(container);
+    });
+
+    // If the user taps INSIDE the open container but on a link, let it navigate.
+    // Otherwise do nothing (keeps it open) — outside tap handler (below) will close.
+
+    // Outside tap closes if this container is open
+    document.addEventListener('click', (e) => {
+      if (!isMobileLike()) return;
+      if (container.dataset.mobileOpen === '1') {
+        const inside = e.target.closest('.chapter-container') === container;
+        if (!inside) closeMobileChapter(container);
+      }
+    });
+
+    // Also close on ESC (useful for mobile keyboards / a11y)
+    document.addEventListener('keydown', (e) => {
+      if (!isMobileLike()) return;
+      if (e.key === 'Escape' && container.dataset.mobileOpen === '1') {
+        closeMobileChapter(container);
+      }
+    });
+
+    // If viewport mode changes (rotate / attach mouse), ensure clean state
+    window.addEventListener('resize', () => {
+      if (!isMobileLike() && container.dataset.mobileOpen === '1') {
+        closeMobileChapter(container);
+      }
+    });
+  }
+
+  // Hook it up for all chapters you create
+  // (Runs alongside your existing boot code)
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.chapter-container').forEach(enableMobileTap);
+  });
+
+  // If chapters are injected before DOMContentLoaded (as in your boot),
+  // run once now too:
+  document.querySelectorAll('.chapter-container').forEach(enableMobileTap);
+})();
