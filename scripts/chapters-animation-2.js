@@ -469,6 +469,13 @@ function __hardReset(container){
   els.forEach(el => el.style.transition = '');
 }
 
+function setCoverInteractivity(container, enabled){
+  const block = container.querySelector('.chapter-block-img');
+  if (!block) return;
+  block.style.pointerEvents = enabled ? 'auto' : 'none';
+}
+
+
 function openMobileChapter(container){
   if (mobileOpen && mobileOpen !== container) closeMobileChapter(mobileOpen);
   const chapterBlock = container.querySelector('.chapter-block-img');
@@ -476,10 +483,11 @@ function openMobileChapter(container){
   container.dataset.mobileOpen = '1';
   mobileOpen = container;
 
-  // slide out cover
+  // slide out cover and disable its hitbox so taps reach links
   slideChapterBlockOut(chapterBlock);
+  setCoverInteractivity(container, false);
 
-  // double RAF guarantees the transform is committed before we fade the list
+  // double RAF guarantees the transform commits before we fade the list
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       forceRevealNow(container);
@@ -491,11 +499,13 @@ function openMobileChapter(container){
 }
 
 
+
 function closeMobileChapter(container){
   const chapterBlock = container.querySelector('.chapter-block-img');
   try { __bump(container); __clear(container); } catch {}
   __hardReset(container);                // back to hidden baseline
   slideChapterBlockIn(chapterBlock);
+  setCoverInteractivity(container, true); // re-enable taps on the cover
   delete container.dataset.mobileOpen;
   if (mobileOpen === container) mobileOpen = null;
 }
