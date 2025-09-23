@@ -358,30 +358,43 @@ function startChapterSequence(container, chapterBlock) {
 
 function initChapterReveal(container) {
   const chapterBlock = container.querySelector('.chapter-block-img');
+
   chapterBlock.style.transform = 'translateX(0)';
   chapterBlock.style.transition = 'transform 0.8s ease';
+
   setInitialState(container);
 
   container.addEventListener('pointerenter', () => {
-    _bumpSession(container); _clearAll(container);
+    // ⛔ Skip hover when mobile-open; otherwise it will reset to hidden.
+    if (container.dataset.mobileOpen === '1') return;
+
+    _bumpSession(container);
+    _clearAll(container);
+
     if (_active && _active !== container) {
-      _bumpSession(_active); _clearAll(_active); _resetChapter(_active);
+      _bumpSession(_active);
+      _clearAll(_active);
+      _resetChapter(_active);
       slideChapterBlockIn(_active.querySelector('.chapter-block-img'));
     }
     _active = container;
+
     _resetChapter(container);
     startChapterSequence(container, chapterBlock);
   });
 
   container.addEventListener('pointerleave', () => {
-    // ignore pointerleave if mobile-open (see mobile section)
+    // ⛔ Also ignore leave while mobile-open
     if (container.dataset.mobileOpen === '1') return;
-    _bumpSession(container); _clearAll(container);
+
+    _bumpSession(container);
+    _clearAll(container);
     _resetChapter(container);
     slideChapterBlockIn(chapterBlock);
     if (_active === container) _active = null;
   });
 }
+
 
 // ========================= MOBILE TAP TOGGLE =========================
 window.FORCE_MOBILE = window.FORCE_MOBILE ?? false;
@@ -408,14 +421,34 @@ function __hardReset(container){
 
 function openMobileChapter(container){
   if (mobileOpen && mobileOpen !== container) closeMobileChapter(mobileOpen);
+
   const chapterBlock = container.querySelector('.chapter-block-img');
+
   try { __bump(container); __clear(container); } catch {}
   _resetChapter(container);
+
+  // Mark mobile-open BEFORE any events can fire
   container.dataset.mobileOpen = '1';
   mobileOpen = container;
+
+  // Make sure taps hit correctly and nothing clips
+  container.style.overflow = 'visible';
+  const stack = container.querySelector('.chapter-reveal-stack');
+  if (stack) stack.style.overflow = 'visible';
+
+  // Slide out the block
   slideChapterBlockOut(chapterBlock);
-  __schedule(container, () => revealPageNodesInOrder(container), 500);
+
+  // ⚡ iOS/WebKit can drop the first paint; force layout and then reveal
+  // RAF -> RAF ensures the transform is committed before we reveal rows.
+  requestAnimationFrame(() => {
+    void container.offsetWidth; // force reflow
+    requestAnimationFrame(() => {
+      __schedule(container, () => revealPageNodesInOrder(container), 0);
+    });
+  });
 }
+
 
 function closeMobileChapter(container){
   const chapterBlock = container.querySelector('.chapter-block-img');
@@ -436,22 +469,34 @@ function onTap(handler){
   return (e) => { if (fired) return; fired = true; handler(e); setTimeout(()=>fired=false,0); };
 }
 
+function onTap(handler){
+  let fired = false;
+  return (e) => { if (fired) return; fired = true; handler(e); setTimeout(()=>fired=false,0); };
+}
+
 function enableMobileTap(container){
   const block = container.querySelector('.chapter-block-img');
   if (!block) return;
 
-  block.addEventListener('touchend', onTap((e)=>{
-    if (!isMobileLike()) return;
-    e.preventDefault(); e.stopPropagation();
-    toggleMobileChapter(container);
-  }), {passive:false});
-
-  block.addEventListener('click', (e)=>{
+  const handler = onTap((e)=>{
     if (!isMobileLike()) return;
     e.preventDefault(); e.stopPropagation();
     toggleMobileChapter(container);
   });
+
+  // Some Androids/WebViews drop click — listen to both.
+  block.addEventListener('touchend', handler, {passive:false});
+  block.addEventListener('click', handler);
+
+  // As a fallback (if something sits on top of the image), allow tapping the container background too.
+  container.addEventListener('click', (e) => {
+    if (!isMobileLike()) return;
+    if (!e.target.closest('.chapter-block-img')) return; // only when the block region is hit
+    e.preventDefault(); e.stopPropagation();
+    toggleMobileChapter(container);
+  });
 }
+
 
 // single outside click closer
 document.addEventListener('click', (e) => {

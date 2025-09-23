@@ -160,6 +160,15 @@ h4 {
 font-size: 69px;
 }
 
+.tabs {
+margin-top: 15px;
+
+}
+
+.tabs span {
+font-size: 40px;
+}
+
 .project-info p.handwritten {
         font-size: 90px;
         line-height: 84px;
