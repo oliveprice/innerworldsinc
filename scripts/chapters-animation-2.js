@@ -91,7 +91,7 @@ const chapters = [
     chapterName: 'DEEP THOUGHT',
     lineImage: './resources/animations/chapter-3/images/img_7.png',
     pages: [
-      { name: 'power through transmutation', number: '6' }
+      { name: 'Power Through Transmutation', number: '6' }
     ]
   }
 ];
@@ -184,6 +184,7 @@ function createPageNode(page, index) {
   const flowerImg = document.createElement('img');
   flowerImg.src = './resources/animations/chapter-1/images/img_2.png';
   flowerImg.classList.add('animated-flower');
+  // initial "hidden" state as before
   flowerImg.style.transform = 'scale(0)';
   flowerImg.style.opacity = '0';
   flowerImg.style.transition = 'transform 0.25s ease-out, opacity 0.25s ease-out';
@@ -280,6 +281,63 @@ function revealPageNodeInSequence(node) {
   activeTimeouts.push(setTimeout(() => animateText(node), 450));
 }
 
+// >>> NEW: guaranteed visibility helper (used on mobile + as desktop fallback)
+function forceRevealNow(container){
+  const nodes = container.querySelectorAll('.page-node');
+
+  // 1) Kill child transitions so we can jump to final styles without visible pops
+  const els = container.querySelectorAll(
+    '.page-node .chapter-text, .page-node .text-and-line img, .page-node .chapter-number, .page-node .animated-flower'
+  );
+  els.forEach(el => el.__oldTransition = el.style.transition || '');
+  els.forEach(el => { el.style.transition = 'none'; });
+
+  // 2) Set every child to its final (visible) state
+  nodes.forEach((node) => {
+    const text = node.querySelector('.chapter-text');
+    if (text) { text.style.opacity = '1'; text.style.transform = 'translateY(0)'; }
+
+    const line = node.querySelector('.text-and-line img');
+    if (line) { line.style.opacity = '1'; line.style.transform = 'translateX(0)'; }
+
+    const number = node.querySelector('.chapter-number');
+    if (number) { number.style.opacity = '1'; number.style.transform = 'translateY(0)'; }
+
+    const flower = node.querySelector('.animated-flower');
+    if (flower) { flower.style.opacity = '1'; flower.style.transform = 'scale(1)'; }
+  });
+
+  // 3) Fade in the entire column together in the next frame
+  const column = container.querySelector('.flex-column-special');
+  if (!column) return;
+
+  const oldColTransition = column.style.transition || '';
+  column.style.willChange = 'opacity, transform';
+
+  // start fully hidden (but children already at final styles, with no transitions)
+  column.style.transition = 'none';
+  column.style.opacity = '0';
+  column.style.transform = 'translateY(0)';
+
+  // Force a reflow so the browser commits the states above
+  // eslint-disable-next-line no-unused-expressions
+  column.offsetHeight;
+
+  // Re-enable transitions and fade in the whole block at once
+  requestAnimationFrame(() => {
+    column.style.transition = 'opacity 220ms ease';
+    column.style.opacity = '1';
+
+    // After animation, restore original transitions everywhere
+    setTimeout(() => {
+      column.style.transition = oldColTransition;
+      els.forEach(el => { el.style.transition = el.__oldTransition; delete el.__oldTransition; });
+      column.style.willChange = '';
+    }, 260);
+  });
+}
+
+
 function reverseText(node) {
   const text = node.querySelector('.chapter-text');
   if (!text) return;
@@ -353,48 +411,40 @@ function reversePageNodesInOrder(container) {
 
 function startChapterSequence(container, chapterBlock) {
   slideChapterBlockOut(chapterBlock);
-  _schedule(container, () => revealPageNodesInOrder(container), 500);
+
+  // wait just enough for the cover to start moving, then reveal all at once
+  _schedule(container, () => {
+    forceRevealNow(container);
+  }, 120);
 }
+
 
 function initChapterReveal(container) {
   const chapterBlock = container.querySelector('.chapter-block-img');
-
   chapterBlock.style.transform = 'translateX(0)';
   chapterBlock.style.transition = 'transform 0.8s ease';
-
   setInitialState(container);
 
   container.addEventListener('pointerenter', () => {
-    // ⛔ Skip hover when mobile-open; otherwise it will reset to hidden.
-    if (container.dataset.mobileOpen === '1') return;
-
-    _bumpSession(container);
-    _clearAll(container);
-
+    _bumpSession(container); _clearAll(container);
     if (_active && _active !== container) {
-      _bumpSession(_active);
-      _clearAll(_active);
-      _resetChapter(_active);
+      _bumpSession(_active); _clearAll(_active); _resetChapter(_active);
       slideChapterBlockIn(_active.querySelector('.chapter-block-img'));
     }
     _active = container;
-
     _resetChapter(container);
     startChapterSequence(container, chapterBlock);
   });
 
   container.addEventListener('pointerleave', () => {
-    // ⛔ Also ignore leave while mobile-open
+    // ignore pointerleave if mobile-open (see mobile section)
     if (container.dataset.mobileOpen === '1') return;
-
-    _bumpSession(container);
-    _clearAll(container);
+    _bumpSession(container); _clearAll(container);
     _resetChapter(container);
     slideChapterBlockIn(chapterBlock);
     if (_active === container) _active = null;
   });
 }
-
 
 // ========================= MOBILE TAP TOGGLE =========================
 window.FORCE_MOBILE = window.FORCE_MOBILE ?? false;
@@ -421,39 +471,30 @@ function __hardReset(container){
 
 function openMobileChapter(container){
   if (mobileOpen && mobileOpen !== container) closeMobileChapter(mobileOpen);
-
   const chapterBlock = container.querySelector('.chapter-block-img');
 
-  try { __bump(container); __clear(container); } catch {}
-  _resetChapter(container);
-
-  // Mark mobile-open BEFORE any events can fire
   container.dataset.mobileOpen = '1';
   mobileOpen = container;
 
-  // Make sure taps hit correctly and nothing clips
-  container.style.overflow = 'visible';
-  const stack = container.querySelector('.chapter-reveal-stack');
-  if (stack) stack.style.overflow = 'visible';
-
-  // Slide out the block
+  // slide out cover
   slideChapterBlockOut(chapterBlock);
 
-  // ⚡ iOS/WebKit can drop the first paint; force layout and then reveal
-  // RAF -> RAF ensures the transform is committed before we reveal rows.
+  // double RAF guarantees the transform is committed before we fade the list
   requestAnimationFrame(() => {
-    void container.offsetWidth; // force reflow
     requestAnimationFrame(() => {
-      __schedule(container, () => revealPageNodesInOrder(container), 0);
+      forceRevealNow(container);
     });
   });
+
+  // safety fallback in case RAF is throttled
+  setTimeout(() => forceRevealNow(container), 400);
 }
 
 
 function closeMobileChapter(container){
   const chapterBlock = container.querySelector('.chapter-block-img');
   try { __bump(container); __clear(container); } catch {}
-  __hardReset(container);
+  __hardReset(container);                // back to hidden baseline
   slideChapterBlockIn(chapterBlock);
   delete container.dataset.mobileOpen;
   if (mobileOpen === container) mobileOpen = null;
@@ -469,34 +510,22 @@ function onTap(handler){
   return (e) => { if (fired) return; fired = true; handler(e); setTimeout(()=>fired=false,0); };
 }
 
-function onTap(handler){
-  let fired = false;
-  return (e) => { if (fired) return; fired = true; handler(e); setTimeout(()=>fired=false,0); };
-}
-
 function enableMobileTap(container){
   const block = container.querySelector('.chapter-block-img');
   if (!block) return;
 
-  const handler = onTap((e)=>{
+  block.addEventListener('touchend', onTap((e)=>{
     if (!isMobileLike()) return;
     e.preventDefault(); e.stopPropagation();
     toggleMobileChapter(container);
-  });
+  }), {passive:false});
 
-  // Some Androids/WebViews drop click — listen to both.
-  block.addEventListener('touchend', handler, {passive:false});
-  block.addEventListener('click', handler);
-
-  // As a fallback (if something sits on top of the image), allow tapping the container background too.
-  container.addEventListener('click', (e) => {
+  block.addEventListener('click', (e)=>{
     if (!isMobileLike()) return;
-    if (!e.target.closest('.chapter-block-img')) return; // only when the block region is hit
     e.preventDefault(); e.stopPropagation();
     toggleMobileChapter(container);
   });
 }
-
 
 // single outside click closer
 document.addEventListener('click', (e) => {

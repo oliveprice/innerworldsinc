@@ -156,6 +156,14 @@ width: 55px;
 
 
 @media (max-device-width: 820px) {
+
+
+/* .page-node .text-and-line .chapter-text {
+
+font-size: 50px;
+} */
+
+
 h4 {
 font-size: 69px;
 }
@@ -165,13 +173,20 @@ margin-top: 15px;
 
 }
 
+
 .tabs span {
 font-size: 40px;
+padding: 5px;
 }
+.project-info .inliner {
 
+border-bottom: 2px solid #ddbe97;     ;
+padding-bottom: 23px;
+}
 .project-info p.handwritten {
         font-size: 90px;
         line-height: 84px;
+        margin: 20px;
     }
 
 .stamp {

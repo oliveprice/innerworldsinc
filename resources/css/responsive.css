@@ -5,13 +5,13 @@
 
     @media (max-width: 900px) {
       h1.small.widely-spaced {
-    font-size: 21.5px;
-    letter-spacing: 14px;
+        font-size: 15.5px;
+        letter-spacing: 14px;
     white-space: nowrap;
     }
 
    h1.huge {
-font-size: 39px;
+font-size: 33px;
 
 }
     
@@ -99,11 +99,6 @@ height: 100vh;
   ul.tabs, .page-picker { display: none !important; }
 
 
-  h1.small.widely-spaced {
-    font-size: 21.5px;
-    letter-spacing: 14px;
-    white-space: nowrap;
-  }
 }
 
 
