@@ -76,26 +76,24 @@
 
 
 
+
+
 <iframe id="preload-frame" src="home.html" style="display:none;"></iframe>
-
 <script>
-  const iframe = document.getElementById("preload-frame");
+  const iframe = document.getElementById('preload-frame');
 
-  function fullyLoaded() {
-    const doc = iframe.contentDocument || iframe.contentWindow.document;
-    const el = doc.querySelector('.background-layer-3');
+  // Safety fallback (optional): if home never signals, bail after N seconds
+  const FAILSAFE_MS = 20000;
+  const failsafe = setTimeout(() => window.location.href = 'home.html', FAILSAFE_MS);
 
-    if (el && getComputedStyle(el).opacity === "1") {
-      window.location.href = "home.html";
-    } else {
-      setTimeout(fullyLoaded, 100);
+  window.addEventListener('message', (e) => {
+    if (e.source === iframe.contentWindow && e.data && e.data.type === 'HOME_READY') {
+      clearTimeout(failsafe);
+      window.location.href = 'home.html';
     }
-  }
-
-  iframe.onload = () => {
-    setTimeout(fullyLoaded, 200);
-  };
+  }, false);
 </script>
+
 
 </body>
  </html>
