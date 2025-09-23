@@ -31,17 +31,19 @@ width: 770px;
 }
 
 .project-info .handwritten {
-  line-height: 38px;
-font-size: 30px;
-margin-bottom: 10px;
+  line-height: 32px;
+font-size: 34px;
+margin-bottom: 17px;
 }
 
 
-
+.project-info .handwritten a {
+margin-bottom: 0;
+}
 
 .piece {
- height: 306px;
-    width: 340px;
+ height: 364px;
+    width:  421px;
   border: 1px solid #ddbe97;
   background-image: var(--bg-texture);
   padding: 1rem;
@@ -154,7 +156,18 @@ width: 55px;
 
 
 @media (max-device-width: 820px) {
+h4 {
+font-size: 69px;
+}
 
+.project-info p.handwritten {
+        font-size: 90px;
+        line-height: 84px;
+    }
+
+.stamp {
+width: 95px;
+}
 
 .piece {
     height: 615px;
