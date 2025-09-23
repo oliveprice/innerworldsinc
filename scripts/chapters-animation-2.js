@@ -97,6 +97,14 @@ const chapters = [
 ];
 
 // ========================= DOM BUILDERS =========================
+
+function buildProjectURL(key){
+  const url = new URL('projects.html', location.href);
+  url.searchParams.set('open', key);
+  return url.toString();
+}
+
+
 function createChapterHTML(data) {
   const container = document.createElement('div');
   container.classList.add('chapter-container');
@@ -131,7 +139,6 @@ function createChapterHTML(data) {
   container.appendChild(stack);
   return container;
 }
-
 function createPageNode(page, index) {
   const pageNode = document.createElement('div');
   pageNode.classList.add('page-node');
@@ -142,29 +149,40 @@ function createPageNode(page, index) {
   const chapterText = document.createElement('p');
   chapterText.classList.add('chapter-text');
 
-  if (page.name.toLowerCase() === 'power through transmutation') {
-    const link = document.createElement('a');
-    link.href = './power-through-transmutation.html';
-    link.textContent = page.name;
-    link.style.textDecoration = 'none';
-    link.style.color = 'inherit';
-    chapterText.appendChild(link);
+  // LOCKED -> button that opens the access gate
+  if (isLockedPage(page)) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = page.name;
+    btn.style.all = 'unset';      // keeps your existing typography
+    btn.style.cursor = 'pointer'; // shows it's interactive
+    btn.addEventListener('click', (e) => { e.preventDefault(); openAccessGate(); });
+    chapterText.appendChild(btn);
+  } else if ((page.name || '').toLowerCase() === 'power through transmutation') {
+    // REAL <a> for the blog page
+    const a = document.createElement('a');
+    a.href = './power-through-transmutation.html';
+    a.textContent = page.name;
+    a.style.textDecoration = 'none';
+    a.style.color = 'inherit';
+    a.rel = 'noopener';
+    chapterText.appendChild(a);
   } else {
-    chapterText.textContent = page.name;
-
-    if (isLockedPage(page)) {
-      pageNode.style.cursor = 'pointer';
-      pageNode.tabIndex = 0;
-      pageNode.setAttribute('role', 'button');
-
-      const open = (e) => { e.preventDefault(); e.stopImmediatePropagation(); openAccessGate(); };
-      pageNode.addEventListener('click', open);
-      pageNode.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAccessGate(); }
-      });
+    // Known projects -> REAL <a> to projects.html?open=key
+    const key = projectKeyFor(page);
+    const label = page.name || '';
+    if (key) {
+      const a = document.createElement('a');
+      a.href = buildProjectURL(key);
+      a.textContent = label;
+      a.style.textDecoration = 'none';
+      a.style.color = 'inherit';
+      a.rel = 'noopener';
+      a.className = 'project-link';
+      chapterText.appendChild(a);
     } else {
-      const key = projectKeyFor(page);
-      if (key) makeRowDeepLink(pageNode, key);
+      // Fallback: plain text if no key mapped
+      chapterText.textContent = label;
     }
   }
 
@@ -184,7 +202,6 @@ function createPageNode(page, index) {
   const flowerImg = document.createElement('img');
   flowerImg.src = './resources/animations/chapter-1/images/img_2.png';
   flowerImg.classList.add('animated-flower');
-  // initial "hidden" state as before
   flowerImg.style.transform = 'scale(0)';
   flowerImg.style.opacity = '0';
   flowerImg.style.transition = 'transform 0.25s ease-out, opacity 0.25s ease-out';
@@ -205,21 +222,9 @@ function projectKeyFor(page) {
 }
 
 function makeRowDeepLink(rowEl, key) {
-  rowEl.dataset.openProject = key;
-  rowEl.tabIndex = 0;
-  rowEl.setAttribute('role', 'link');
-  rowEl.style.cursor = 'pointer';
-
-  const go = () => {
-    try { sessionStorage.setItem('openProjectKey', key); } catch {}
-    const url = new URL('projects.html', location.href);
-    url.searchParams.set('open', key);
-    location.href = url.toString();
-  };
-
-  rowEl.addEventListener('click', (e) => { if (rowEl.dataset.locked === '1') return; go(); });
-  rowEl.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  // no-op: links are now rendered directly as <a> in createPageNode
 }
+
 
 // ========================= ANIMATION PIPELINE =========================
 function setInitialState(container) {
