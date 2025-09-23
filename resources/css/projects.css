@@ -12,23 +12,22 @@ justify-content: center;
 
 }
 
-/* tooltip box */
+
 .project-info {
 width: 770px;
-  position: relative;                  /* anchor the arrow */
+  position: relative;                 
 
   height: 200px;
   padding: 1rem;
-  border: 1px solid #ddbe97;           /* gold-ish */
-  background-image: var(--bg-texture); /* your parchment texture */
-  background-repeat: repeat;           /* or 'no-repeat' if you use a single image */
-  background-size: cover;              /* or 'auto'/'contain' per your texture */
-  overflow: visible;                   /* allow the arrow to stick out */
+  border: 1px solid #ddbe97;          
+  background-image: var(--bg-texture);
+  background-repeat: repeat;          
+  background-size: cover;             
+  overflow: visible;              
   margin-bottom: -50px;
-  /* tweakables */
-  --tip-size: 12px;                    /* triangle height */
-  --tip-offset: 50%;                   /* 50% = centered; use '2rem' for left offset etc. */
-  --tip-outline: #ddbe97;              /* gold outline color */
+  --tip-size: 12px;                   
+  --tip-offset: 50%;                  
+  --tip-outline: #ddbe97;            
 }
 
 .project-info .handwritten {
@@ -57,12 +56,11 @@ margin-bottom: 10px;
 }
 
 .piece.is-animating {
-  /* while the cursor is moving we’ll ease fast; when it stops, this keeps it snappy */
   transition: transform 60ms linear;
   cursor: pointer;
 }
 
-/* reduce motion */
+
 @media (prefers-reduced-motion: reduce) {
   .piece { transition: none; transform: none; }
 }
@@ -100,14 +98,14 @@ width: 55px;
 
 .piece {
   position: relative;
-  overflow: hidden;                 /* hides contents during grow */
-  border-width: var(--bw, 1px);     /* lets us animate border thickness */
+  overflow: hidden;                
+  border-width: var(--bw, 1px);   
   transition:
     border-width 300ms cubic-bezier(.2,.8,.2,1),
     border-color 300ms cubic-bezier(.2,.8,.2,1);
 }
 
-/* header/img fade when we start opening */
+
 .piece.fading .header,
 .piece.fading .illustration {
   opacity: 0;
@@ -118,17 +116,17 @@ width: 55px;
   transition: opacity 160ms ease, transform 200ms ease;
 }
 
-/* video fades in when open */
+
 .piece video {
-  opacity: 0;                       /* default: hidden */
+  opacity: 0;                    
   transition: opacity 220ms ease 120ms;
-  display: block;                   /* avoids inline gaps */
+  display: block;               
 }
 .piece.open video {
   opacity: 1;
 }
 
-/* make the “grown” border feel deliberate */
+
 .piece.open { --bw: 1px; } 
 
 
