@@ -336,3 +336,10 @@ margin: 0px;
   background-image: var(--bg-texture);
   background-repeat: repeat;
 }
+
+
+/* when open, link taps should act immediately, no double-tap zoom */
+.chapter-container[data-mobile-open="1"] a {
+  touch-action: manipulation;
+  -webkit-user-select: none; /* optional, helps avoid accidental selection */
+}

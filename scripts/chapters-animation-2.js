@@ -480,40 +480,59 @@ function setCoverInteractivity(container, enabled){
   block.style.pointerEvents = enabled ? 'auto' : 'none';
 }
 
-// >>> NEW: make link taps always navigate on mobile
+// >>> REPLACE wireMobileLinkNavigation WITH THIS
 function wireMobileLinkNavigation(container){
   if (container.__linkNavWired) return;
   container.__linkNavWired = true;
 
-  // small ergonomics + safety
-  container.querySelectorAll('a').forEach(a => {
+  // ergonomics + disable highlight
+  container.querySelectorAll('a[href]').forEach(a => {
     a.setAttribute('rel', a.rel ? a.rel : 'noopener');
     a.setAttribute('target', a.target || '_self');
     a.style.webkitTapHighlightColor = 'rgba(0,0,0,0)';
   });
 
-  // Explicit nav on iOS after touchend to avoid races with DOM resets
+  // 1) Take over touchend so a SINGLE tap navigates immediately on iOS
   container.addEventListener('touchend', (e) => {
     if (container.dataset.mobileOpen !== '1') return;
+
     const a = e.target.closest('a[href]');
     if (!a) return;
-    // don't preventDefault; allow the synthetic click
-    e.stopPropagation();
-    setTimeout(() => {
-      if (a.target && a.target !== '_self') {
-        window.open(a.href, a.target);
-      } else {
-        window.location.assign(a.href);
-      }
-    }, 0);
-  }, { passive: true });
 
-  // Let default click navigate; just stop bubbling so our closers don't interfere
+    // Stop everything else; we will navigate explicitly.
+    e.preventDefault();   // requires passive:false
+    e.stopPropagation();
+
+    // Explicit 1st-tap nav avoids iOS double-tap-to-zoom & any race with DOM resets
+    if (a.target && a.target !== '_self') {
+      window.open(a.href, a.target);
+    } else {
+      window.location.assign(a.href);
+    }
+  }, { passive: false });
+
+  // 2) Also stop bubbling for regular clicks so our outside-closer never cancels nav
   container.addEventListener('click', (e) => {
     if (container.dataset.mobileOpen !== '1') return;
-    if (e.target.closest('a[href]')) e.stopPropagation();
+    if (e.target.closest('a[href]')) {
+      // Let the default click also work on non-iOS; don't close the chapter
+      e.stopPropagation();
+    }
+  });
+
+  // 3) Keyboard (just in case)
+  container.addEventListener('keydown', (e) => {
+    if (container.dataset.mobileOpen !== '1') return;
+    if (e.key !== 'Enter') return;
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (a.target && a.target !== '_self') window.open(a.href, a.target);
+    else window.location.assign(a.href);
   });
 }
+
 
 function openMobileChapter(container){
   if (mobileOpen && mobileOpen !== container) closeMobileChapter(mobileOpen);
