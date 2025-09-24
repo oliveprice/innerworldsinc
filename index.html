@@ -1,99 +1,77 @@
-
 <!DOCTYPE html>
-
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Inner Worlds Inc.</title>
-
- 
+  <title>Inner Worlds Inc. — Loading</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=no">
+
+  <!-- Keep this page feather-light -->
+  <link rel="icon" type="image/png" href="./resources/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="preload" href="./resources/css/style.css" as="style">
+  <link rel="preload" href="./resources/images/assets_together_2.webp" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-  <link rel="preconnect" href="https://kit.fontawesome.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="preconnect" href="https://unpkg.com">
-  <link rel="stylesheet" href="./resources/css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Spectral:wght@200&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
-  <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"></noscript>
-   <link rel="icon" type="image/png" href="./resources/favicon/favicon-96x96.png" sizes="96x96" />
-   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-   <link rel="shortcut icon" href="/favicon.ico" />
-   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-   <link rel="manifest" href="/site.webmanifest" />
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script defer src="https://kit.fontawesome.com/cf45e25b55.js" crossorigin="anonymous"></script>
+
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body { background: #0b0b0b; overflow: hidden; }
+    .screen-container {
+      position: fixed; inset: 0; display:flex; align-items:center; justify-content:center;
+      background: var(--background, #0b0b0b);
+    }
+    .lottie-wrapper { width: min(700px, 90vw); height: min(700px, 90vw); }
+    .fade-out { animation: fadeOut .35s ease forwards; }
+    @keyframes fadeOut { to { opacity: 0; } }
+  </style>
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3RZX19P08W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-3RZX19P08W');
-</script>
-<body class="background-layer-1">
-    <div class="background-layer-2">
-
-
-<div class="screen-container">
-  <div id="open-screen-animation" class="lottie-wrapper"></div>
-</div>
-
-
-      </div>
-    </div>
+<body>
+  <div class="screen-container">
+    <div id="open-screen-animation" class="lottie-wrapper"></div>
   </div>
 
+  <!-- Only the lib needed to show the opening animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js"></script>
+  <script>
+    (function(){
+      const el = document.getElementById('open-screen-animation');
+      if (!el || !window.lottie) return;
+      try {
+        window.__loaderAnim = lottie.loadAnimation({
+          container: el, renderer: 'svg', loop: true, autoplay: true,
+          // TODO: set this to your actual opening JSON path
+          path: './resources/animations/opening.json'
+        });
+      } catch (e) {}
+    })();
+  </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js"></script>
-<script>
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-  });
+  <!-- Hidden preloader iframe (puts home.html assets into cache without booting heavy JS) -->
+  <iframe id="preload-frame" src="home.html?preload=1" style="display:none;" aria-hidden="true"></iframe>
 
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
+  <script>
+    const iframe = document.getElementById('preload-frame');
 
-  requestAnimationFrame(raf);
-</script>
-<script>
-  AOS.init();
-</script>
-<script src="./scripts/chapters-animation.js"></script>
-<script src="./scripts/hover.js"></script>
-<script src="./scripts/load.js"></script>
-<script src="./scripts/opener.js"></script>
-<script src="./scripts/moving-parts.js"></script>
+    // Safety fallback if "ready" never arrives
+    const FAILSAFE_MS = 20000;
+    const failsafe = setTimeout(() => jump(), FAILSAFE_MS);
 
+    window.addEventListener('message', (e) => {
+      try {
+        if (e.source === iframe.contentWindow && e.data && e.data.type === 'HOME_READY') {
+          clearTimeout(failsafe);
+          jump();
+        }
+      } catch (_) {}
+    }, false);
 
-
-
-
-
-<iframe id="preload-frame" src="home.html" style="display:none;"></iframe>
-<script>
-  const iframe = document.getElementById('preload-frame');
-
-  // Safety fallback (optional): if home never signals, bail after N seconds
-  const FAILSAFE_MS = 20000;
-  const failsafe = setTimeout(() => window.location.href = 'home.html', FAILSAFE_MS);
-
-  window.addEventListener('message', (e) => {
-    if (e.source === iframe.contentWindow && e.data && e.data.type === 'HOME_READY') {
-      clearTimeout(failsafe);
-      window.location.href = 'home.html';
+    function jump(){
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        // replace() avoids adding the loader to browser history
+        window.location.replace('home.html');
+      }, 200);
     }
-  }, false);
-</script>
-
-
+  </script>
 </body>
- </html>
+</html>

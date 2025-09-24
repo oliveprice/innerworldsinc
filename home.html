@@ -14,6 +14,15 @@
       <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Spectral:wght@200&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
       <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
+<script>
+  (function(){
+    const params = new URLSearchParams(location.search);
+    const inIframe = (function(){ try { return window.self !== window.top; } catch (_) { return true; }})();
+    // Preload mode when ?preload=1 OR opened in an iframe
+    window.__PRELOAD_ONLY__ = params.has('preload') || inIframe;
+  })();
+</script>
+
 
       <script src="https://cdn.jsdelivr.net/npm/smooth-scrollbar@8.7.4/dist/smooth-scrollbar.js"></script>
       <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/bundled/lenis.min.js"></script>
@@ -27,6 +36,63 @@
 
   gtag('config', 'G-3RZX19P08W');
 </script>
+<script>
+  (async function(){
+    if (!window.__PRELOAD_ONLY__) return;
+
+    // 1) Fonts stable
+    try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch(_) {}
+
+    // 2) Preload known big images + any background-image URLs you use
+    const explicitImgs = [
+      './resources/images/assets_together_2.webp'
+      // add more if you have other big hero/backgrounds
+    ];
+
+    const bgSelectors = [
+      'body', '.background-layer-1', '.background-layer-2', '.background-layer-3',
+      '.hero-section-frame', '.hero-section', '.toc-frame', '.footer-frame'
+    ];
+
+    function extractBgUrl(el){
+      const bg = getComputedStyle(el).backgroundImage || '';
+      const m = bg.match(/url\(["']?([^"')]+)["']?\)/);
+      return m ? m[1] : null;
+    }
+
+    const discovered = [];
+    bgSelectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        const u = extractBgUrl(el);
+        if (u) discovered.push(u);
+      });
+    });
+
+    const toLoad = Array.from(new Set([...explicitImgs, ...discovered].filter(Boolean)));
+    await Promise.all(toLoad.map(src => new Promise((res) => {
+      const img = new Image();
+      img.onload = img.onerror = () => res();
+      img.src = src;
+    })));
+
+    // 3) (Optional) Warm third-party libs your page uses later
+    const warm = [
+      'https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js',
+      'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js'
+      // add others you actually use on home, e.g., lenis, smooth-scrollbar, etc.
+    ];
+    await Promise.all(warm.map(src => new Promise((res)=>{
+      const link = document.createElement('link');
+      link.rel = 'preload'; link.as = 'script'; link.href = src;
+      link.onload = link.onerror = () => res();
+      document.head.appendChild(link);
+    })));
+
+    // 4) Signal ready to the loader
+    try { window.top.postMessage({ type: 'HOME_READY' }, '*'); } catch(_) {}
+  })();
+</script>
+
    <body class="background-layer-1">
 <ul class="tabs" id="site-tabs"></ul>
 

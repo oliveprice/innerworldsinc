@@ -158,14 +158,13 @@ width: 55px;
 @media (max-device-width: 820px) {
 
 .commit-container .access-gate p.handwritten {
-
-    line-height: 5rem;
+        line-height: 7rem;
+        font-size: 137px;
 
 }
 
 .commit-container img {
-        margin-top: 481px;
-        height: 350px;
+display: none;
 
 }
 
@@ -209,8 +208,8 @@ font-size: 60px;
     justify-content: center;
 }
   .modal-content {
-        width: 1180px;
-        height: 2041px;
+        width: 1090px;
+        height: 1811px;
   }
 
 h4 {
