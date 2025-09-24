@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const animation = lottie.loadAnimation({
     container: angel,
     renderer: 'svg',
-    loop: true,
+    loop: false,
     autoplay: true,
     path: './resources/animations/angel/data.json'
   });

@@ -33,10 +33,8 @@ function openAccessGate(msg = "Sorry, but I am still working on this page. You c
     container.__originalHTML = container.innerHTML;
   }
 
-  // ⬇️ Add the class here
   if (container) {
     container.classList.add('no-scroll');
-
     container.innerHTML = `
       <div class="access-gate" style="padding:1.25rem;">
         <p class="handwritten">${msg}</p>
@@ -52,8 +50,6 @@ function openAccessGate(msg = "Sorry, but I am still working on this page. You c
   function restore() {
     modal.classList.add('hidden');
     document.body.style.overflow = '';
-
-    // ⬇️ Remove the class on close + restore original HTML
     if (container) {
       container.classList.remove('no-scroll');
       if (container.__originalHTML != null) container.innerHTML = container.__originalHTML;
@@ -72,6 +68,10 @@ function openAccessGate(msg = "Sorry, but I am still working on this page. You c
   closeBtn?.focus?.();
 }
 
+// Optional: specific series modal wrapper (uses access gate for now)
+function openSeriesModal() {
+  openAccessGate("Sorry, but I'm still working on this page. You can't see it yet.");
+}
 
 // ========================= DATA =========================
 const chapters = [
@@ -108,8 +108,18 @@ const chapters = [
   }
 ];
 
-// ========================= DOM BUILDERS =========================
+// ========================= MOBILE DIRECT NAV (tap whole card) =========================
+// MOBILE ONLY routes for each chapter container (by id).
+const MOBILE_ROUTES = {
+  // projects page
+  'chapter-1': { kind: 'url', href: './projects.html' },
+  // series modal
+  'chapter-2': { kind: 'modal', fn: openSeriesModal },
+  // blog root
+  'chapter-3': { kind: 'url', href: './power-through-transmutation.html' },
+};
 
+// ========================= DOM BUILDERS =========================
 function buildProjectURL(key){
   const url = new URL('projects.html', location.href);
   url.searchParams.set('open', key);
@@ -161,7 +171,6 @@ function createPageNode(page, index) {
   const chapterText = document.createElement('p');
   chapterText.classList.add('chapter-text');
 
-  // LOCKED -> button that opens the access gate
   if (isLockedPage(page)) {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -171,7 +180,6 @@ function createPageNode(page, index) {
     btn.addEventListener('click', (e) => { e.preventDefault(); openAccessGate(); });
     chapterText.appendChild(btn);
   } else if ((page.name || '').toLowerCase() === 'power through transmutation') {
-    // REAL <a> for the blog page
     const a = document.createElement('a');
     a.href = './power-through-transmutation.html';
     a.textContent = page.name;
@@ -180,7 +188,6 @@ function createPageNode(page, index) {
     a.rel = 'noopener';
     chapterText.appendChild(a);
   } else {
-    // Known projects -> REAL <a> to projects.html?open=key
     const key = projectKeyFor(page);
     const label = page.name || '';
     if (key) {
@@ -193,7 +200,6 @@ function createPageNode(page, index) {
       a.className = 'project-link';
       chapterText.appendChild(a);
     } else {
-      // Fallback: plain text if no key mapped
       chapterText.textContent = label;
     }
   }
@@ -297,50 +303,40 @@ function revealPageNodeInSequence(node) {
   activeTimeouts.push(setTimeout(() => animateText(node), 450));
 }
 
-// >>> NEW: guaranteed visibility helper (used on mobile + as desktop fallback)
+// >>> guaranteed visibility helper (used on mobile + as desktop fallback)
 function forceRevealNow(container){
   const nodes = container.querySelectorAll('.page-node');
 
-  // 1) Kill child transitions so we can jump to final styles without visible pops
   const els = container.querySelectorAll(
     '.page-node .chapter-text, .page-node .text-and-line img, .page-node .chapter-number, .page-node .animated-flower'
   );
   els.forEach(el => el.__oldTransition = el.style.transition || '');
   els.forEach(el => { el.style.transition = 'none'; });
 
-  // 2) Set every child to its final (visible) state
   nodes.forEach((node) => {
     const text = node.querySelector('.chapter-text');
     if (text) { text.style.opacity = '1'; text.style.transform = 'translateY(0)'; }
-
     const line = node.querySelector('.text-and-line img');
     if (line) { line.style.opacity = '1'; line.style.transform = 'translateX(0)'; }
-
     const number = node.querySelector('.chapter-number');
     if (number) { number.style.opacity = '1'; number.style.transform = 'translateY(0)'; }
-
     const flower = node.querySelector('.animated-flower');
     if (flower) { flower.style.opacity = '1'; flower.style.transform = 'scale(1)'; }
   });
 
-  // 3) Fade in the entire column together in the next frame
   const column = container.querySelector('.flex-column-special');
   if (!column) return;
 
   const oldColTransition = column.style.transition || '';
   column.style.willChange = 'opacity, transform';
-
   column.style.transition = 'none';
   column.style.opacity = '0';
   column.style.transform = 'translateY(0)';
-
-  // Force a reflow so the browser commits the states above
   column.offsetHeight;
 
   requestAnimationFrame(() => {
     column.style.transition = 'opacity 220ms ease';
     column.style.opacity = '1';
-
     setTimeout(() => {
       column.style.transition = oldColTransition;
       els.forEach(el => { el.style.transition = el.__oldTransition; delete el.__oldTransition; });
@@ -385,8 +381,8 @@ function slideChapterBlockIn(chapterBlock) {
 }
 
 // ========================= QUEUE + SESSIONS (STABLE HOVER) =========================
-const _timers = new WeakMap();     // container -> Set<timeoutId>
-const _session = new WeakMap();    // container -> integer session id
+const _timers = new WeakMap();
+const _session = new WeakMap();
 let   _active = null;
 
 function _getSet(container){ let s = _timers.get(container); if (!s){ s=new Set(); _timers.set(container,s);} return s; }
@@ -451,7 +447,7 @@ function initChapterReveal(container) {
   });
 }
 
-// ========================= MOBILE TAP TOGGLE =========================
+// ========================= MOBILE DETECTION =========================
 window.FORCE_MOBILE = window.FORCE_MOBILE ?? false;
 const isMobileLike = () =>
   window.FORCE_MOBILE ||
@@ -470,7 +466,7 @@ function __hardReset(container){
   const els = container.querySelectorAll('.page-node .chapter-text, .page-node .text-and-line img, .page-node .chapter-number, .page-node .animated-flower');
   els.forEach(el => el.style.transition = 'none');
   setInitialState(container);
-  container.offsetHeight; // reflow
+  container.offsetHeight;
   els.forEach(el => el.style.transition = '');
 }
 
@@ -480,60 +476,32 @@ function setCoverInteractivity(container, enabled){
   block.style.pointerEvents = enabled ? 'auto' : 'none';
 }
 
-// >>> REPLACE wireMobileLinkNavigation WITH THIS
-function wireMobileLinkNavigation(container){
-  if (container.__linkNavWired) return;
-  container.__linkNavWired = true;
+// ========================= MOBILE: DIRECT NAV ON CARD TAP =========================
+function enableMobileContainerDirectNav(container){
+  if (!isMobileLike()) return;
 
-  // ergonomics + disable highlight
-  container.querySelectorAll('a[href]').forEach(a => {
-    a.setAttribute('rel', a.rel ? a.rel : 'noopener');
-    a.setAttribute('target', a.target || '_self');
-    a.style.webkitTapHighlightColor = 'rgba(0,0,0,0)';
-  });
+  const route = MOBILE_ROUTES[container.id];
+  if (!route) return;
 
-  // 1) Take over touchend so a SINGLE tap navigates immediately on iOS
-  container.addEventListener('touchend', (e) => {
-    if (container.dataset.mobileOpen !== '1') return;
+  container.dataset.mobileDirectNav = '1';
+  try { container.style.touchAction = 'manipulation'; } catch {}
 
-    const a = e.target.closest('a[href]');
-    if (!a) return;
-
-    // Stop everything else; we will navigate explicitly.
-    e.preventDefault();   // requires passive:false
-    e.stopPropagation();
-
-    // Explicit 1st-tap nav avoids iOS double-tap-to-zoom & any race with DOM resets
-    if (a.target && a.target !== '_self') {
-      window.open(a.href, a.target);
-    } else {
-      window.location.assign(a.href);
-    }
-  }, { passive: false });
-
-  // 2) Also stop bubbling for regular clicks so our outside-closer never cancels nav
-  container.addEventListener('click', (e) => {
-    if (container.dataset.mobileOpen !== '1') return;
-    if (e.target.closest('a[href]')) {
-      // Let the default click also work on non-iOS; don't close the chapter
-      e.stopPropagation();
-    }
-  });
-
-  // 3) Keyboard (just in case)
-  container.addEventListener('keydown', (e) => {
-    if (container.dataset.mobileOpen !== '1') return;
-    if (e.key !== 'Enter') return;
-    const a = e.target.closest('a[href]');
-    if (!a) return;
+  const go = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (a.target && a.target !== '_self') window.open(a.href, a.target);
-    else window.location.assign(a.href);
-  });
+    if (route.kind === 'url' && route.href) {
+      window.location.assign(route.href);
+    } else if (route.kind === 'modal' && typeof route.fn === 'function') {
+      route.fn();
+    }
+  };
+
+  // Single-tap, no zoom, no double-tap requirement
+  container.addEventListener('touchend', go, { passive: false });
+  container.addEventListener('click', go);
 }
 
-
+// ========================= MOBILE: REVEAL TOGGLE (only if NOT direct-nav) =========================
 function openMobileChapter(container){
   if (mobileOpen && mobileOpen !== container) closeMobileChapter(mobileOpen);
   const chapterBlock = container.querySelector('.chapter-block-img');
@@ -544,19 +512,13 @@ function openMobileChapter(container){
   slideChapterBlockOut(chapterBlock);
   setCoverInteractivity(container, false);
 
-  // reveal content, then wire links
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       forceRevealNow(container);
-      wireMobileLinkNavigation(container);
     });
   });
 
-  // safety fallback in case RAF is throttled
-  setTimeout(() => {
-    forceRevealNow(container);
-    wireMobileLinkNavigation(container);
-  }, 400);
+  setTimeout(() => { forceRevealNow(container); }, 400);
 }
 
 function closeMobileChapter(container){
@@ -580,6 +542,8 @@ function onTap(handler){
 }
 
 function enableMobileTap(container){
+  if (container.dataset.mobileDirectNav === '1') return; // direct-nav wins on mobile
+
   const block = container.querySelector('.chapter-block-img');
   if (!block) return;
 
@@ -596,17 +560,12 @@ function enableMobileTap(container){
   });
 }
 
-// single outside click closer
+// single outside click closer (for reveal flow)
 document.addEventListener('click', (e) => {
   if (!isMobileLike() || !mobileOpen) return;
-
-  // if the tap/click was on a link inside the open container, don't close here
-  if (e.target.closest('.chapter-container a[href]')) return;
-
   if (!e.target.closest('.chapter-container')) closeMobileChapter(mobileOpen);
 });
 
-// on resize/mode change, close any open mobile chapter
 window.addEventListener('resize', () => {
   if (!isMobileLike() && mobileOpen) closeMobileChapter(mobileOpen);
 });
@@ -619,7 +578,14 @@ window.addEventListener('resize', () => {
   chapters.forEach((chapterData) => {
     const chapterEl = createChapterHTML(chapterData);
     wrapper.appendChild(chapterEl);
+
+    // Desktop behavior unchanged
     initChapterReveal(chapterEl);
+
+    // Mobile: tap whole card to go (per mapping)
+    enableMobileContainerDirectNav(chapterEl);
+
+    // If no direct route configured, fall back to mobile toggle
     enableMobileTap(chapterEl);
   });
 })();
