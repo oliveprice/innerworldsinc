@@ -157,17 +157,26 @@ width: 55px;
 
 @media (max-device-width: 820px) {
 
+.commit-container .access-gate p.handwritten {
 
-/* .page-node .text-and-line .chapter-text {
+    line-height: 5rem;
 
-font-size: 50px;
-} */
+}
+
+.commit-container img {
+        margin-top: 481px;
+        height: 350px;
+
+}
+
 
 .hero-section-frame.small {
     background-image: url(../images/hero-frame-flipped.png);
     width: 637px;
     height: 1380px;
 }
+
+
 
 .commit-container {
 

@@ -102,6 +102,10 @@ scrollbar-width: none;          /* Firefox */
 -ms-overflow-style: none;       /* IE and Edge */
 }
 
+.commit-container.no-scroll {
+overflow-y: hidden;
+}
+
 .commit-container::-webkit-scrollbar {
   display: none;                  /* Safari + Chrome */
 }
@@ -225,7 +229,11 @@ line-height: 72px;
 }
 }
 
+.commit-container .access-gate p.handwritten {
+  margin-top: 0px;
+    line-height: 2rem;
 
+}
 
 
 /* Tiny phones: zoom a bit more by giving it even more CSS px */

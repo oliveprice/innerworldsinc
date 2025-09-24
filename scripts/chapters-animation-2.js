@@ -1,4 +1,3 @@
-
 // ========================= STATE =========================
 let activeTimeouts = [];
 let leaveTimeout = null;
@@ -33,23 +32,34 @@ function openAccessGate(msg = "Sorry, but I am still working on this page. You c
   if (container && !container.__originalHTML) {
     container.__originalHTML = container.innerHTML;
   }
+
+  // ⬇️ Add the class here
   if (container) {
+    container.classList.add('no-scroll');
+
     container.innerHTML = `
       <div class="access-gate" style="padding:1.25rem;">
-        <p class="handwritten" style="margin:0 0 1rem 0; line-height: 2rem;">${msg}</p>
+        <p class="handwritten">${msg}</p>
         <div class="flex-justify-center flex-center-center">
-          <img src="../resources/images/angel-girl.png" class="margin-bottom-plus-5">
+          <img src="../resources/images/angel-girl.png">
         </div>
       </div>`;
   }
+
   modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
   function restore() {
     modal.classList.add('hidden');
     document.body.style.overflow = '';
-    if (container && container.__originalHTML != null) container.innerHTML = container.__originalHTML;
+
+    // ⬇️ Remove the class on close + restore original HTML
+    if (container) {
+      container.classList.remove('no-scroll');
+      if (container.__originalHTML != null) container.innerHTML = container.__originalHTML;
+    }
   }
+
   if (!modal.__wired) {
     modal.__wired = true;
     closeBtn?.addEventListener('click', restore);
@@ -58,8 +68,10 @@ function openAccessGate(msg = "Sorry, but I am still working on this page. You c
       if (e.key === 'Escape' && !modal.classList.contains('hidden')) restore();
     });
   }
+
   closeBtn?.focus?.();
 }
+
 
 // ========================= DATA =========================
 const chapters = [
@@ -104,7 +116,6 @@ function buildProjectURL(key){
   return url.toString();
 }
 
-
 function createChapterHTML(data) {
   const container = document.createElement('div');
   container.classList.add('chapter-container');
@@ -139,6 +150,7 @@ function createChapterHTML(data) {
   container.appendChild(stack);
   return container;
 }
+
 function createPageNode(page, index) {
   const pageNode = document.createElement('div');
   pageNode.classList.add('page-node');
@@ -154,8 +166,8 @@ function createPageNode(page, index) {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.textContent = page.name;
-    btn.style.all = 'unset';      // keeps your existing typography
-    btn.style.cursor = 'pointer'; // shows it's interactive
+    btn.style.all = 'unset';
+    btn.style.cursor = 'pointer';
     btn.addEventListener('click', (e) => { e.preventDefault(); openAccessGate(); });
     chapterText.appendChild(btn);
   } else if ((page.name || '').toLowerCase() === 'power through transmutation') {
@@ -224,7 +236,6 @@ function projectKeyFor(page) {
 function makeRowDeepLink(rowEl, key) {
   // no-op: links are now rendered directly as <a> in createPageNode
 }
-
 
 // ========================= ANIMATION PIPELINE =========================
 function setInitialState(container) {
@@ -319,21 +330,17 @@ function forceRevealNow(container){
   const oldColTransition = column.style.transition || '';
   column.style.willChange = 'opacity, transform';
 
-  // start fully hidden (but children already at final styles, with no transitions)
   column.style.transition = 'none';
   column.style.opacity = '0';
   column.style.transform = 'translateY(0)';
 
   // Force a reflow so the browser commits the states above
-  // eslint-disable-next-line no-unused-expressions
   column.offsetHeight;
 
-  // Re-enable transitions and fade in the whole block at once
   requestAnimationFrame(() => {
     column.style.transition = 'opacity 220ms ease';
     column.style.opacity = '1';
 
-    // After animation, restore original transitions everywhere
     setTimeout(() => {
       column.style.transition = oldColTransition;
       els.forEach(el => { el.style.transition = el.__oldTransition; delete el.__oldTransition; });
@@ -341,7 +348,6 @@ function forceRevealNow(container){
     }, 260);
   });
 }
-
 
 function reverseText(node) {
   const text = node.querySelector('.chapter-text');
@@ -416,13 +422,8 @@ function reversePageNodesInOrder(container) {
 
 function startChapterSequence(container, chapterBlock) {
   slideChapterBlockOut(chapterBlock);
-
-  // wait just enough for the cover to start moving, then reveal all at once
-  _schedule(container, () => {
-    forceRevealNow(container);
-  }, 120);
+  _schedule(container, () => { forceRevealNow(container); }, 120);
 }
-
 
 function initChapterReveal(container) {
   const chapterBlock = container.querySelector('.chapter-block-img');
@@ -442,7 +443,6 @@ function initChapterReveal(container) {
   });
 
   container.addEventListener('pointerleave', () => {
-    // ignore pointerleave if mobile-open (see mobile section)
     if (container.dataset.mobileOpen === '1') return;
     _bumpSession(container); _clearAll(container);
     _resetChapter(container);
@@ -480,6 +480,40 @@ function setCoverInteractivity(container, enabled){
   block.style.pointerEvents = enabled ? 'auto' : 'none';
 }
 
+// >>> NEW: make link taps always navigate on mobile
+function wireMobileLinkNavigation(container){
+  if (container.__linkNavWired) return;
+  container.__linkNavWired = true;
+
+  // small ergonomics + safety
+  container.querySelectorAll('a').forEach(a => {
+    a.setAttribute('rel', a.rel ? a.rel : 'noopener');
+    a.setAttribute('target', a.target || '_self');
+    a.style.webkitTapHighlightColor = 'rgba(0,0,0,0)';
+  });
+
+  // Explicit nav on iOS after touchend to avoid races with DOM resets
+  container.addEventListener('touchend', (e) => {
+    if (container.dataset.mobileOpen !== '1') return;
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    // don't preventDefault; allow the synthetic click
+    e.stopPropagation();
+    setTimeout(() => {
+      if (a.target && a.target !== '_self') {
+        window.open(a.href, a.target);
+      } else {
+        window.location.assign(a.href);
+      }
+    }, 0);
+  }, { passive: true });
+
+  // Let default click navigate; just stop bubbling so our closers don't interfere
+  container.addEventListener('click', (e) => {
+    if (container.dataset.mobileOpen !== '1') return;
+    if (e.target.closest('a[href]')) e.stopPropagation();
+  });
+}
 
 function openMobileChapter(container){
   if (mobileOpen && mobileOpen !== container) closeMobileChapter(mobileOpen);
@@ -488,29 +522,30 @@ function openMobileChapter(container){
   container.dataset.mobileOpen = '1';
   mobileOpen = container;
 
-  // slide out cover and disable its hitbox so taps reach links
   slideChapterBlockOut(chapterBlock);
   setCoverInteractivity(container, false);
 
-  // double RAF guarantees the transform commits before we fade the list
+  // reveal content, then wire links
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       forceRevealNow(container);
+      wireMobileLinkNavigation(container);
     });
   });
 
   // safety fallback in case RAF is throttled
-  setTimeout(() => forceRevealNow(container), 400);
+  setTimeout(() => {
+    forceRevealNow(container);
+    wireMobileLinkNavigation(container);
+  }, 400);
 }
-
-
 
 function closeMobileChapter(container){
   const chapterBlock = container.querySelector('.chapter-block-img');
   try { __bump(container); __clear(container); } catch {}
-  __hardReset(container);                // back to hidden baseline
+  __hardReset(container);
   slideChapterBlockIn(chapterBlock);
-  setCoverInteractivity(container, true); // re-enable taps on the cover
+  setCoverInteractivity(container, true);
   delete container.dataset.mobileOpen;
   if (mobileOpen === container) mobileOpen = null;
 }
@@ -545,6 +580,10 @@ function enableMobileTap(container){
 // single outside click closer
 document.addEventListener('click', (e) => {
   if (!isMobileLike() || !mobileOpen) return;
+
+  // if the tap/click was on a link inside the open container, don't close here
+  if (e.target.closest('.chapter-container a[href]')) return;
+
   if (!e.target.closest('.chapter-container')) closeMobileChapter(mobileOpen);
 });
 
@@ -565,4 +604,3 @@ window.addEventListener('resize', () => {
     enableMobileTap(chapterEl);
   });
 })();
-
