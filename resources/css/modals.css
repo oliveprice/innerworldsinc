@@ -182,8 +182,7 @@ z-index: 20000000;
 }
 
 .aboutmecomic {
-    width: 345px;
-    margin-left: -4px;
+display: none;
 
 
 }
