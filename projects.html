@@ -101,7 +101,13 @@
                        <source src="./resources/images/project_stamps/bark-2.mp4" type="video/mp4">
                        Your browser does not support the video tag.
                      </video>
+<script>
 
+  const vid = document.getElementById('barkVid');
+  vid.addEventListener('canplay', () => {
+    vid.playbackRate = 1.5;
+  });
+</script>
                   </li>
                   <li class="project-info" data-key="scent">
                      <div class="inliner flex-space-between">

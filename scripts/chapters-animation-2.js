@@ -5,12 +5,12 @@ let activeContainer = null;
 
 // map visible names -> project keys
 const projectKeyMap = {
+  'viridian': 'viridian',
   'kody joliet': 'kjp',
   'kody joliet photos': 'kjp',
   'r8r.world': 'r8r.world',
   'scent': 'scent',
-  'hiccup tool': 'hiccup-tool',
-  'viridian': 'viridian'
+  'hiccup tool': 'hiccup-tool'
 };
 
 const LOCKED_TITLES = new Set([
@@ -143,11 +143,11 @@ function createChapterHTML(data) {
   flexColumn.classList.add('flex-column-special', 'gap-0');
 
   const pages = data.pages || [
-    { name: 'Kody Joliet', number: '1' },
-    { name: 'r8r.world',   number: '2' },
-    { name: 'Scent',       number: '3' },
-    { name: 'Hiccup Tool', number: '4' },
-    { name: 'Viridian',    number: '5' }
+    { name: 'Viridian',    number: '1' },
+    { name: 'Kody Joliet', number: '2' },
+    { name: 'r8r.world',   number: '3' },
+    { name: 'Scent',       number: '4' },
+    { name: 'Hiccup Tool', number: '5' },
   ];
 
   pages.forEach((page, index) => {
