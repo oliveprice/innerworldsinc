@@ -253,21 +253,19 @@
       } catch {}
     }
 
-    function openRequestedPiece() {
-      const key = getRequestedKey();
-      if (!key) return;
-      const piece = findPieceByKey(key);
-      if (!piece) return;
+function openRequestedPiece() {
+  const key = getRequestedKey();
+  if (!key) return;
+  const piece = findPieceByKey(key);
+  if (!piece) return;
 
-      // make sure nothing's marked open
-      document.querySelectorAll('.piece.open').forEach(p => p.classList.remove('open'));
+  // make sure nothing's marked open
+  document.querySelectorAll('.piece.open').forEach(p => p.classList.remove('open'));
 
-      // center, then click to invoke your opener
-      scrollToPiece(piece);
-      setTimeout(() => {
-        piece.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-      }, OPEN_DELAY_MS);
-    }
+  // center on the requested piece, but do NOT auto-open it
+  scrollToPiece(piece);
+}
+
 
     // try after DOM ready; retry briefly in case scripts attach late
     function bootWithRetries(tries = 10) {
