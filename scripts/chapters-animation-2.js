@@ -14,8 +14,8 @@ const projectKeyMap = {
 };
 
 const LOCKED_TITLES = new Set([
-  'learn through imitation',
-  'process life through music'
+  'music posters',
+  'book posters'
 ]);
 
 function isLockedPage(page) {
@@ -40,8 +40,8 @@ const chapters = [
     chapterName: 'BLAH BLAH',
     lineImage: './resources/animations/chapter-2/images/img_7.png',
     pages: [
-      { name: 'Learn Through Imitation', number: '4' },
-      { name: 'Process Life Through Music', number: '5' }
+      { name: 'Music Posters', number: '6' },
+      { name: 'Book Posters', number: '7' }
     ]
   },
   {
@@ -52,7 +52,7 @@ const chapters = [
     chapterName: 'DEEP THOUGHT',
     lineImage: './resources/animations/chapter-3/images/img_7.png',
     pages: [
-      { name: 'Power Through Transmutation', number: '6' }
+      { name: 'Power Through Transmutation', number: '8' }
     ]
   }
 ];
