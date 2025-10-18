@@ -263,3 +263,156 @@ width: 95px;
 max-width: 89%;
 }
 }
+
+
+
+
+
+
+
+
+ 
+ .series-card {
+     width:  590px;
+   border: 1px solid #ddbe97;
+   background-image: var(--bg-texture);
+   margin-bottom: 100px;
+ }
+ 
+ .series-header {
+   border-bottom: 1px solid #ddbe97;
+   padding: 1rem;
+ }
+ 
+ .series-body {
+     padding: 1rem;
+     align-items: center;
+     justify-content: center;
+     display: flex;
+     flex-direction: column;
+ }
+ 
+ 
+ .audio-player {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   width: 100%;
+   background-image: var(--bg-texture);
+   background-size: cover;
+   position: relative;
+   color: var(--bg-texture);
+ }
+ 
+ .audio-btn {
+    background-color: #674f67;
+   color: var(--primary);
+   border-radius: 50%;
+   border: 1px solid var(--primary);
+   width: 40px;
+   height: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   transition: transform 0.2s ease, background-color 0.3s ease;
+   box-shadow: none;           /* ← removes black shadow */
+   outline: none;              /* ← removes blue Safari focus ring */
+   appearance: none;           /* ← disables native button styling */
+   -webkit-appearance: none;   /* ← for Safari */
+ }
+ 
+ 
+ .audio-btn:hover {
+   transform: scale(1.1);
+ }
+ 
+ .audio-btn i {
+   font-size: 1.25rem;
+ }
+ 
+ .audio-progress {
+   flex: 1;
+   height: 6px;
+   border: 1px solid var(--primary);
+   overflow: hidden;
+   position: relative;
+ }
+ 
+ .audio-fill {
+   height: 100%;
+   width: 0%;
+   background-color: var(--primary);
+   transition: width 0.1s linear;
+ }
+ 
+ 
+ .poster-group {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ flex-direction: row;
+ gap: 2rem;
+ 
+ }
+ 
+ .poster-group li img {
+   width: 100px;
+ }
+ 
+ .poster-group li.active img {
+   width: 490px;
+height: 734px;
+ }
+
+
+
+.prev-button,
+.next-button {
+  background-color: #674f67;
+  color: var(--primary);
+  border: 1px solid #ddbe97;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  box-shadow: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+}
+
+/* use Font Awesome arrows, or simple pseudo-arrows if no icons */
+.prev-button::before,
+.next-button::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 1rem;
+  color: var(--primary);
+  pointer-events: none;
+  content: "";
+}
+
+.prev-button::before {
+  content: "\f104"; /* fa-chevron-left */
+}
+
+.next-button::before {
+  content: "\f105"; /* fa-chevron-right */
+}
+
+.prev-button:hover,
+.next-button:hover {
+  transform: scale(1.1);
+  background-color: #674f67;
+}
+
+.prev-button:active,
+.next-button:active {
+  transform: scale(0.98);
+}

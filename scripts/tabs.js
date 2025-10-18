@@ -8,7 +8,8 @@
   };
 
   const HOME_FILE = "home.html";
-  const PROJECTS_FILE = "projects.html"; // ✅ added
+  const PROJECTS_FILE = "projects.html"; 
+  const SERIES_FILE = "series.html"; 
   const STORAGE_KEY = "IW_open_tabs_v1";
 
   // --- helpers
@@ -55,6 +56,7 @@
     // ensure Home + Projects exist and are ordered first
     if (!deduped.includes(HOME_FILE)) deduped.unshift(HOME_FILE);
     if (!deduped.includes(PROJECTS_FILE)) deduped.splice(1, 0, PROJECTS_FILE);
+ if (!deduped.includes(SERIES_FILE)) deduped.splice(1, 0, SERIES_FILE);
 
     // force correct ordering (Home first, Projects second)
     const homeIdx = deduped.indexOf(HOME_FILE);
@@ -70,14 +72,17 @@
     return tabs;
   }
 
-  function closeTab(tabs, keyToClose) {
-    // can't close Home or Projects
-    if (keyToClose === HOME_FILE || keyToClose === PROJECTS_FILE) return tabs;
-    const idx = tabs.indexOf(keyToClose);
-    if (idx === -1) return tabs;
-    tabs.splice(idx, 1);
+function closeTab(tabs, keyToClose) {
+  // can't close Home, Projects, or Series
+  if (keyToClose === HOME_FILE || keyToClose === PROJECTS_FILE || keyToClose === SERIES_FILE)
     return tabs;
-  }
+
+  const idx = tabs.indexOf(keyToClose);
+  if (idx === -1) return tabs;
+  tabs.splice(idx, 1);
+  return tabs;
+}
+
 
   function navigateAfterClose(originalTabs, closedKey) {
     const tabs = readTabs();
@@ -131,7 +136,7 @@
       li.appendChild(label);
 
       // show close button for everything EXCEPT Home + Projects
-      if (key !== HOME_FILE && key !== PROJECTS_FILE) {
+      if (key !== HOME_FILE && key !== PROJECTS_FILE && key !== SERIES_FILE) {
         const closeBtn = document.createElement("button");
         closeBtn.className = "tab-close";
         closeBtn.type = "button";

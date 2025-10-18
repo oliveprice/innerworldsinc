@@ -22,57 +22,6 @@ function isLockedPage(page) {
   return LOCKED_TITLES.has((page?.name || '').trim().toLowerCase());
 }
 
-// ========================= ACCESS GATE =========================
-function openAccessGate(msg = "Sorry, but I am still working on this page. You can't see it yet.") {
-  const modal = document.getElementById('change-log-modal');
-  if (!modal) return;
-  const container = modal.querySelector('.commit-container');
-  const closeBtn = modal.querySelector('.close-button');
-
-  if (container && !container.__originalHTML) {
-    container.__originalHTML = container.innerHTML;
-  }
-
-  if (container) {
-    container.classList.add('no-scroll');
-    container.innerHTML = `
-      <div class="access-gate" style="padding:1.25rem;">
-        <p class="handwritten">${msg}</p>
-        <div class="flex-justify-center flex-center-center">
-          <img src="../resources/images/angel-girl.png">
-        </div>
-      </div>`;
-  }
-
-  modal.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-
-  function restore() {
-    modal.classList.add('hidden');
-    document.body.style.overflow = '';
-    if (container) {
-      container.classList.remove('no-scroll');
-      if (container.__originalHTML != null) container.innerHTML = container.__originalHTML;
-    }
-  }
-
-  if (!modal.__wired) {
-    modal.__wired = true;
-    closeBtn?.addEventListener('click', restore);
-    modal.addEventListener('click', (e) => { if (e.target === modal) restore(); });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal.classList.contains('hidden')) restore();
-    });
-  }
-
-  closeBtn?.focus?.();
-}
-
-// Optional: specific series modal wrapper (uses access gate for now)
-function openSeriesModal() {
-  openAccessGate("Sorry, but I'm still working on this page. You can't see it yet.");
-}
-
 // ========================= DATA =========================
 const chapters = [
   {
@@ -108,14 +57,10 @@ const chapters = [
   }
 ];
 
-// ========================= MOBILE DIRECT NAV (tap whole card) =========================
-// MOBILE ONLY routes for each chapter container (by id).
+// ========================= MOBILE DIRECT NAV =========================
 const MOBILE_ROUTES = {
-  // projects page
   'chapter-1': { kind: 'url', href: './projects.html' },
-  // series modal
-  'chapter-2': { kind: 'modal', fn: openSeriesModal },
-  // blog root
+  'chapter-2': { kind: 'url', href: './series.html' },
   'chapter-3': { kind: 'url', href: './power-through-transmutation.html' },
 };
 
@@ -171,15 +116,17 @@ function createPageNode(page, index) {
   const chapterText = document.createElement('p');
   chapterText.classList.add('chapter-text');
 
+  // Locked pages → go to series.html
   if (isLockedPage(page)) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.textContent = page.name;
-    btn.style.all = 'unset';
-    btn.style.cursor = 'pointer';
-    btn.addEventListener('click', (e) => { e.preventDefault(); openAccessGate(); });
-    chapterText.appendChild(btn);
-  } else if ((page.name || '').toLowerCase() === 'power through transmutation') {
+    const a = document.createElement('a');
+    a.href = './series.html';
+    a.textContent = page.name;
+    a.style.textDecoration = 'none';
+    a.style.color = 'inherit';
+    a.rel = 'noopener';
+    chapterText.appendChild(a);
+  } 
+  else if ((page.name || '').toLowerCase() === 'power through transmutation') {
     const a = document.createElement('a');
     a.href = './power-through-transmutation.html';
     a.textContent = page.name;
@@ -187,7 +134,8 @@ function createPageNode(page, index) {
     a.style.color = 'inherit';
     a.rel = 'noopener';
     chapterText.appendChild(a);
-  } else {
+  } 
+  else {
     const key = projectKeyFor(page);
     const label = page.name || '';
     if (key) {
@@ -206,7 +154,6 @@ function createPageNode(page, index) {
 
   const lineImg = document.createElement('img');
   lineImg.src = './resources/animations/chapter-1/images/img_1.png';
-
   textAndLine.appendChild(chapterText);
   textAndLine.appendChild(lineImg);
 
@@ -239,9 +186,7 @@ function projectKeyFor(page) {
   return projectKeyMap[label] || null;
 }
 
-function makeRowDeepLink(rowEl, key) {
-  // no-op: links are now rendered directly as <a> in createPageNode
-}
+function makeRowDeepLink(rowEl, key) {}
 
 // ========================= ANIMATION PIPELINE =========================
 function setInitialState(container) {
@@ -250,342 +195,102 @@ function setInitialState(container) {
     const text = node.querySelector('.chapter-text');
     text.style.opacity = '0';
     text.style.transform = 'translateY(10px)';
-
     const img = node.querySelector('.text-and-line img');
     img.style.opacity = '0';
     img.style.transform = 'translateX(40px)';
-
     const num = node.querySelector('.chapter-number');
     num.style.opacity = '0';
     num.style.transform = 'translateY(10px)';
-
     const flower = node.querySelector('.animated-flower');
     flower.style.transform = 'scale(0)';
     flower.style.opacity = '0';
   });
 }
 
-function animateFlower(node) {
-  const flower = node.querySelector('.animated-flower');
-  if (!flower) return;
-  flower.style.transform = 'scale(1)';
-  flower.style.opacity = '1';
-}
+function animateFlower(node){ const f=node.querySelector('.animated-flower'); if(!f)return; f.style.transform='scale(1)'; f.style.opacity='1'; }
+function animateNumber(node){ const n=node.querySelector('.chapter-number'); if(!n)return; n.style.transition='opacity 0.25s ease-out, transform 0.25s ease-out'; n.style.opacity='1'; n.style.transform='translateY(0)'; }
+function animateLine(node){ const l=node.querySelector('.text-and-line img'); if(!l)return; l.style.transition='opacity 0.25s ease-out, transform 0.25s ease-out'; l.style.opacity='1'; l.style.transform='translateX(0)'; }
+function animateText(node){ const t=node.querySelector('.chapter-text'); if(!t)return; t.style.transition='opacity 0.25s ease-out, transform 0.25s ease-out'; t.style.opacity='1'; t.style.transform='translateY(0)'; }
+function revealPageNodeInSequence(node){ activeTimeouts.push(setTimeout(()=>animateFlower(node),0)); activeTimeouts.push(setTimeout(()=>animateNumber(node),150)); activeTimeouts.push(setTimeout(()=>animateLine(node),300)); activeTimeouts.push(setTimeout(()=>animateText(node),450)); }
 
-function animateNumber(node) {
-  const number = node.querySelector('.chapter-number');
-  if (!number) return;
-  number.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
-  number.style.opacity = '1';
-  number.style.transform = 'translateY(0)';
-}
-
-function animateLine(node) {
-  const line = node.querySelector('.text-and-line img');
-  if (!line) return;
-  line.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
-  line.style.opacity = '1';
-  line.style.transform = 'translateX(0)';
-}
-
-function animateText(node) {
-  const text = node.querySelector('.chapter-text');
-  if (!text) return;
-  text.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
-  text.style.opacity = '1';
-  text.style.transform = 'translateY(0)';
-}
-
-function revealPageNodeInSequence(node) {
-  activeTimeouts.push(setTimeout(() => animateFlower(node), 0));
-  activeTimeouts.push(setTimeout(() => animateNumber(node), 150));
-  activeTimeouts.push(setTimeout(() => animateLine(node), 300));
-  activeTimeouts.push(setTimeout(() => animateText(node), 450));
-}
-
-// >>> guaranteed visibility helper (used on mobile + as desktop fallback)
 function forceRevealNow(container){
   const nodes = container.querySelectorAll('.page-node');
-
-  const els = container.querySelectorAll(
-    '.page-node .chapter-text, .page-node .text-and-line img, .page-node .chapter-number, .page-node .animated-flower'
-  );
+  const els = container.querySelectorAll('.page-node .chapter-text, .page-node .text-and-line img, .page-node .chapter-number, .page-node .animated-flower');
   els.forEach(el => el.__oldTransition = el.style.transition || '');
   els.forEach(el => { el.style.transition = 'none'; });
-
   nodes.forEach((node) => {
-    const text = node.querySelector('.chapter-text');
-    if (text) { text.style.opacity = '1'; text.style.transform = 'translateY(0)'; }
-    const line = node.querySelector('.text-and-line img');
-    if (line) { line.style.opacity = '1'; line.style.transform = 'translateX(0)'; }
-    const number = node.querySelector('.chapter-number');
-    if (number) { number.style.opacity = '1'; number.style.transform = 'translateY(0)'; }
-    const flower = node.querySelector('.animated-flower');
-    if (flower) { flower.style.opacity = '1'; flower.style.transform = 'scale(1)'; }
+    const text = node.querySelector('.chapter-text'); if (text) { text.style.opacity = '1'; text.style.transform = 'translateY(0)'; }
+    const line = node.querySelector('.text-and-line img'); if (line) { line.style.opacity = '1'; line.style.transform = 'translateX(0)'; }
+    const number = node.querySelector('.chapter-number'); if (number) { number.style.opacity = '1'; number.style.transform = 'translateY(0)'; }
+    const flower = node.querySelector('.animated-flower'); if (flower) { flower.style.opacity = '1'; flower.style.transform = 'scale(1)'; }
   });
-
-  const column = container.querySelector('.flex-column-special');
-  if (!column) return;
-
+  const column = container.querySelector('.flex-column-special'); if (!column) return;
   const oldColTransition = column.style.transition || '';
-  column.style.willChange = 'opacity, transform';
-  column.style.transition = 'none';
-  column.style.opacity = '0';
-  column.style.transform = 'translateY(0)';
-  column.offsetHeight;
-
-  requestAnimationFrame(() => {
-    column.style.transition = 'opacity 220ms ease';
-    column.style.opacity = '1';
-    setTimeout(() => {
-      column.style.transition = oldColTransition;
-      els.forEach(el => { el.style.transition = el.__oldTransition; delete el.__oldTransition; });
-      column.style.willChange = '';
-    }, 260);
+  column.style.willChange = 'opacity, transform'; column.style.transition = 'none'; column.style.opacity = '0'; column.style.transform = 'translateY(0)'; column.offsetHeight;
+  requestAnimationFrame(() => { column.style.transition = 'opacity 220ms ease'; column.style.opacity = '1';
+    setTimeout(() => { column.style.transition = oldColTransition; els.forEach(el => { el.style.transition = el.__oldTransition; delete el.__oldTransition; }); column.style.willChange = ''; }, 260);
   });
 }
 
-function reverseText(node) {
-  const text = node.querySelector('.chapter-text');
-  if (!text) return;
-  text.style.transition = 'opacity 0.25s ease-in, transform 0.25s ease-in';
-  text.style.opacity = '0';
-  text.style.transform = 'translateY(10px)';
-}
-function reverseLine(node) {
-  const line = node.querySelector('.text-and-line img');
-  if (!line) return;
-  line.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
-  line.style.opacity = '0';
-  line.style.transform = 'translateX(40px)';
-}
-function reverseNumber(node) {
-  const number = node.querySelector('.chapter-number');
-  if (!number) return;
-  number.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
-  number.style.opacity = '0';
-  number.style.transform = 'translateY(10px)';
-}
-function reverseFlower(node) {
-  const flower = node.querySelector('.animated-flower');
-  if (!flower) return;
-  flower.style.transform = 'scale(0)';
-  flower.style.opacity = '0';
-}
+function reverseText(n){const t=n.querySelector('.chapter-text');if(!t)return;t.style.transition='opacity 0.25s ease-in, transform 0.25s ease-in';t.style.opacity='0';t.style.transform='translateY(10px)';}
+function reverseLine(n){const l=n.querySelector('.text-and-line img');if(!l)return;l.style.transition='opacity 0.25s ease-out, transform 0.25s ease-out';l.style.opacity='0';l.style.transform='translateX(40px)';}
+function reverseNumber(n){const m=n.querySelector('.chapter-number');if(!m)return;m.style.transition='opacity 0.25s ease-out, transform 0.25s ease-out';m.style.opacity='0';m.style.transform='translateY(10px)';}
+function reverseFlower(n){const f=n.querySelector('.animated-flower');if(!f)return;f.style.transform='scale(0)';f.style.opacity='0';}
 
-function slideChapterBlockOut(chapterBlock) {
-  chapterBlock.style.transform = 'translateX(-150%)';
-}
-function slideChapterBlockIn(chapterBlock) {
-  chapterBlock.style.transform = 'translateX(0)';
-}
+function slideChapterBlockOut(c){c.style.transform='translateX(-150%)';}
+function slideChapterBlockIn(c){c.style.transform='translateX(0)';}
 
-// ========================= QUEUE + SESSIONS (STABLE HOVER) =========================
+// ========================= HOVER / MOBILE INTERACTION =========================
 const _timers = new WeakMap();
 const _session = new WeakMap();
-let   _active = null;
+let _active = null;
 
-function _getSet(container){ let s = _timers.get(container); if (!s){ s=new Set(); _timers.set(container,s);} return s; }
-function _clearAll(container){ const set=_getSet(container); set.forEach(id=>clearTimeout(id)); set.clear(); }
-function _bumpSession(container){ const n = (_session.get(container)||0)+1; _session.set(container, n); return n; }
-function _currentSession(container){ return _session.get(container)||0; }
-function _schedule(container, fn, delay){
-  const mySession = _currentSession(container);
-  const id = setTimeout(()=>{ if (_currentSession(container)!==mySession) return; fn(); }, delay);
-  _getSet(container).add(id);
-  return id;
-}
-function _resetChapter(container){
-  setInitialState(container);
-  container.querySelectorAll('.page-node .chapter-text, .page-node .text-and-line img, .page-node .chapter-number, .page-node .animated-flower')
-    .forEach(el => { void el.offsetWidth; });
-}
+function _getSet(c){let s=_timers.get(c);if(!s){s=new Set();_timers.set(c,s);}return s;}
+function _clearAll(c){const s=_getSet(c);s.forEach(id=>clearTimeout(id));s.clear();}
+function _bumpSession(c){const n=(_session.get(c)||0)+1;_session.set(c,n);return n;}
+function _currentSession(c){return _session.get(c)||0;}
+function _schedule(c,fn,d){const s=_currentSession(c);const id=setTimeout(()=>{if(_currentSession(c)!==s)return;fn();},d);_getSet(c).add(id);return id;}
+function _resetChapter(c){setInitialState(c);c.querySelectorAll('.page-node .chapter-text,.page-node .text-and-line img,.page-node .chapter-number,.page-node .animated-flower').forEach(el=>{void el.offsetWidth;});}
 
-// ========================= INIT (HOVER) =========================
-function revealPageNodesInOrder(container) {
-  const pageNodes = container.querySelectorAll('.page-node');
-  pageNodes.forEach((node, i) => _schedule(container, () => revealPageNodeInSequence(node), i * 500));
+function revealPageNodesInOrder(c){const n=c.querySelectorAll('.page-node');n.forEach((node,i)=>_schedule(c,()=>revealPageNodeInSequence(node),i*500));}
+function reversePageNodesInOrder(c){activeTimeouts.forEach(id=>clearTimeout(id));activeTimeouts=[];const n=Array.from(c.querySelectorAll('.page-node')).reverse();n.forEach((node,i)=>_schedule(c,()=>{reverseText(node);reverseLine(node);reverseNumber(node);reverseFlower(node);},i*500));}
+
+function startChapterSequence(c,b){slideChapterBlockOut(b);_schedule(c,()=>{forceRevealNow(c);},120);}
+function initChapterReveal(c){const b=c.querySelector('.chapter-block-img');b.style.transform='translateX(0)';b.style.transition='transform 0.8s ease';setInitialState(c);
+  c.addEventListener('pointerenter',()=>{_bumpSession(c);_clearAll(c);if(_active&&_active!==c){_bumpSession(_active);_clearAll(_active);_resetChapter(_active);slideChapterBlockIn(_active.querySelector('.chapter-block-img'));}_active=c;_resetChapter(c);startChapterSequence(c,b);});
+  c.addEventListener('pointerleave',()=>{if(c.dataset.mobileOpen==='1')return;_bumpSession(c);_clearAll(c);_resetChapter(c);slideChapterBlockIn(b);if(_active===c)_active=null;});
 }
 
-function reversePageNodesInOrder(container) {
-  activeTimeouts.forEach(id => clearTimeout(id));
-  activeTimeouts = [];
-  const pageNodes = Array.from(container.querySelectorAll('.page-node')).reverse();
-  pageNodes.forEach((node, i) => _schedule(container, () => {
-    reverseText(node); reverseLine(node); reverseNumber(node); reverseFlower(node);
-  }, i * 500));
-}
-
-function startChapterSequence(container, chapterBlock) {
-  slideChapterBlockOut(chapterBlock);
-  _schedule(container, () => { forceRevealNow(container); }, 120);
-}
-
-function initChapterReveal(container) {
-  const chapterBlock = container.querySelector('.chapter-block-img');
-  chapterBlock.style.transform = 'translateX(0)';
-  chapterBlock.style.transition = 'transform 0.8s ease';
-  setInitialState(container);
-
-  container.addEventListener('pointerenter', () => {
-    _bumpSession(container); _clearAll(container);
-    if (_active && _active !== container) {
-      _bumpSession(_active); _clearAll(_active); _resetChapter(_active);
-      slideChapterBlockIn(_active.querySelector('.chapter-block-img'));
-    }
-    _active = container;
-    _resetChapter(container);
-    startChapterSequence(container, chapterBlock);
-  });
-
-  container.addEventListener('pointerleave', () => {
-    if (container.dataset.mobileOpen === '1') return;
-    _bumpSession(container); _clearAll(container);
-    _resetChapter(container);
-    slideChapterBlockIn(chapterBlock);
-    if (_active === container) _active = null;
-  });
-}
-
-// ========================= MOBILE DETECTION =========================
+// ========================= MOBILE DIRECT NAV =========================
 window.FORCE_MOBILE = window.FORCE_MOBILE ?? false;
-const isMobileLike = () =>
-  window.FORCE_MOBILE ||
-  matchMedia('(any-pointer: coarse)').matches ||
-  matchMedia('(hover: none)').matches;
+const isMobileLike=()=>window.FORCE_MOBILE||matchMedia('(any-pointer:coarse)').matches||matchMedia('(hover:none)').matches;
+let mobileOpen=null;
 
-let mobileOpen = null;
+function setCoverInteractivity(c,e){const b=c.querySelector('.chapter-block-img');if(!b)return;b.style.pointerEvents=e?'auto':'none';}
 
-function __set(ctn){ let s=__timers.get(ctn); if(!s){s=new Set(); __timers.set(ctn,s);} return s; }
-function __clear(ctn){ const s=__set(ctn); s.forEach(id=>clearTimeout(id)); s.clear(); }
-function __bump(ctn){ const n=(__session.get(ctn)||0)+1; __session.set(ctn,n); return n; }
-function __cur(ctn){ return __session.get(ctn)||0; }
-function __schedule(ctn, fn, delay){ const mine=__cur(ctn); const id=setTimeout(()=>{ if(__cur(ctn)!==mine) return; fn(); }, delay); __set(ctn).add(id); return id; }
-
-function __hardReset(container){
-  const els = container.querySelectorAll('.page-node .chapter-text, .page-node .text-and-line img, .page-node .chapter-number, .page-node .animated-flower');
-  els.forEach(el => el.style.transition = 'none');
-  setInitialState(container);
-  container.offsetHeight;
-  els.forEach(el => el.style.transition = '');
+function enableMobileContainerDirectNav(c){
+  if(!isMobileLike())return;
+  const r=MOBILE_ROUTES[c.id];if(!r)return;
+  c.dataset.mobileDirectNav='1';try{c.style.touchAction='manipulation';}catch{}
+  const go=(e)=>{e.preventDefault();e.stopPropagation();if(r.kind==='url'&&r.href){window.location.assign(r.href);}};
+  c.addEventListener('touchend',go,{passive:false});c.addEventListener('click',go);
 }
 
-function setCoverInteractivity(container, enabled){
-  const block = container.querySelector('.chapter-block-img');
-  if (!block) return;
-  block.style.pointerEvents = enabled ? 'auto' : 'none';
-}
+function openMobileChapter(c){if(mobileOpen&&mobileOpen!==c)closeMobileChapter(mobileOpen);const b=c.querySelector('.chapter-block-img');c.dataset.mobileOpen='1';mobileOpen=c;slideChapterBlockOut(b);setCoverInteractivity(c,false);requestAnimationFrame(()=>{requestAnimationFrame(()=>{forceRevealNow(c);});});setTimeout(()=>{forceRevealNow(c);},400);}
+function closeMobileChapter(c){const b=c.querySelector('.chapter-block-img');setInitialState(c);slideChapterBlockIn(b);setCoverInteractivity(c,true);delete c.dataset.mobileOpen;if(mobileOpen===c)mobileOpen=null;}
+function toggleMobileChapter(c){if(c.dataset.mobileOpen==='1')closeMobileChapter(c);else openMobileChapter(c);}
 
-// ========================= MOBILE: DIRECT NAV ON CARD TAP =========================
-function enableMobileContainerDirectNav(container){
-  if (!isMobileLike()) return;
-
-  const route = MOBILE_ROUTES[container.id];
-  if (!route) return;
-
-  container.dataset.mobileDirectNav = '1';
-  try { container.style.touchAction = 'manipulation'; } catch {}
-
-  const go = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (route.kind === 'url' && route.href) {
-      window.location.assign(route.href);
-    } else if (route.kind === 'modal' && typeof route.fn === 'function') {
-      route.fn();
-    }
-  };
-
-  // Single-tap, no zoom, no double-tap requirement
-  container.addEventListener('touchend', go, { passive: false });
-  container.addEventListener('click', go);
-}
-
-// ========================= MOBILE: REVEAL TOGGLE (only if NOT direct-nav) =========================
-function openMobileChapter(container){
-  if (mobileOpen && mobileOpen !== container) closeMobileChapter(mobileOpen);
-  const chapterBlock = container.querySelector('.chapter-block-img');
-
-  container.dataset.mobileOpen = '1';
-  mobileOpen = container;
-
-  slideChapterBlockOut(chapterBlock);
-  setCoverInteractivity(container, false);
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      forceRevealNow(container);
-    });
-  });
-
-  setTimeout(() => { forceRevealNow(container); }, 400);
-}
-
-function closeMobileChapter(container){
-  const chapterBlock = container.querySelector('.chapter-block-img');
-  try { __bump(container); __clear(container); } catch {}
-  __hardReset(container);
-  slideChapterBlockIn(chapterBlock);
-  setCoverInteractivity(container, true);
-  delete container.dataset.mobileOpen;
-  if (mobileOpen === container) mobileOpen = null;
-}
-
-function toggleMobileChapter(container){
-  if (container.dataset.mobileOpen === '1') closeMobileChapter(container);
-  else openMobileChapter(container);
-}
-
-function onTap(handler){
-  let fired = false;
-  return (e) => { if (fired) return; fired = true; handler(e); setTimeout(()=>fired=false,0); };
-}
-
-function enableMobileTap(container){
-  if (container.dataset.mobileDirectNav === '1') return; // direct-nav wins on mobile
-
-  const block = container.querySelector('.chapter-block-img');
-  if (!block) return;
-
-  block.addEventListener('touchend', onTap((e)=>{
-    if (!isMobileLike()) return;
-    e.preventDefault(); e.stopPropagation();
-    toggleMobileChapter(container);
-  }), {passive:false});
-
-  block.addEventListener('click', (e)=>{
-    if (!isMobileLike()) return;
-    e.preventDefault(); e.stopPropagation();
-    toggleMobileChapter(container);
-  });
-}
-
-// single outside click closer (for reveal flow)
-document.addEventListener('click', (e) => {
-  if (!isMobileLike() || !mobileOpen) return;
-  if (!e.target.closest('.chapter-container')) closeMobileChapter(mobileOpen);
-});
-
-window.addEventListener('resize', () => {
-  if (!isMobileLike() && mobileOpen) closeMobileChapter(mobileOpen);
-});
+document.addEventListener('click',(e)=>{if(!isMobileLike()||!mobileOpen)return;if(!e.target.closest('.chapter-container'))closeMobileChapter(mobileOpen);});
+window.addEventListener('resize',()=>{if(!isMobileLike()&&mobileOpen)closeMobileChapter(mobileOpen);});
 
 // ========================= BOOT =========================
 (function boot(){
-  const wrapper = document.querySelector('#chapters-wrapper');
-  if (!wrapper) { console.error('#chapters-wrapper not found'); return; }
-
-  chapters.forEach((chapterData) => {
-    const chapterEl = createChapterHTML(chapterData);
+  const wrapper=document.querySelector('#chapters-wrapper');
+  if(!wrapper){console.error('#chapters-wrapper not found');return;}
+  chapters.forEach((chapterData)=>{
+    const chapterEl=createChapterHTML(chapterData);
     wrapper.appendChild(chapterEl);
-
-    // Desktop behavior unchanged
     initChapterReveal(chapterEl);
-
-    // Mobile: tap whole card to go (per mapping)
     enableMobileContainerDirectNav(chapterEl);
-
-    // If no direct route configured, fall back to mobile toggle
-    enableMobileTap(chapterEl);
   });
 })();
