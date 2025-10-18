@@ -8,6 +8,7 @@
   };
 
   const HOME_FILE = "home.html";
+  const PROJECTS_FILE = "projects.html"; // ✅ added
   const STORAGE_KEY = "IW_open_tabs_v1";
 
   // --- helpers
@@ -29,6 +30,7 @@
       return [];
     }
   }
+
   function writeTabs(tabs) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tabs));
   }
@@ -42,20 +44,24 @@
       .replace(/\b\w/g, (m) => m.toUpperCase());
   }
 
-  function ensureHomeFirst(tabs) {
+  function ensureHomeAndProjects(tabs) {
     // de-dupe
     const seen = new Set();
     const deduped = [];
     for (const t of tabs) {
       if (!seen.has(t)) { seen.add(t); deduped.push(t); }
     }
-    // ensure Home exists
+
+    // ensure Home + Projects exist and are ordered first
     if (!deduped.includes(HOME_FILE)) deduped.unshift(HOME_FILE);
-    // move Home to front if needed
-    const i = deduped.indexOf(HOME_FILE);
-    if (i > 0) {
-      deduped.unshift(deduped.splice(i, 1)[0]);
-    }
+    if (!deduped.includes(PROJECTS_FILE)) deduped.splice(1, 0, PROJECTS_FILE);
+
+    // force correct ordering (Home first, Projects second)
+    const homeIdx = deduped.indexOf(HOME_FILE);
+    if (homeIdx > 0) deduped.unshift(deduped.splice(homeIdx, 1)[0]);
+    const projIdx = deduped.indexOf(PROJECTS_FILE);
+    if (projIdx > 1) deduped.splice(1, 0, deduped.splice(projIdx, 1)[0]);
+
     return deduped;
   }
 
@@ -65,7 +71,8 @@
   }
 
   function closeTab(tabs, keyToClose) {
-    if (keyToClose === HOME_FILE) return tabs; // can't close Home
+    // can't close Home or Projects
+    if (keyToClose === HOME_FILE || keyToClose === PROJECTS_FILE) return tabs;
     const idx = tabs.indexOf(keyToClose);
     if (idx === -1) return tabs;
     tabs.splice(idx, 1);
@@ -73,26 +80,19 @@
   }
 
   function navigateAfterClose(originalTabs, closedKey) {
-    // Choose neighbor like a browser: left neighbor if possible, else right, else Home
-    const tabs = readTabs(); // already saved post-close
-    if (closedKey !== currentKey) return; // if you closed some background tab, stay put
+    const tabs = readTabs();
+    if (closedKey !== currentKey) return; // only act if closing the active tab
 
-    // We just closed the active tab; pick a new active
-    // Find where that tab *was* in the old array to choose a neighbor consistently
     const oldIdx = originalTabs.indexOf(closedKey);
-
-    // Prefer left neighbor (oldIdx - 1), but skip if it's Home and you prefer the right neighbor—
-    // We’ll still allow Home as a valid target if nothing else exists.
     let target = null;
 
-    // left neighbor (if exists)
+    // left neighbor
     if (oldIdx > 0) {
       target = originalTabs[oldIdx - 1];
-      // if left was the same as closed (shouldn't happen) or no longer exists, null it
       if (!tabs.includes(target)) target = null;
     }
 
-    // else right neighbor
+    // right neighbor
     if (!target && oldIdx >= 0 && oldIdx < originalTabs.length - 1) {
       const right = originalTabs[oldIdx + 1];
       if (tabs.includes(right)) target = right;
@@ -101,7 +101,6 @@
     // fallback to Home
     if (!target) target = HOME_FILE;
 
-    // navigate
     if (target !== currentKey) window.location.href = target;
   }
 
@@ -109,11 +108,11 @@
     const host = document.getElementById("site-tabs");
     if (!host) return;
 
-    // state: read → ensure Home + current → write → render
+    // state: read → ensure Home+Projects+current → write → render
     let tabs = readTabs();
-    tabs = ensureHomeFirst(tabs);
+    tabs = ensureHomeAndProjects(tabs);
     tabs = ensureCurrentOpen(tabs);
-    tabs = ensureHomeFirst(tabs);
+    tabs = ensureHomeAndProjects(tabs);
     writeTabs(tabs);
 
     host.innerHTML = "";
@@ -122,7 +121,7 @@
       li.className = "tab" + (key === currentKey ? " active" : "");
       li.title = key;
 
-      // clicking the tab navigates there
+      // clicking navigates
       li.addEventListener("click", () => {
         if (key !== currentKey) window.location.href = key;
       });
@@ -131,22 +130,20 @@
       label.textContent = labelFor(key, key === currentKey ? document.title || "" : "");
       li.appendChild(label);
 
-      // close button (not for Home)
-      if (key !== HOME_FILE) {
+      // show close button for everything EXCEPT Home + Projects
+      if (key !== HOME_FILE && key !== PROJECTS_FILE) {
         const closeBtn = document.createElement("button");
         closeBtn.className = "tab-close";
         closeBtn.type = "button";
         closeBtn.textContent = "×";
         closeBtn.addEventListener("click", (e) => {
-          e.stopPropagation(); // don't trigger the tab click
+          e.stopPropagation();
           const before = readTabs().slice();
           const updated = closeTab(readTabs(), key);
-          writeTabs(ensureHomeFirst(updated));
+          writeTabs(ensureHomeAndProjects(updated));
 
-          // If we closed the active tab, choose a neighbor and navigate
           navigateAfterClose(before, key);
 
-          // If we stayed on the same page (closed background tab), just re-render
           if (key !== currentKey) render();
         });
         li.appendChild(closeBtn);
