@@ -18,7 +18,6 @@
   (function(){
     const params = new URLSearchParams(location.search);
     const inIframe = (function(){ try { return window.self !== window.top; } catch (_) { return true; }})();
-    // Preload mode when ?preload=1 OR opened in an iframe
     window.__PRELOAD_ONLY__ = params.has('preload') || inIframe;
   })();
 </script>
@@ -27,7 +26,7 @@
       <script src="https://cdn.jsdelivr.net/npm/smooth-scrollbar@8.7.4/dist/smooth-scrollbar.js"></script>
       <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/bundled/lenis.min.js"></script>
    </head>
-<!-- Google tag (gtag.js) -->
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RZX19P08W"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -40,13 +39,12 @@
   (async function(){
     if (!window.__PRELOAD_ONLY__) return;
 
-    // 1) Fonts stable
+
     try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch(_) {}
 
-    // 2) Preload known big images + any background-image URLs you use
     const explicitImgs = [
       './resources/images/assets_together_2.webp'
-      // add more if you have other big hero/backgrounds
+
     ];
 
     const bgSelectors = [
@@ -75,11 +73,11 @@
       img.src = src;
     })));
 
-    // 3) (Optional) Warm third-party libs your page uses later
+
     const warm = [
       'https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js',
       'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js'
-      // add others you actually use on home, e.g., lenis, smooth-scrollbar, etc.
+
     ];
     await Promise.all(warm.map(src => new Promise((res)=>{
       const link = document.createElement('link');
@@ -203,12 +201,12 @@
   const isReload = nav && nav.type === 'reload';
   const isFirstNavigateThisTab = nav && nav.type === 'navigate' && !alreadyFadedThisTab;
 
-  // Only animate on a reload, or the very first navigate in this tab.
+
   const shouldAnimate = isReload || isFirstNavigateThisTab;
 
   if (shouldAnimate) {
     el.classList.add('fade-in');
-    // mark immediately so coming back from other pages in your site won't replay
+
     sessionStorage.setItem(STORAGE_KEY, '1');
     el.addEventListener('animationend', () => {
       el.classList.remove('fade-in');
@@ -217,12 +215,12 @@
     lockEndState();
   }
 
-  // If the page is restored from back/forward cache, keep it locked (no re-run)
+
   window.addEventListener('pageshow', (e) => {
     if (e.persisted) lockEndState();
   });
 
-  // Tab visibility flips shouldn't re-trigger anything
+
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && alreadyFadedThisTab) {
       lockEndState();
@@ -251,33 +249,6 @@
          window.firebaseFns = { collection, addDoc, getDocs, serverTimestamp, query, orderBy };
       </script>
 
-<script>
-document.getElementById("contactForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
 
-  const form = e.target;
-  const status = document.getElementById("form-status");
-  const data = new FormData(form);
-
-  status.textContent = "Sending...";
-
-  try {
-    const response = await fetch("https://formspree.io/f/movkbvbp", {
-      method: "POST",
-      body: data,
-      headers: { "Accept": "application/json" }
-    });
-
-    if (response.ok) {
-      status.textContent = "Message sent successfully! 💌";
-      form.reset();
-    } else {
-      status.textContent = "Oops, something went wrong. Try again later.";
-    }
-  } catch (error) {
-    status.textContent = "Network error — please try again.";
-  }
-});
-</script>
    </body>
 </html>

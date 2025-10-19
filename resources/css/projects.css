@@ -1,478 +1,478 @@
-
-
 .gallery {
-display: flex;
-flex-direction: column;
-align-items: center;
-flex-wrap: wrap;
-gap: 2rem;
-margin: 0rem 100px 100px;
-justify-content: center;
-
-
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 2rem;
+	margin: 0rem 100px 100px;
+	justify-content: center;
 }
 
-
 .project-info {
-width: 770px;
-  position: relative;                 
-
-  height: 200px;
-  padding: 1rem;
-  border: 1px solid #ddbe97;          
-  background-image: var(--bg-texture);
-  background-repeat: repeat;          
-  background-size: cover;             
-  overflow: visible;              
-  margin-bottom: -50px;
-  --tip-size: 12px;                   
-  --tip-offset: 50%;                  
-  --tip-outline: #ddbe97;            
+	width: 770px;
+	position: relative;
+	height: 200px;
+	padding: 1rem;
+	border: 1px solid #ddbe97;
+	background-image: var(--bg-texture);
+	background-repeat: repeat;
+	background-size: cover;
+	overflow: visible;
+	margin-bottom: -50px;
+	--tip-size: 12px;
+	--tip-offset: 50%;
+	--tip-outline: #ddbe97;
 }
 
 .project-info .handwritten {
-  line-height: 32px;
-font-size: 34px;
-margin-bottom: 17px;
+	line-height: 32px;
+	font-size: 34px;
+	margin-bottom: 17px;
 }
 
 
 .project-info .handwritten a {
-margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .piece {
- height: 364px;
-    width:  421px;
-  border: 1px solid #ddbe97;
-  background-image: var(--bg-texture);
-  padding: 1rem;
-
-
-  --rx: 0deg;  /* rotateX */
-  --ry: 0deg;  /* rotateY */
-
-  transform: perspective(800px) rotateX(var(--rx)) rotateY(var(--ry));
-
-  transform-origin: center;
+	height: 364px;
+	width: 421px;
+	border: 1px solid #ddbe97;
+	background-image: var(--bg-texture);
+	padding: 1rem;
+	--rx: 0deg;
+	--ry: 0deg;
+	transform: perspective(800px) rotateX(var(--rx)) rotateY(var(--ry));
+	transform-origin: center;
 }
 
 .piece.is-animating {
-  transition: transform 60ms linear;
-  cursor: pointer;
+	transition: transform 60ms linear;
+	cursor: pointer;
 }
 
-
 @media (prefers-reduced-motion: reduce) {
-  .piece { transition: none; transform: none; }
+	.piece {
+		transition: none;
+		transform: none;
+	}
 }
 
 .piece.open {
-  transform: none;
-  width: 763px;
-
+	transform: none;
+	width: 763px;
 }
 
 .piece video {
-min-width: 100%;
-min-height: 95%;
-max-width: 900px;
-    border: 1px solid var(--primary);
-
-
+	min-width: 100%;
+	min-height: 95%;
+	max-width: 900px;
+	border: 1px solid var(--primary);
 }
 
 .piece .header {
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-margin-bottom: 1rem;
-
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 1rem;
 }
 
 .illustration {
-width: 100%;
-
+	width: 100%;
 }
 
 .stamp {
-width: 55px;
+	width: 55px;
 }
 
 .piece {
-  position: relative;
-  overflow: hidden;                
-  border-width: var(--bw, 1px);   
-  transition:
-    border-width 300ms cubic-bezier(.2,.8,.2,1),
-    border-color 300ms cubic-bezier(.2,.8,.2,1);
+	position: relative;
+	overflow: hidden;
+	border-width: var(--bw, 1px);
+	transition:
+		border-width 300ms cubic-bezier(.2, .8, .2, 1),
+		border-color 300ms cubic-bezier(.2, .8, .2, 1);
 }
 
 
 .piece.fading .header,
 .piece.fading .illustration {
-  opacity: 0;
-  transform: translateY(6px);
+	opacity: 0;
+	transform: translateY(6px);
 }
+
 .piece .header,
 .piece .illustration {
-  transition: opacity 160ms ease, transform 200ms ease;
-opacity: 1;
-    object-fit: cover;
+	transition: opacity 160ms ease, transform 200ms ease;
+	opacity: 1;
+	object-fit: cover;
 }
-
 
 .piece video {
-  opacity: 0;                    
-  transition: opacity 220ms ease 120ms;
-  display: block;               
+	opacity: 0;
+	transition: opacity 220ms ease 120ms;
+	display: block;
 }
+
 .piece.open video {
-  opacity: 1;
+	opacity: 1;
 }
 
 
-.piece.open { --bw: 1px; } 
+.piece.open {
+	--bw: 1px;
+}
 
 
-.piece { overflow: hidden; display: block; }
+.piece {
+	overflow: hidden;
+	display: block;
+}
 
 
 @keyframes pop-up {
-  0% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.05);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+	0% {
+		transform: scale(0.8);
+		opacity: 0;
+	}
+
+	60% {
+		transform: scale(1.05);
+		opacity: 1;
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
 }
 
 .pop-up {
-  animation: pop-up 0.4s ease-out forwards;
+	animation: pop-up 0.4s ease-out forwards;
 }
 
 
 @media (max-device-width: 820px) {
 
-.commit-container .access-gate p.handwritten {
-        line-height: 7rem;
-        font-size: 137px;
+	.commit-container .access-gate p.handwritten {
+		line-height: 7rem;
+		font-size: 137px;
+	}
 
+	.commit-container img {
+		display: none;
+
+	}
+
+
+	.hero-section-frame.small {
+		background-image: url(../images/hero-frame-flipped.png);
+		width: 637px;
+		height: 1380px;
+	}
+
+
+	.commit-container {
+
+		margin: 82px 80px;
+		height: 1290px;
+	}
+
+	.commit-container .handwritten {
+		font-size: 87px;
+		line-height: 73px;
+	}
+
+	.commit-container .handwritten.small {
+		font-size: 60px;
+	}
+
+	.modal-layer-1 {
+		position: relative;
+		margin: 0 auto;
+		box-sizing: border-box;
+		overflow: hidden;
+		background-image: url(../images/frillies-flipped.png);
+		background-position: center top;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.modal-content {
+		width: 1090px;
+		height: 1811px;
+	}
+
+	h4 {
+		font-size: 69px;
+	}
+
+	.tabs {
+		display: none;
+
+	}
+
+	.background-layer-2 {
+
+		height: 98vh;
+	}
+
+	.tabs span {
+		font-size: 40px;
+		padding: 5px;
+	}
+
+	.project-info .inliner {
+
+		border-bottom: 2px solid #ddbe97;
+		;
+		padding-bottom: 23px;
+	}
+
+	.project-info p.handwritten {
+		font-size: 90px;
+		line-height: 84px;
+		margin: 20px;
+	}
+
+	.stamp {
+		width: 95px;
+	}
+
+	.piece {
+		height: 615px;
+		width: 763px;
+	}
+
+	.piece.open {
+		height: 592px;
+		width: 1100px;
+
+	}
+
+	.card.title img {
+		max-width: 89%;
+	}
 }
 
-.commit-container img {
-display: none;
 
+.book-card {
+	width: max-content;
+	border: 1px solid #ddbe97;
+	background-image: var(--bg-texture);
+	margin-bottom: 100px;
+	transform: perspective(800px) rotateX(var(--rx, 0)) rotateY(var(--ry, 0));
+	transition: transform 0.15s ease-out;
+	transform-style: preserve-3d;
 }
-
-
-.hero-section-frame.small {
-    background-image: url(../images/hero-frame-flipped.png);
-    width: 637px;
-    height: 1380px;
-}
-
-
-
-.commit-container {
-
-    margin: 82px 80px;
-    height: 1290px;
-}
-
-.commit-container .handwritten {
-font-size: 87px;
-    line-height: 73px;
-}
-
-.commit-container .handwritten.small {
-font-size: 60px;
-}
-
-.modal-layer-1 {
-    position: relative;
-    margin: 0 auto;
-    box-sizing: border-box;
-    overflow: hidden;
-    background-image: url(../images/frillies-flipped.png);
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-  .modal-content {
-        width: 1090px;
-        height: 1811px;
-  }
-
-h4 {
-font-size: 69px;
-}
-
-.tabs {
-display: none;
-
-}
-
-.background-layer-2 {
-
-    height: 98vh;
-}
-
-.tabs span {
-font-size: 40px;
-padding: 5px;
-}
-.project-info .inliner {
-
-border-bottom: 2px solid #ddbe97;     ;
-padding-bottom: 23px;
-}
-.project-info p.handwritten {
-        font-size: 90px;
-        line-height: 84px;
-        margin: 20px;
-    }
-
-.stamp {
-width: 95px;
-}
-
-.piece {
-    height: 615px;
-    width: 763px;
-}
-
-.piece.open  {
-    height: 592px;
-    width: 1100px;
-
-}
-
-.card.title img {
-max-width: 89%;
-}
-}
-
-
-
-
-
-
- .book-card {
-     width:  max-content;
-   border: 1px solid #ddbe97;
-   background-image: var(--bg-texture);
-   margin-bottom: 100px;
-  transform: perspective(800px) rotateX(var(--rx, 0)) rotateY(var(--ry, 0));
-  transition: transform 0.15s ease-out;
-  transform-style: preserve-3d;
- }
 
 .book-card:hover {
-cursor: pointer;
+	cursor: pointer;
 }
 
- 
- .series-card {
-     width: 540px;
-   border: 1px solid #ddbe97;
-   background-image: var(--bg-texture);
-   margin-bottom: 100px;
- }
- 
- .series-header {
-   border-bottom: 1px solid #ddbe97;
-   padding: 1rem;
- }
- 
- .series-body {
-     padding: 1rem;
-     align-items: center;
-     justify-content: center;
-     display: flex;
-     flex-direction: column;
- }
- 
- 
- .audio-player {
-   display: flex;
-   align-items: center;
-   gap: 1rem;
-   width: 100%;
-   background-image: var(--bg-texture);
-   background-size: cover;
-   position: relative;
-   color: var(--bg-texture);
- }
- 
- .audio-btn {
-    background-color: #674f67;
-   color: var(--primary);
-   border-radius: 50%;
-   border: 1px solid var(--primary);
-   width: 40px;
-   height: 40px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   cursor: pointer;
-   transition: transform 0.2s ease, background-color 0.3s ease;
-   box-shadow: none;           /* ← removes black shadow */
-   outline: none;              /* ← removes blue Safari focus ring */
-   appearance: none;           /* ← disables native button styling */
-   -webkit-appearance: none;   /* ← for Safari */
- }
- 
- 
- .audio-btn:hover {
-   transform: scale(1.1);
- }
- 
- .audio-btn i {
-   font-size: 1.25rem;
- }
- 
- .audio-progress {
-   flex: 1;
-   height: 18px;
-   border: 1px solid var(--primary);
-   overflow: hidden;
-   position: relative;
- }
- 
- .audio-fill {
-   height: 100%;
-   width: 0%;
-   background-color: var(--primary);
-   transition: width 0.1s linear;
- }
- 
- 
- .poster-group {
- display: flex;
- align-items: center;
- justify-content: space-between;
- flex-direction: row;
-    gap: .4rem;
- 
- }
- 
- .poster-group li img {
-   width: 100px;
- }
- 
- .poster-group li.active img {
-   width: 490px;
-height: 734px;
- }
+
+.series-card {
+	width: 540px;
+	border: 1px solid #ddbe97;
+	background-image: var(--bg-texture);
+	margin-bottom: 100px;
+}
+
+.series-header {
+	border-bottom: 1px solid #ddbe97;
+	padding: 1rem;
+}
+
+.series-body {
+	padding: 1rem;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+}
 
 
+.audio-player {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	width: 100%;
+	background-image: var(--bg-texture);
+	background-size: cover;
+	position: relative;
+	color: var(--bg-texture);
+}
+
+.audio-btn {
+	background-color: #674f67;
+	color: var(--primary);
+	border-radius: 50%;
+	border: 1px solid var(--primary);
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: transform 0.2s ease, background-color 0.3s ease;
+	box-shadow: none;
+	/* ← removes black shadow */
+	outline: none;
+	/* ← removes blue Safari focus ring */
+	appearance: none;
+	/* ← disables native button styling */
+	-webkit-appearance: none;
+	/* ← for Safari */
+}
+
+
+.audio-btn:hover {
+	transform: scale(1.1);
+}
+
+.audio-btn i {
+	font-size: 1.25rem;
+}
+
+.audio-progress {
+	flex: 1;
+	height: 18px;
+	border: 1px solid var(--primary);
+	overflow: hidden;
+	position: relative;
+}
+
+.audio-fill {
+	height: 100%;
+	width: 0%;
+	background-color: var(--primary);
+	transition: width 0.1s linear;
+}
+
+
+.poster-group {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: row;
+	gap: .4rem;
+
+}
+
+.poster-group li img {
+	width: 100px;
+}
+
+.poster-group li.active img {
+	width: 490px;
+	height: 734px;
+}
 
 
 .prev-button,
 .next-button {
-  background-color: #674f67;
-  color: var(--primary);
-  border: 1px solid #ddbe97;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.3s ease;
-  box-shadow: none;
-  outline: none;
-  appearance: none;
-  -webkit-appearance: none;
-  position: relative;
+	background-color: #674f67;
+	color: var(--primary);
+	border: 1px solid #ddbe97;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: transform 0.2s ease, background-color 0.3s ease;
+	box-shadow: none;
+	outline: none;
+	appearance: none;
+	-webkit-appearance: none;
+	position: relative;
 }
 
 @media (max-device-width: 820px) {
-.prev-button,
-.next-button, .audio-btn {
 
-width: 80px;
-height: 80px;
+	.prev-button,
+	.next-button,
+	.audio-btn {
 
-}
+		width: 80px;
+		height: 80px;
 
-.prev-button::before,
-.next-button::before {
-  font-size: 2rem;
-}
+	}
 
- .audio-btn i {
-  font-size: 2rem;
-}
+	.prev-button::before,
+	.next-button::before {
+		font-size: 2rem;
+	}
 
-.audio-progress {
-height: 36px;
-}
+	.audio-btn i {
+		font-size: 2rem;
+	}
 
-.audio-player {
-margin-bottom: 1rem;
-}
+	.audio-progress {
+		height: 36px;
+	}
+
+	.audio-player {
+		margin-bottom: 1rem;
+	}
 
 }
 
 /* use Font Awesome arrows, or simple pseudo-arrows if no icons */
 .prev-button::before,
 .next-button::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  font-size: 1rem;
-  color: var(--primary);
-  pointer-events: none;
-  content: "";
+	font-family: "Font Awesome 6 Free";
+	font-weight: 900;
+	font-size: 1rem;
+	color: var(--primary);
+	pointer-events: none;
+	content: "";
 }
 
 .prev-button::before {
-  content: "\f104"; /* fa-chevron-left */
+	content: "\f104";
+	/* fa-chevron-left */
 }
 
 .next-button::before {
-  content: "\f105"; /* fa-chevron-right */
+	content: "\f105";
+	/* fa-chevron-right */
 }
 
 .prev-button:hover,
 .next-button:hover {
-  transform: scale(1.1);
-  background-color: #674f67;
+	transform: scale(1.1);
+	background-color: #674f67;
 }
 
 .prev-button:active,
 .next-button:active {
-  transform: scale(0.98);
+	transform: scale(0.98);
 }
 
 
 @media (max-device-width: 820px) {
 
-.prev-button::before,
-.next-button::before {
-  font-size: 2rem;
-}
+	.prev-button::before,
+	.next-button::before {
+		font-size: 2rem;
+	}
 
-.series-card {
-width: 800px;
+	.series-card {
+		width: 800px;
 
 
-}
-.poster-group li.active img {
-    width: 670px;
-    height: 974px;
-}
+	}
+
+	.poster-group li.active img {
+		width: 670px;
+		height: 974px;
+	}
 }

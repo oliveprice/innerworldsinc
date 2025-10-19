@@ -1,325 +1,385 @@
 .modal.hidden {
-  display: none;
+	display: none;
 }
 
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-backdrop-filter: blur(4px);
-  background-color: rgb(0 0 0 / 60%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	backdrop-filter: blur(4px);
+	background-color: rgb(0 0 0 / 60%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 999;
 }
 
 .modal-content {
 
-  border-radius: 8px;
-  width: 971px;
-  height: 560px;
-  position: relative;
+	border-radius: 8px;
+	width: 971px;
+	height: 560px;
+	position: relative;
 
-  background-image: var(--bg-texture);
-  background-repeat: repeat;
-  background-size: auto 375vh;
-  background-position: center;
-  margin: 0;
-  padding: 0;
-display: flex;
-flex-direction: column;
-    align-items: center;
-    justify-content: center;
+	background-image: var(--bg-texture);
+	background-repeat: repeat;
+	background-size: auto 375vh;
+	background-position: center;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 
 }
 
 .about-me {
-width: 90%;
-overflow: scroll;
+	width: 90%;
+	overflow: scroll;
 }
 
 .self-portrait {
-width: 380px;
+	width: 380px;
 
 }
 
 .modal-content.size-plus-1 {
-width: 670px;
-height: 800px;
+	width: 670px;
+	height: 800px;
 }
 
 .modal-layer-1 {
-    position: relative;
-    margin: 0 auto;
-    box-sizing: border-box;
-    overflow: hidden;
-    background-image: url(../images/frillies.png);
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	position: relative;
+	margin: 0 auto;
+	box-sizing: border-box;
+	overflow: hidden;
+	background-image: url(../images/frillies.png);
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .modal-layer-1.colophon {
-    position: relative;
-    margin: 0 auto;
-    box-sizing: border-box;
-    overflow: hidden;
-    background-image: url(../images/colophon_drawing.png);
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	position: relative;
+	margin: 0 auto;
+	box-sizing: border-box;
+	overflow: hidden;
+	background-image: url(../images/colophon_drawing.png);
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .close-button {
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  font-size: 1.5rem;
-  cursor: pointer;
- color: #ffffff00;
+	position: absolute;
+	top: 0.5rem;
+	right: 1rem;
+	font-size: 1.5rem;
+	cursor: pointer;
+	color: #ffffff00;
 }
 
 .commit-container {
-overflow-y: scroll;
-scrollbar-width: none;
-margin: 30px 50px;
-height: 310px;
-overflow-y: scroll;
-scrollbar-width: none;          /* Firefox */
--ms-overflow-style: none;       /* IE and Edge */
+	overflow-y: scroll;
+	scrollbar-width: none;
+	margin: 30px 50px;
+	height: 310px;
+	overflow-y: scroll;
+	scrollbar-width: none;
+	/* Firefox */
+	-ms-overflow-style: none;
+	/* IE and Edge */
 }
 
 .commit-container.no-scroll {
-overflow-y: hidden;
+	overflow-y: hidden;
 }
 
 .commit-container::-webkit-scrollbar {
-  display: none;                  /* Safari + Chrome */
+	display: none;
+	/* Safari + Chrome */
 }
 
 .commit-item {
-margin-bottom: 3rem;
+	margin-bottom: 3rem;
 }
 
 
 .about-me-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  backdrop-filter: blur(4px);
-  background: rgb(0 0 0 / 60%);
-  overflow: auto;               
-  z-index: 9999;
-  padding: 2rem 0; 
-  display: flex;
-  justify-content: center;         
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	backdrop-filter: blur(4px);
+	background: rgb(0 0 0 / 60%);
+	overflow: auto;
+	z-index: 9999;
+	padding: 2rem 0;
+	display: flex;
+	justify-content: center;
 }
 
 .about-me-overlay.hidden {
-  display: none;
+	display: none;
 }
 
 .about-me-close-button {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  font-size: 2rem;
-  color: #ffffff00;
-  cursor: pointer;
-  z-index: 10000;
+	position: absolute;
+	top: 2rem;
+	right: 2rem;
+	font-size: 2rem;
+	color: #ffffff00;
+	cursor: pointer;
+	z-index: 10000;
 }
 
 .about-me-image-container {
-  position: relative;
-  max-width: 500px;
-  max-height: 90vh;
+	position: relative;
+	max-width: 500px;
+	max-height: 90vh;
 }
 
 .about-me-image {
-  width: 100%;
-height: 1914px;
-  display: block;
-    padding-bottom: 200px;
+	width: 100%;
+	height: 1914px;
+	display: block;
+	padding-bottom: 200px;
 
 }
 
 .about-me-text-overlay {
-  position: absolute;
-  top: 688px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 72%;     
-  text-align: center;
-  color: #e0cba8; 
-  font-size: 1.1rem;
+	position: absolute;
+	top: 688px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 72%;
+	text-align: center;
+	color: #e0cba8;
+	font-size: 1.1rem;
 }
 
 .about-me-text-overlay .handwritten {
-font-size: 30px;
-line-height: 33px;
-text-align: left;
+	font-size: 30px;
+	line-height: 33px;
+	text-align: left;
 }
 
 #modal-container {
 
 
-z-index: 20000000;
+	z-index: 20000000;
 }
 
 .aboutmecomic {
-display: none;
+	display: none;
 
 
 }
 
 .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    width: 340px;
-    font-family: inherit;
-    align-items: flex-start;
-margin-top: 7rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	width: 340px;
+	font-family: inherit;
+	align-items: flex-start;
+	margin-top: 2rem;
 }
 
 .seperator {
-border-top: 1px solid var(--primary);
-width: 431px;
-    position: absolute;
-    top: 760px;
-    left: -34px;
+	border-top: 1px solid var(--primary);
+	width: 431px;
+	position: absolute;
+	top: 677px;
+	left: -34px;
 }
 
 
 .contact-form h4 {
-margin-bottom: 1rem;
-    font-size: 40px;
+	margin-bottom: 1.5rem;
+	font-size: 40px;
 }
 
 .contact-form label {
-  font-weight: 500;
-  color: var(--primary);
+	font-weight: 500;
+	color: var(--primary);
 }
 
 .contact-form input,
 .contact-form textarea {
-  border: 1px solid var(--primary);
-  background: var(--bg-texture);
-  padding: 0.75rem;
-  color: var(--primary);
-  font-size: 1.8rem;
-  width: 100%;
+	border: 1px solid var(--primary);
+	background: var(--bg-texture);
+	padding: 0.75rem;
+	color: var(--primary);
+	font-size: 1.8rem;
+	width: 100%;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus,
 .contact-form button:focus {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;      
-  border-color: var(--primary);       
+	outline: 2px solid var(--primary);
+	outline-offset: 2px;
+	border-color: var(--primary);
 
 }
+
 .contact-form button {
-  background-color: #674f67;
-  color: var(--primary);
-  border: 1px solid #ddbe97;
-  font-family: 'PP Editorial';
-  text-transform: uppercase;
-  padding: 0.75rem;
-  cursor: pointer;
-  letter-spacing: 1.5px;
-  transition: background-color 0.2s ease;
+	background-color: #674f67;
+	color: var(--primary);
+	border: 1px solid #ddbe97;
+	font-family: 'PP Editorial';
+	text-transform: uppercase;
+	padding: 0.75rem;
+	cursor: pointer;
+	letter-spacing: 1.5px;
+	transition: background-color 0.2s ease;
 }
 
 .contact-form button:hover {
-  background-color:  var(--primary);
-  color: #674f67;
+	background-color: var(--primary);
+	color: #674f67;
 }
-
 
 
 /* 2) Phone & small tablet without touching your meta viewport */
 @media (max-device-width: 820px) {
-  /* Make the poster “bigger” in CSS px so it appears closer after device scaling */
-  .about-me-image-container {
-    width: 1100px;    /* was: 500px */
-    /* keep it contained */
-    /* crop edges cleanly if needed */
-  }
-  .about-me-overlay { padding: 1.25rem 0; }
-.about-me-image {
-height: unset;
+
+	/* Make the poster “bigger” in CSS px so it appears closer after device scaling */
+	.about-me-image-container {
+		width: 1100px;
+		/* was: 500px */
+		/* keep it contained */
+		/* crop edges cleanly if needed */
+	}
+
+	.about-me-overlay {
+		padding: 1.25rem 0;
+	}
+
+	.about-me-image {
+		height: unset;
+	}
+
+	.about-me-text-overlay {
+		top: 1530px;
+		height: 2340px;
+		scrollbar-width: none;
+		/* Firefox */
+		-ms-overflow-style: none;
+		width: 78%;
+
+	}
+
+	.seperator {
+
+		border-top: 1px solid var(--primary);
+		width: 946px;
+		position: absolute;
+		top: 1357px;
+		left: -37px;
+
+	}
+
+	.contact-form {
+
+		width: 770px;
+	}
+
+	.contact-form label {
+		margin-bottom: 1rem;
+		font-size: 50px;
+	}
+
+	.about-me-text-overlay .contact-form h4.handwritten {
+		font-size: 70px;
+		margin-bottom: 5rem;
+		margin-top: 80px;
+	}
+
+	.footer-link {
+		width: 218px;
+	}
+
+	.link-offset {
+		width: 261px;
+
+	}
+
+	.contact-form input {
+		border: 1px solid var(--primary);
+		background: var(--bg-texture);
+		padding: 0.75rem;
+		color: var(--primary);
+		font-size: 3.8rem;
+		width: 100%;
+		min-height: 60px;
+		margin-bottom: 6rem;
+
+	}
+
+	.contact-form textarea {
+		border: 1px solid var(--primary);
+		background: var(--bg-texture);
+		padding: 0.75rem;
+		color: var(--primary);
+		font-size: 3.8rem;
+		width: 100%;
+		min-height: 220px;
+		margin-bottom: 6rem;
+	}
+
+
+	.contact-form button {
+		font-size: 40px;
+	}
+
+
+	.about-me-text-overlay p.handwritten {
+		font-size: 73px;
+		line-height: 72px;
+	}
+
+	.aboutmecomic {
+		width: 795px;
+	}
+
+
+	.prev-button,
+	.next-button {
+
+		width: 80px;
+		height: 80px;
+
+	}
+
 }
 
-.about-me-text-overlay {
-top: 1530px;
-        height: 2340px;
-scrollbar-width: none;     /* Firefox */
-  -ms-overflow-style: none; 
-width: 71%;
-
-}
-
-.footer-link {
-width: 218px;
-}
-
-.link-offset {
-width: 261px;
-
-}
-.about-me-text-overlay  p.handwritten {
-font-size: 73px;
-line-height: 72px;
-}
-.aboutmecomic {
-    width: 795px;
-}
-
-
-.prev-button,
-.next-button {
-
-width: 80px;
-height: 80px;
-
-}
-
-
-
-
-
-
-}
 
 .commit-container .access-gate p.handwritten {
-  margin-top: 0px;
-    line-height: 2rem;
+	margin-top: 0px;
+	line-height: 2rem;
 
 }
 
 
 /* Tiny phones: zoom a bit more by giving it even more CSS px */
 @media (max-device-width: 480px) {
-  .about-me-image-container {
-    max-width: 1400px;
-  }
+	.about-me-image-container {
+		max-width: 1400px;
+	}
 }
-
-
-

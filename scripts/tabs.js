@@ -1,5 +1,5 @@
 (function () {
-  // Nice labels for known pages (fallback to filename if missing)
+
   const ROUTES = {
     "home.html": "Home",
     "projects.html": "Projects",
@@ -15,7 +15,7 @@
   const WRITINGS_FILE = "writings.html";
   const STORAGE_KEY = "IW_open_tabs_v1";
 
-  // --- helpers
+
   const toPath = (url) => {
     try { return new URL(url, location.href).pathname; }
     catch { return location.pathname; }
@@ -49,20 +49,20 @@
   }
 
   function ensureHomeAndProjects(tabs) {
-    // de-dupe
+
     const seen = new Set();
     const deduped = [];
     for (const t of tabs) {
       if (!seen.has(t)) { seen.add(t); deduped.push(t); }
     }
 
-    // ensure Home + Projects + Series + Writings exist
+
     if (!deduped.includes(HOME_FILE)) deduped.unshift(HOME_FILE);
     if (!deduped.includes(PROJECTS_FILE)) deduped.splice(1, 0, PROJECTS_FILE);
     if (!deduped.includes(SERIES_FILE)) deduped.splice(2, 0, SERIES_FILE);
     if (!deduped.includes(WRITINGS_FILE)) deduped.splice(3, 0, WRITINGS_FILE);
 
-    // force correct ordering
+
     const homeIdx = deduped.indexOf(HOME_FILE);
     if (homeIdx > 0) deduped.unshift(deduped.splice(homeIdx, 1)[0]);
     const projIdx = deduped.indexOf(PROJECTS_FILE);
@@ -97,24 +97,24 @@
 
   function navigateAfterClose(originalTabs, closedKey) {
     const tabs = readTabs();
-    if (closedKey !== currentKey) return; // only act if closing the active tab
+    if (closedKey !== currentKey) return; 
 
     const oldIdx = originalTabs.indexOf(closedKey);
     let target = null;
 
-    // left neighbor
+
     if (oldIdx > 0) {
       target = originalTabs[oldIdx - 1];
       if (!tabs.includes(target)) target = null;
     }
 
-    // right neighbor
+
     if (!target && oldIdx >= 0 && oldIdx < originalTabs.length - 1) {
       const right = originalTabs[oldIdx + 1];
       if (tabs.includes(right)) target = right;
     }
 
-    // fallback to Home
+
     if (!target) target = HOME_FILE;
 
     if (target !== currentKey) window.location.href = target;
@@ -124,7 +124,7 @@
     const host = document.getElementById("site-tabs");
     if (!host) return;
 
-    // state: read → ensure required tabs + current → write → render
+
     let tabs = readTabs();
     tabs = ensureHomeAndProjects(tabs);
     tabs = ensureCurrentOpen(tabs);
@@ -137,7 +137,7 @@
       li.className = "tab" + (key === currentKey ? " active" : "");
       li.title = key;
 
-      // clicking navigates
+
       li.addEventListener("click", () => {
         if (key !== currentKey) window.location.href = key;
       });
@@ -146,7 +146,7 @@
       label.textContent = labelFor(key, key === currentKey ? document.title || "" : "");
       li.appendChild(label);
 
-      // show close button for everything EXCEPT fixed tabs
+   
       if (
         key !== HOME_FILE &&
         key !== PROJECTS_FILE &&

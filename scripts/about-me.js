@@ -37,7 +37,7 @@ function setupAboutMeListeners(modal) {
     modal.classList.add("hidden");
   });
 
-  // ✅ The fix: Wire up the inline colophon link INSIDE the loaded modal
+
   modal.querySelector('#inline-colophon-link')?.addEventListener("click", (e) => {
     e.preventDefault();
     modal.classList.add("hidden");
@@ -75,4 +75,56 @@ function setupColophonListeners(modal) {
   modal.addEventListener("click", () => {
     modal.classList.add("hidden");
   });
+}
+
+
+function setupAboutMeListeners(modal) {
+  modal.querySelector(".about-me-close-button")?.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
+
+  modal.querySelector('.about-me-image-container')?.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  modal.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
+
+
+  modal.querySelector('#inline-colophon-link')?.addEventListener("click", (e) => {
+    e.preventDefault();
+    modal.classList.add("hidden");
+    openColophonModal();
+  });
+
+  const form = modal.querySelector("#contactForm");
+  if (form) {
+    const status = modal.querySelector("#form-status");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      status.textContent = "Sending...";
+
+      const data = new FormData(form);
+
+      try {
+        const response = await fetch("https://formspree.io/f/movkbvbp", {
+          method: "POST",
+          body: data,
+          headers: { "Accept": "application/json" },
+        });
+
+        if (response.ok) {
+          status.textContent = "Message sent! I'll get back to you soon.";
+          form.reset();
+        } else {
+          status.textContent = "Oops, something went wrong. Try again later.";
+        }
+      } catch (error) {
+        status.textContent = "Network error — please try again.";
+      }
+    });
+  }
 }
