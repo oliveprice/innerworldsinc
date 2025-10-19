@@ -41,7 +41,7 @@
     // Insert as the new second page (after the title page)
     pages[0].insertAdjacentElement('afterend', mobile);
 
-    // Mark the original content pages (page 2..end) so CSS can hide them on mobile
+
     pages.slice(1).forEach((p) => p.classList.add('hidden-mobile-original'));
 
     mobileBuilt = true;
@@ -64,13 +64,13 @@
     const book = document.getElementById('book');
     if (!book) return;
 
-    // Remove the mobile page and unhide originals
+
     const mobile = book.querySelector('.book-page.mobile-essay');
     if (mobile) mobile.remove();
     book.querySelectorAll('.hidden-mobile-original')
         .forEach((el) => el.classList.remove('hidden-mobile-original'));
 
-    // Remove our capture-stoppers
+
     ['wheel', 'touchstart', 'touchend'].forEach((t) =>
       book.removeEventListener(t, stopper, { capture: true })
     );
