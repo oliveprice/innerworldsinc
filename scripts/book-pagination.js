@@ -73,10 +73,28 @@
       for (let i = 0; i < total; i++) {
         const li = document.createElement('li');
         li.className = 'page' + (i === activeIndex ? ' active' : '');
-        li.textContent = String(i + 1);
+      
+        // Make it keyboard-focusable
+        li.setAttribute('tabindex', '0');
+        li.setAttribute('role', 'button');
+        li.setAttribute('aria-label', `Go to page ${i + 1}`);
         li.setAttribute('data-page-index', String(i));
+      
+        li.textContent = String(i + 1);
         ul.appendChild(li);
+      
+        // Add keyboard interaction
+        li.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const idx = parseInt(li.getAttribute('data-page-index'), 10);
+            if (!Number.isNaN(idx)) {
+              lockAndRun(() => goToPage(idx));
+            }
+          }
+        });
       }
+
 
       container.appendChild(ul);
       wrapper.appendChild(container);

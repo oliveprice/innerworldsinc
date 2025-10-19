@@ -54,3 +54,13 @@
   opacity: 0;
   animation: fadeIn 3s ease-in-out forwards;
 }
+
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}

@@ -1,5 +1,4 @@
 (function () {
-
   const ROUTES = {
     "home.html": "Home",
     "projects.html": "Projects",
@@ -14,7 +13,6 @@
   const SERIES_FILE = "series.html";
   const WRITINGS_FILE = "writings.html";
   const STORAGE_KEY = "IW_open_tabs_v1";
-
 
   const toPath = (url) => {
     try { return new URL(url, location.href).pathname; }
@@ -48,29 +46,17 @@
       .replace(/\b\w/g, (m) => m.toUpperCase());
   }
 
-  function ensureHomeAndProjects(tabs) {
-
+  function ensureTabs(tabs) {
     const seen = new Set();
     const deduped = [];
     for (const t of tabs) {
       if (!seen.has(t)) { seen.add(t); deduped.push(t); }
     }
 
-
-    if (!deduped.includes(HOME_FILE)) deduped.unshift(HOME_FILE);
-    if (!deduped.includes(PROJECTS_FILE)) deduped.splice(1, 0, PROJECTS_FILE);
-    if (!deduped.includes(SERIES_FILE)) deduped.splice(2, 0, SERIES_FILE);
-    if (!deduped.includes(WRITINGS_FILE)) deduped.splice(3, 0, WRITINGS_FILE);
-
-
-    const homeIdx = deduped.indexOf(HOME_FILE);
-    if (homeIdx > 0) deduped.unshift(deduped.splice(homeIdx, 1)[0]);
-    const projIdx = deduped.indexOf(PROJECTS_FILE);
-    if (projIdx > 1) deduped.splice(1, 0, deduped.splice(projIdx, 1)[0]);
-    const seriesIdx = deduped.indexOf(SERIES_FILE);
-    if (seriesIdx > 2) deduped.splice(2, 0, deduped.splice(seriesIdx, 1)[0]);
-    const writingsIdx = deduped.indexOf(WRITINGS_FILE);
-    if (writingsIdx > 3) deduped.splice(3, 0, deduped.splice(writingsIdx, 1)[0]);
+    const defaults = [HOME_FILE, PROJECTS_FILE, SERIES_FILE, WRITINGS_FILE];
+    defaults.forEach((file, idx) => {
+      if (!deduped.includes(file)) deduped.splice(idx, 0, file);
+    });
 
     return deduped;
   }
@@ -81,13 +67,8 @@
   }
 
   function closeTab(tabs, keyToClose) {
-    // can't close Home, Projects, Series, or Writings
-    if (
-      keyToClose === HOME_FILE ||
-      keyToClose === PROJECTS_FILE ||
-      keyToClose === SERIES_FILE ||
-      keyToClose === WRITINGS_FILE
-    ) return tabs;
+    if ([HOME_FILE, PROJECTS_FILE, SERIES_FILE, WRITINGS_FILE].includes(keyToClose))
+      return tabs;
 
     const idx = tabs.indexOf(keyToClose);
     if (idx === -1) return tabs;
@@ -97,24 +78,14 @@
 
   function navigateAfterClose(originalTabs, closedKey) {
     const tabs = readTabs();
-    if (closedKey !== currentKey) return; 
+    if (closedKey !== currentKey) return;
 
     const oldIdx = originalTabs.indexOf(closedKey);
     let target = null;
 
-
-    if (oldIdx > 0) {
-      target = originalTabs[oldIdx - 1];
-      if (!tabs.includes(target)) target = null;
-    }
-
-
-    if (!target && oldIdx >= 0 && oldIdx < originalTabs.length - 1) {
-      const right = originalTabs[oldIdx + 1];
-      if (tabs.includes(right)) target = right;
-    }
-
-
+    if (oldIdx > 0) target = originalTabs[oldIdx - 1];
+    if ((!target || !tabs.includes(target)) && oldIdx < originalTabs.length - 1)
+      target = originalTabs[oldIdx + 1];
     if (!target) target = HOME_FILE;
 
     if (target !== currentKey) window.location.href = target;
@@ -124,53 +95,86 @@
     const host = document.getElementById("site-tabs");
     if (!host) return;
 
-
     let tabs = readTabs();
-    tabs = ensureHomeAndProjects(tabs);
+    tabs = ensureTabs(tabs);
     tabs = ensureCurrentOpen(tabs);
-    tabs = ensureHomeAndProjects(tabs);
     writeTabs(tabs);
 
     host.innerHTML = "";
+    host.setAttribute("role", "tablist");
+
     tabs.forEach((key) => {
       const li = document.createElement("li");
       li.className = "tab" + (key === currentKey ? " active" : "");
       li.title = key;
-
-
-      li.addEventListener("click", () => {
-        if (key !== currentKey) window.location.href = key;
-      });
+      li.setAttribute("role", "tab");
+      li.setAttribute("tabindex", "0"); 
+      li.setAttribute("aria-selected", key === currentKey ? "true" : "false");
 
       const label = document.createElement("span");
       label.textContent = labelFor(key, key === currentKey ? document.title || "" : "");
       li.appendChild(label);
 
-   
-      if (
-        key !== HOME_FILE &&
-        key !== PROJECTS_FILE &&
-        key !== SERIES_FILE &&
-        key !== WRITINGS_FILE
-      ) {
+      li.addEventListener("click", () => {
+        if (key !== currentKey) window.location.href = key;
+      });
+
+  
+      li.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          if (key !== currentKey) window.location.href = key;
+        }
+      });
+
+
+      li.addEventListener("focus", () => {
+        li.style.outline = "2px solid var(--primary)";
+        li.style.outlineOffset = "2px";
+      });
+      li.addEventListener("blur", () => {
+        li.style.outline = "";
+      });
+
+      // close button
+      if (![HOME_FILE, PROJECTS_FILE, SERIES_FILE, WRITINGS_FILE].includes(key)) {
         const closeBtn = document.createElement("button");
         closeBtn.className = "tab-close";
         closeBtn.type = "button";
         closeBtn.textContent = "×";
+        closeBtn.setAttribute("aria-label", `Close ${label.textContent} tab`);
+
         closeBtn.addEventListener("click", (e) => {
           e.stopPropagation();
           const before = readTabs().slice();
           const updated = closeTab(readTabs(), key);
-          writeTabs(ensureHomeAndProjects(updated));
-
+          writeTabs(ensureTabs(updated));
           navigateAfterClose(before, key);
-
           if (key !== currentKey) render();
         });
+
         li.appendChild(closeBtn);
       }
 
       host.appendChild(li);
+    });
+
+
+    const allTabs = host.querySelectorAll(".tab");
+    host.addEventListener("keydown", (e) => {
+      const focused = document.activeElement;
+      if (!focused.classList.contains("tab")) return;
+
+      let idx = Array.from(allTabs).indexOf(focused);
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        idx = (idx + 1) % allTabs.length;
+        allTabs[idx].focus();
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        idx = (idx - 1 + allTabs.length) % allTabs.length;
+        allTabs[idx].focus();
+      }
     });
   }
 

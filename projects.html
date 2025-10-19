@@ -3,6 +3,7 @@
    <head>
       <title>Projects</title>
       <meta name="viewport" content="width=1280, user-scalable=no">
+      <meta name="description" content="I design, write code, and create interactive projects. I'm Olive Price, a UX engineer, designer, and artist from Arizona who builds everything by hand.">
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
       <link rel="icon" type="image/png" href="./resources/favicon/favicon-96x96.png" sizes="96x96" />
       <link rel="preload" as="image" href="./resources/images/assets_together_2.webp" type="image/webp">
@@ -33,7 +34,7 @@
          <div class="background-layer-3 sky ">
             <div class="flex-column flex-align-center" style="height: max-content;">
                <div class="card title margin-bottom-plus-5">
-                  <img src="./resources/drawn_typography/passion-projects.png">
+                  <img src="./resources/drawn_typography/passion-projects.png" alt="Passion Projects">
                </div>
                <ul class="gallery">
                   <li class="piece" data-key="aberration" data-video="./resources/videos/aber.mp4">
@@ -140,25 +141,33 @@
                <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
                <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js"></script>
             </div>
-            <div class="footer-frame">
-               <div class="links flex-row flex-justify-center offset-margin-top flex-align-center gap-plus-1">
-                  <!-- About Me Link -->
-                  <div class="link-container">
-                     <img src="./resources/drawn_typography/about me.png" alt="About Me" class="footer-link">
-                     <div id="underline-about-me" class="underline-animation"></div>
-                  </div>
-                  <!-- Colophon Link -->
-                  <div class="link-container">
-                     <img src="./resources/drawn_typography/colophon.png" alt="Colophon" class="footer-link">
-                     <div id="underline-colophon" class="underline-animation"></div>
-                  </div>
-                  <!-- Change Log Link -->
-                  <div class="link-container">
-                     <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link">
-                     <div id="underline-change-log" class="underline-animation"></div>
-                  </div>
+           <div class="footer-frame">
+             <div class="links flex-row flex-justify-center offset-margin-top flex-align-center gap-plus-1">
+               <!-- About Me Link -->
+               <div class="link-container">
+                 <button class="footer-link-btn" aria-label="About Me">
+                   <img src="./resources/drawn_typography/about me.png" alt="About Me" class="footer-link" />
+                 </button>
+                 <div id="underline-about-me" class="underline-animation"></div>
                </div>
-            </div>
+           
+               <!-- Colophon Link -->
+               <div class="link-container">
+                 <button class="footer-link-btn" aria-label="Colophon">
+                   <img src="./resources/drawn_typography/colophon.png" alt="Colophon" class="footer-link" />
+                 </button>
+                 <div id="underline-colophon" class="underline-animation"></div>
+               </div>
+           
+               <!-- Change Log Link -->
+               <div class="link-container">
+                 <button class="footer-link-btn" aria-label="Change Log">
+                   <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link link-offset" />
+                 </button>
+                 <div id="underline-change-log" class="underline-animation"></div>
+               </div>
+             </div>
+           </div>
          </div>
       </div>
       </div>
@@ -202,6 +211,25 @@
            card.addEventListener('pointerleave', onLeave);
          });
       </script>
+     <script>
+     
+     // Make project cards tabbable + keyboard-activatable
+     document.querySelectorAll('.piece').forEach((card) => {
+       // Allow focus with keyboard
+       card.setAttribute('tabindex', '0');
+       card.setAttribute('role', 'button'); // announces as button to screen readers
+       card.setAttribute('aria-label', card.querySelector('h4')?.textContent || 'Project card');
+     
+       // Keyboard interaction
+       card.addEventListener('keydown', (e) => {
+         if (e.key === 'Enter' || e.key === ' ') {
+           e.preventDefault();
+           card.click(); // trigger same behavior as a click
+         }
+       });
+     });
+     
+     </script>
       <script src="dist/smooth-scrollbar.js"></script>
       <script>
         Scrollbar.init(document.querySelector('#my-scrollbar'), {

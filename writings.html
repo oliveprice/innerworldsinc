@@ -35,44 +35,60 @@
       <div class="background-layer-3 sky ">
         <div class="flex-column flex-align-center" style="height: max-content;">
           <div style="margin-bottom: 6rem" class="card title margin-bottom-plus-5">
-            <img style="padding-bottom: 1rem;" src="./resources/drawn_typography/writings.png">
+            <img style="padding-bottom: 1rem;" src="./resources/drawn_typography/writings.png" alt="Writings">
           </div>
+         
+         <ul class="gallery">
+           <li 
+             class="book-card" 
+             role="link"
+             tabindex="0"
+             aria-label="Open Power Through Transmutation"
+             onclick="window.location.href='./power-through-transmutation.html'"
+             onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); window.location.href='./power-through-transmutation.html'; }"
+             style="cursor:pointer;"
+           >
+             <img 
+               style="width:486px;" 
+               src="./resources/drawn_typography/book1.png" 
+               alt="Book cover for Power Through Transmutation"
+             >
+           </li>
+         </ul>
 
-
- <ul class="gallery">
-<li class="book-card" onclick="window.location.href='./power-through-transmutation.html'" style="cursor:pointer;">
-  <img style="width:486px;" src="./resources/drawn_typography/book1.png" alt="Book cover">
-</li>
-
-
-
-
-</ul>
 
 
         </div>
         <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js"></script>
       </div>
-      <div class="footer-frame">
-        <div class="links flex-row flex-justify-center offset-margin-top flex-align-center gap-plus-1">
-          <!-- About Me Link -->
-          <div class="link-container">
-            <img src="./resources/drawn_typography/about me.png" alt="About Me" class="footer-link">
-            <div id="underline-about-me" class="underline-animation"></div>
-          </div>
-          <!-- Colophon Link -->
-          <div class="link-container">
-            <img src="./resources/drawn_typography/colophon.png" alt="Colophon" class="footer-link">
-            <div id="underline-colophon" class="underline-animation"></div>
-          </div>
-          <!-- Change Log Link -->
-          <div class="link-container">
-            <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link">
-            <div id="underline-change-log" class="underline-animation"></div>
-          </div>
-        </div>
-      </div>
+     <div class="footer-frame">
+       <div class="links flex-row flex-justify-center offset-margin-top flex-align-center gap-plus-1">
+         <!-- About Me Link -->
+         <div class="link-container">
+           <button class="footer-link-btn" aria-label="About Me">
+             <img src="./resources/drawn_typography/about me.png" alt="About Me" class="footer-link" />
+           </button>
+           <div id="underline-about-me" class="underline-animation"></div>
+         </div>
+     
+         <!-- Colophon Link -->
+         <div class="link-container">
+           <button class="footer-link-btn" aria-label="Colophon">
+             <img src="./resources/drawn_typography/colophon.png" alt="Colophon" class="footer-link" />
+           </button>
+           <div id="underline-colophon" class="underline-animation"></div>
+         </div>
+     
+         <!-- Change Log Link -->
+         <div class="link-container">
+           <button class="footer-link-btn" aria-label="Change Log">
+             <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link link-offset" />
+           </button>
+           <div id="underline-change-log" class="underline-animation"></div>
+         </div>
+       </div>
+     </div>
     </div>
     </div>
     </div>

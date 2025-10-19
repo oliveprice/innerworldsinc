@@ -3,6 +3,7 @@
    <head>
       <title>Inner Worlds Inc.</title>
       <meta name="viewport" content="width=1280, user-scalable=no">
+      <meta name="description" content="I design, write code, and create interactive projects. I'm Olive Price, a UX engineer, designer, and artist from Arizona who builds everything by hand.">
       <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
    <link rel="icon" type="image/png" href="./resources/favicon/favicon-96x96.png" sizes="96x96" />
       <link rel="preload" as="image" href="./resources/images/assets_together_2.webp" type="image/webp">
@@ -92,6 +93,7 @@
 </script>
 
    <body class="background-layer-1">
+
 <ul class="tabs" id="site-tabs"></ul>
 
       <div id="my-scrollbar" class="background-layer-2">
@@ -102,7 +104,7 @@
                </div>
                <div class="hero-section-frame margin-top-180 margin-bottom-240">
                   <div class="hero-section " id="lottie-hero">
-                     <div id="opener" class="opener"></div>
+                     <div id="opener" alt="Inner Worlds Inc." class="opener"></div>
                   </div>
                </div>
                <div class="octo-container">
@@ -118,24 +120,33 @@
                </div>
 
                <div class="footer-frame">
-                  <div class="links flex-row flex-justify-center offset-margin-top flex-align-center gap-plus-1">
-                     <!-- About Me Link -->
-                     <div class="link-container">
-                        <img src="./resources/drawn_typography/about me.png" alt="About Me" class="footer-link">
-                        <div id="underline-about-me" class="underline-animation"></div>
-                     </div>
-                     <!-- Colophon Link -->
-                     <div class="link-container">
-                        <img src="./resources/drawn_typography/colophon.png" alt="Colophon" class="footer-link">
-                        <div id="underline-colophon" class="underline-animation"></div>
-                     </div>
-                     <!-- Change Log Link -->
-                     <div class="link-container">
-                        <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link link-offset">
-                        <div id="underline-change-log" class="underline-animation"></div>
-                     </div>
-                  </div>
+                 <div class="links flex-row flex-justify-center offset-margin-top flex-align-center gap-plus-1">
+                   <!-- About Me Link -->
+                   <div class="link-container">
+                     <button class="footer-link-btn" aria-label="About Me">
+                       <img src="./resources/drawn_typography/about me.png" alt="About Me" class="footer-link" />
+                     </button>
+                     <div id="underline-about-me" class="underline-animation"></div>
+                   </div>
+               
+                   <!-- Colophon Link -->
+                   <div class="link-container">
+                     <button class="footer-link-btn" aria-label="Colophon">
+                       <img src="./resources/drawn_typography/colophon.png" alt="Colophon" class="footer-link" />
+                     </button>
+                     <div id="underline-colophon" class="underline-animation"></div>
+                   </div>
+               
+                   <!-- Change Log Link -->
+                   <div class="link-container">
+                     <button class="footer-link-btn" aria-label="Change Log">
+                       <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link link-offset" />
+                     </button>
+                     <div id="underline-change-log" class="underline-animation"></div>
+                   </div>
+                 </div>
                </div>
+
 
                <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
                <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js"></script>

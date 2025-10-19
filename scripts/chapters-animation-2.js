@@ -29,7 +29,7 @@ const chapters = [
     blockImage: './resources/animations/chapter-1/images/img_12.png',
     flowerLottie: './resources/animations/chapter-1/images/img_1.png',
     chapterNumber: '1',
-    chapterName: 'aberration',
+    chapterName: 'Projects',
     lineImage: './resources/animations/chapter-1/images/img_7.png'
   },
   {
@@ -37,7 +37,7 @@ const chapters = [
     blockImage: './resources/animations/chapter-2/images/img_0.png',
     flowerLottie: './resources/animations/chapter-2/images/img_1.png',
     chapterNumber: '2',
-    chapterName: 'BLAH BLAH',
+    chapterName: 'Series',
     lineImage: './resources/animations/chapter-2/images/img_7.png',
     pages: [
       { name: 'Music Posters', number: '6' },
@@ -49,7 +49,7 @@ const chapters = [
     blockImage: './resources/animations/chapter-3/images/img_0.png',
     flowerLottie: './resources/animations/chapter-3/images/img_1.png',
     chapterNumber: '3',
-    chapterName: 'DEEP THOUGHT',
+    chapterName: 'Writings',
     lineImage: './resources/animations/chapter-3/images/img_7.png',
     pages: [
       { name: 'Power Through Transmutation', number: '8' }
@@ -65,7 +65,7 @@ const MOBILE_ROUTES = {
 };
 
 // ========================= DOM BUILDERS =========================
-function buildProjectURL(key){
+function buildProjectURL(key) {
   const url = new URL('projects.html', location.href);
   url.searchParams.set('open', key);
   return url.toString();
@@ -76,22 +76,26 @@ function createChapterHTML(data) {
   container.classList.add('chapter-container');
   container.id = data.id;
 
+  // Add aria-label for screen readers
+  container.setAttribute('role', 'region');
+  container.setAttribute('aria-label', `Chapter ${data.chapterNumber}: ${data.chapterName || 'Unnamed Section'}`);
+
   const stack = document.createElement('div');
   stack.classList.add('chapter-reveal-stack');
 
   const blockImg = document.createElement('img');
   blockImg.classList.add('chapter-block-img');
   blockImg.src = data.blockImage;
-  blockImg.alt = 'Chapter Block';
+  blockImg.alt = `Chapter ${data.chapterNumber}: ${data.chapterName || 'Unnamed Section'}`;
 
   const flexColumn = document.createElement('div');
   flexColumn.classList.add('flex-column-special', 'gap-0');
 
   const pages = data.pages || [
-    { name: 'Aberration',    number: '1' },
+    { name: 'Aberration', number: '1' },
     { name: 'Kody Joliet', number: '2' },
-    { name: 'r8r.world',   number: '3' },
-    { name: 'Scent',       number: '4' },
+    { name: 'r8r.world', number: '3' },
+    { name: 'Scent', number: '4' },
     { name: 'Hiccup Tool', number: '5' },
   ];
 
@@ -125,8 +129,7 @@ function createPageNode(page, index) {
     a.style.color = 'inherit';
     a.rel = 'noopener';
     chapterText.appendChild(a);
-  } 
-  else if ((page.name || '').toLowerCase() === 'power through transmutation') {
+  } else if ((page.name || '').toLowerCase() === 'power through transmutation') {
     const a = document.createElement('a');
     a.href = './power-through-transmutation.html';
     a.textContent = page.name;
@@ -134,8 +137,7 @@ function createPageNode(page, index) {
     a.style.color = 'inherit';
     a.rel = 'noopener';
     chapterText.appendChild(a);
-  } 
-  else {
+  } else {
     const key = projectKeyFor(page);
     const label = page.name || '';
     if (key) {
@@ -154,6 +156,7 @@ function createPageNode(page, index) {
 
   const lineImg = document.createElement('img');
   lineImg.src = './resources/animations/chapter-1/images/img_1.png';
+  lineImg.alt = ''; // purely decorative
   textAndLine.appendChild(chapterText);
   textAndLine.appendChild(lineImg);
 
@@ -166,6 +169,7 @@ function createPageNode(page, index) {
 
   const flowerImg = document.createElement('img');
   flowerImg.src = './resources/animations/chapter-1/images/img_2.png';
+  flowerImg.alt = ''; // decorative
   flowerImg.classList.add('animated-flower');
   flowerImg.style.transform = 'scale(0)';
   flowerImg.style.opacity = '0';
@@ -185,8 +189,6 @@ function projectKeyFor(page) {
   const label = (page.name || '').toLowerCase().trim();
   return projectKeyMap[label] || null;
 }
-
-function makeRowDeepLink(rowEl, key) {}
 
 // ========================= ANIMATION PIPELINE =========================
 function setInitialState(container) {
@@ -224,23 +226,12 @@ function forceRevealNow(container){
     const number = node.querySelector('.chapter-number'); if (number) { number.style.opacity = '1'; number.style.transform = 'translateY(0)'; }
     const flower = node.querySelector('.animated-flower'); if (flower) { flower.style.opacity = '1'; flower.style.transform = 'scale(1)'; }
   });
-  const column = container.querySelector('.flex-column-special'); if (!column) return;
-  const oldColTransition = column.style.transition || '';
-  column.style.willChange = 'opacity, transform'; column.style.transition = 'none'; column.style.opacity = '0'; column.style.transform = 'translateY(0)'; column.offsetHeight;
-  requestAnimationFrame(() => { column.style.transition = 'opacity 220ms ease'; column.style.opacity = '1';
-    setTimeout(() => { column.style.transition = oldColTransition; els.forEach(el => { el.style.transition = el.__oldTransition; delete el.__oldTransition; }); column.style.willChange = ''; }, 260);
-  });
 }
 
-function reverseText(n){const t=n.querySelector('.chapter-text');if(!t)return;t.style.transition='opacity 0.25s ease-in, transform 0.25s ease-in';t.style.opacity='0';t.style.transform='translateY(10px)';}
-function reverseLine(n){const l=n.querySelector('.text-and-line img');if(!l)return;l.style.transition='opacity 0.25s ease-out, transform 0.25s ease-out';l.style.opacity='0';l.style.transform='translateX(40px)';}
-function reverseNumber(n){const m=n.querySelector('.chapter-number');if(!m)return;m.style.transition='opacity 0.25s ease-out, transform 0.25s ease-out';m.style.opacity='0';m.style.transform='translateY(10px)';}
-function reverseFlower(n){const f=n.querySelector('.animated-flower');if(!f)return;f.style.transform='scale(0)';f.style.opacity='0';}
-
+// ========================= INTERACTION =========================
 function slideChapterBlockOut(c){c.style.transform='translateX(-150%)';}
 function slideChapterBlockIn(c){c.style.transform='translateX(0)';}
 
-// ========================= HOVER / MOBILE INTERACTION =========================
 const _timers = new WeakMap();
 const _session = new WeakMap();
 let _active = null;
@@ -252,13 +243,19 @@ function _currentSession(c){return _session.get(c)||0;}
 function _schedule(c,fn,d){const s=_currentSession(c);const id=setTimeout(()=>{if(_currentSession(c)!==s)return;fn();},d);_getSet(c).add(id);return id;}
 function _resetChapter(c){setInitialState(c);c.querySelectorAll('.page-node .chapter-text,.page-node .text-and-line img,.page-node .chapter-number,.page-node .animated-flower').forEach(el=>{void el.offsetWidth;});}
 
-function revealPageNodesInOrder(c){const n=c.querySelectorAll('.page-node');n.forEach((node,i)=>_schedule(c,()=>revealPageNodeInSequence(node),i*500));}
-function reversePageNodesInOrder(c){activeTimeouts.forEach(id=>clearTimeout(id));activeTimeouts=[];const n=Array.from(c.querySelectorAll('.page-node')).reverse();n.forEach((node,i)=>_schedule(c,()=>{reverseText(node);reverseLine(node);reverseNumber(node);reverseFlower(node);},i*500));}
-
 function startChapterSequence(c,b){slideChapterBlockOut(b);_schedule(c,()=>{forceRevealNow(c);},120);}
-function initChapterReveal(c){const b=c.querySelector('.chapter-block-img');b.style.transform='translateX(0)';b.style.transition='transform 0.8s ease';setInitialState(c);
+function initChapterReveal(c){
+  const b=c.querySelector('.chapter-block-img');
+  b.style.transform='translateX(0)';
+  b.style.transition='transform 0.8s ease';
+  setInitialState(c);
+
   c.addEventListener('pointerenter',()=>{_bumpSession(c);_clearAll(c);if(_active&&_active!==c){_bumpSession(_active);_clearAll(_active);_resetChapter(_active);slideChapterBlockIn(_active.querySelector('.chapter-block-img'));}_active=c;_resetChapter(c);startChapterSequence(c,b);});
   c.addEventListener('pointerleave',()=>{if(c.dataset.mobileOpen==='1')return;_bumpSession(c);_clearAll(c);_resetChapter(c);slideChapterBlockIn(b);if(_active===c)_active=null;});
+
+  // accessibility: trigger on focus
+  c.addEventListener('focusin',()=>{_bumpSession(c);_clearAll(c);if(_active&&_active!==c){_bumpSession(_active);_clearAll(_active);_resetChapter(_active);slideChapterBlockIn(_active.querySelector('.chapter-block-img'));}_active=c;_resetChapter(c);startChapterSequence(c,b);});
+  c.addEventListener('focusout',(e)=>{if(!c.contains(e.relatedTarget)){_bumpSession(c);_clearAll(c);_resetChapter(c);slideChapterBlockIn(b);if(_active===c)_active=null;}});
 }
 
 // ========================= MOBILE DIRECT NAV =========================
