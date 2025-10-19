@@ -213,7 +213,7 @@ async function openPiece(piece){
   const vid = document.createElement('video');
   vid.className = 'teaser';
   vid.autoplay = true; vid.muted = true; vid.playsInline = true; vid.loop = true; vid.preload = 'auto';
-  vid.style.cssText = 'display:block;width:100%;height:100%;opacity:0.001;';
+  vid.style.cssText = 'display:block;width:100%;opacity:0.001;';
   const srcEl = document.createElement('source'); srcEl.src = src; srcEl.type = 'video/mp4';
   vid.appendChild(srcEl);
   piece.appendChild(vid);
