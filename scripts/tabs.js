@@ -3,13 +3,16 @@
   const ROUTES = {
     "home.html": "Home",
     "projects.html": "Projects",
+    "series.html": "Series",
+    "writings.html": "Writings",
     "html-to-hiccup-converter.html": "Converter",
     "power-through-transmutation.html": "Transmutation"
   };
 
   const HOME_FILE = "home.html";
-  const PROJECTS_FILE = "projects.html"; 
-  const SERIES_FILE = "series.html"; 
+  const PROJECTS_FILE = "projects.html";
+  const SERIES_FILE = "series.html";
+  const WRITINGS_FILE = "writings.html";
   const STORAGE_KEY = "IW_open_tabs_v1";
 
   // --- helpers
@@ -53,16 +56,21 @@
       if (!seen.has(t)) { seen.add(t); deduped.push(t); }
     }
 
-    // ensure Home + Projects exist and are ordered first
+    // ensure Home + Projects + Series + Writings exist
     if (!deduped.includes(HOME_FILE)) deduped.unshift(HOME_FILE);
     if (!deduped.includes(PROJECTS_FILE)) deduped.splice(1, 0, PROJECTS_FILE);
- if (!deduped.includes(SERIES_FILE)) deduped.splice(1, 0, SERIES_FILE);
+    if (!deduped.includes(SERIES_FILE)) deduped.splice(2, 0, SERIES_FILE);
+    if (!deduped.includes(WRITINGS_FILE)) deduped.splice(3, 0, WRITINGS_FILE);
 
-    // force correct ordering (Home first, Projects second)
+    // force correct ordering
     const homeIdx = deduped.indexOf(HOME_FILE);
     if (homeIdx > 0) deduped.unshift(deduped.splice(homeIdx, 1)[0]);
     const projIdx = deduped.indexOf(PROJECTS_FILE);
     if (projIdx > 1) deduped.splice(1, 0, deduped.splice(projIdx, 1)[0]);
+    const seriesIdx = deduped.indexOf(SERIES_FILE);
+    if (seriesIdx > 2) deduped.splice(2, 0, deduped.splice(seriesIdx, 1)[0]);
+    const writingsIdx = deduped.indexOf(WRITINGS_FILE);
+    if (writingsIdx > 3) deduped.splice(3, 0, deduped.splice(writingsIdx, 1)[0]);
 
     return deduped;
   }
@@ -72,17 +80,20 @@
     return tabs;
   }
 
-function closeTab(tabs, keyToClose) {
-  // can't close Home, Projects, or Series
-  if (keyToClose === HOME_FILE || keyToClose === PROJECTS_FILE || keyToClose === SERIES_FILE)
+  function closeTab(tabs, keyToClose) {
+    // can't close Home, Projects, Series, or Writings
+    if (
+      keyToClose === HOME_FILE ||
+      keyToClose === PROJECTS_FILE ||
+      keyToClose === SERIES_FILE ||
+      keyToClose === WRITINGS_FILE
+    ) return tabs;
+
+    const idx = tabs.indexOf(keyToClose);
+    if (idx === -1) return tabs;
+    tabs.splice(idx, 1);
     return tabs;
-
-  const idx = tabs.indexOf(keyToClose);
-  if (idx === -1) return tabs;
-  tabs.splice(idx, 1);
-  return tabs;
-}
-
+  }
 
   function navigateAfterClose(originalTabs, closedKey) {
     const tabs = readTabs();
@@ -113,7 +124,7 @@ function closeTab(tabs, keyToClose) {
     const host = document.getElementById("site-tabs");
     if (!host) return;
 
-    // state: read → ensure Home+Projects+current → write → render
+    // state: read → ensure required tabs + current → write → render
     let tabs = readTabs();
     tabs = ensureHomeAndProjects(tabs);
     tabs = ensureCurrentOpen(tabs);
@@ -135,8 +146,13 @@ function closeTab(tabs, keyToClose) {
       label.textContent = labelFor(key, key === currentKey ? document.title || "" : "");
       li.appendChild(label);
 
-      // show close button for everything EXCEPT Home + Projects
-      if (key !== HOME_FILE && key !== PROJECTS_FILE && key !== SERIES_FILE) {
+      // show close button for everything EXCEPT fixed tabs
+      if (
+        key !== HOME_FILE &&
+        key !== PROJECTS_FILE &&
+        key !== SERIES_FILE &&
+        key !== WRITINGS_FILE
+      ) {
         const closeBtn = document.createElement("button");
         closeBtn.className = "tab-close";
         closeBtn.type = "button";
@@ -164,4 +180,3 @@ function closeTab(tabs, keyToClose) {
     render();
   }
 })();
-

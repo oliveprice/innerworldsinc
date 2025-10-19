@@ -226,6 +226,21 @@ line-height: 72px;
 .aboutmecomic {
     width: 795px;
 }
+
+
+.prev-button,
+.next-button {
+
+width: 80px;
+height: 80px;
+
+}
+
+
+
+
+
+
 }
 
 .commit-container .access-gate p.handwritten {

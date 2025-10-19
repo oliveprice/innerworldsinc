@@ -269,7 +269,19 @@ max-width: 89%;
 
 
 
+ .book-card {
+     width:  max-content;
+   border: 1px solid #ddbe97;
+   background-image: var(--bg-texture);
+   margin-bottom: 100px;
+  transform: perspective(800px) rotateX(var(--rx, 0)) rotateY(var(--ry, 0));
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+ }
 
+.book-card:hover {
+cursor: pointer;
+}
 
  
  .series-card {
@@ -367,6 +379,7 @@ height: 734px;
 
 
 
+
 .prev-button,
 .next-button {
   background-color: #674f67;
@@ -385,6 +398,23 @@ height: 734px;
   appearance: none;
   -webkit-appearance: none;
   position: relative;
+}
+
+@media (max-device-width: 820px) {
+.prev-button,
+.next-button {
+
+width: 80px;
+height: 80px;
+
+}
+
+.prev-button::before,
+.next-button::before {
+  font-size: 2rem;
+}
+
+
 }
 
 /* use Font Awesome arrows, or simple pseudo-arrows if no icons */
@@ -415,4 +445,23 @@ height: 734px;
 .prev-button:active,
 .next-button:active {
   transform: scale(0.98);
+}
+
+
+@media (max-device-width: 820px) {
+
+.prev-button::before,
+.next-button::before {
+  font-size: 2rem;
+}
+
+.series-card {
+width: 800px;
+
+
+}
+.poster-group li.active img {
+    width: 670px;
+    height: 974px;
+}
 }
