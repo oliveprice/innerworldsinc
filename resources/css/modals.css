@@ -187,6 +187,70 @@ display: none;
 
 }
 
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 340px;
+    font-family: inherit;
+    align-items: flex-start;
+margin-top: 7rem;
+}
+
+.seperator {
+border-top: 1px solid var(--primary);
+width: 431px;
+    position: absolute;
+    top: 760px;
+    left: -34px;
+}
+
+
+.contact-form h4 {
+margin-bottom: 1rem;
+    font-size: 40px;
+}
+
+.contact-form label {
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.contact-form input,
+.contact-form textarea {
+  border: 1px solid var(--primary);
+  background: var(--bg-texture);
+  padding: 0.75rem;
+  color: var(--primary);
+  font-size: 1.8rem;
+  width: 100%;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form button:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;      
+  border-color: var(--primary);       
+
+}
+.contact-form button {
+  background-color: #674f67;
+  color: var(--primary);
+  border: 1px solid #ddbe97;
+  font-family: 'PP Editorial';
+  text-transform: uppercase;
+  padding: 0.75rem;
+  cursor: pointer;
+  letter-spacing: 1.5px;
+  transition: background-color 0.2s ease;
+}
+
+.contact-form button:hover {
+  background-color:  var(--primary);
+  color: #674f67;
+}
+
 
 
 /* 2) Phone & small tablet without touching your meta viewport */
