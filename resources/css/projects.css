@@ -285,7 +285,7 @@ cursor: pointer;
 
  
  .series-card {
-     width:  590px;
+     width: 540px;
    border: 1px solid #ddbe97;
    background-image: var(--bg-texture);
    margin-bottom: 100px;
@@ -345,7 +345,7 @@ cursor: pointer;
  
  .audio-progress {
    flex: 1;
-   height: 6px;
+   height: 18px;
    border: 1px solid var(--primary);
    overflow: hidden;
    position: relative;
@@ -364,7 +364,7 @@ cursor: pointer;
  align-items: center;
  justify-content: space-between;
  flex-direction: row;
- gap: 2rem;
+    gap: .4rem;
  
  }
  
@@ -402,7 +402,7 @@ height: 734px;
 
 @media (max-device-width: 820px) {
 .prev-button,
-.next-button {
+.next-button, .audio-btn {
 
 width: 80px;
 height: 80px;
@@ -414,6 +414,17 @@ height: 80px;
   font-size: 2rem;
 }
 
+ .audio-btn i {
+  font-size: 2rem;
+}
+
+.audio-progress {
+height: 36px;
+}
+
+.audio-player {
+margin-bottom: 1rem;
+}
 
 }
 

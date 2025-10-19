@@ -5,7 +5,7 @@ let activeContainer = null;
 
 // map visible names -> project keys
 const projectKeyMap = {
-  'viridian': 'viridian',
+  'aberration': 'aberration',
   'kody joliet': 'kjp',
   'kody joliet photos': 'kjp',
   'r8r.world': 'r8r.world',
@@ -29,7 +29,7 @@ const chapters = [
     blockImage: './resources/animations/chapter-1/images/img_12.png',
     flowerLottie: './resources/animations/chapter-1/images/img_1.png',
     chapterNumber: '1',
-    chapterName: 'Viridian',
+    chapterName: 'aberration',
     lineImage: './resources/animations/chapter-1/images/img_7.png'
   },
   {
@@ -88,7 +88,7 @@ function createChapterHTML(data) {
   flexColumn.classList.add('flex-column-special', 'gap-0');
 
   const pages = data.pages || [
-    { name: 'Viridian',    number: '1' },
+    { name: 'Aberration',    number: '1' },
     { name: 'Kody Joliet', number: '2' },
     { name: 'r8r.world',   number: '3' },
     { name: 'Scent',       number: '4' },
