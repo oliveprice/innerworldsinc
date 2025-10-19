@@ -184,3 +184,32 @@
     render();
   }
 })();
+
+
+function addSafeClick(target, onClick) {
+  let downX = 0, downY = 0, armed = false;
+
+  target.addEventListener("pointerdown", (e) => {
+    if (e.button !== 0) return;           // left button only
+    armed = true;
+    downX = e.clientX;
+    downY = e.clientY;
+    target.setPointerCapture(e.pointerId);
+  });
+
+  target.addEventListener("pointerup", (e) => {
+    if (!armed) return;
+    armed = false;
+    target.releasePointerCapture?.(e.pointerId);
+    const dx = Math.abs(e.clientX - downX);
+    const dy = Math.abs(e.clientY - downY);
+    if (dx <= 4 && dy <= 4) onClick(e);   // only count as click if not a drag
+  });
+
+  target.addEventListener("pointercancel", () => { armed = false; });
+}
+
+// …inside your render() loop:
+addSafeClick(li, () => {
+  if (key !== currentKey) window.location.href = key;
+});

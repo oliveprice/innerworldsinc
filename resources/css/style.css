@@ -64,3 +64,13 @@
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
+
+#site-tabs {
+  overscroll-behavior-x: contain;   /* stops history swipe in Chrome/Edge */
+}
+
+#site-tabs .tab {
+  -webkit-user-select: none;
+  user-select: none;                /* avoids drag-select triggering pointer weirdness */
+  padding: 0.25rem 0.6rem;          /* a bit more hit-area */
+}
