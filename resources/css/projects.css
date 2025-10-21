@@ -278,7 +278,7 @@
 
 
 .series-card {
-	width: 540px;
+	width: 410px;
 	border: 1px solid #ddbe97;
 	background-image: var(--bg-texture);
 	margin-bottom: 100px;
@@ -370,8 +370,8 @@
 }
 
 .poster-group li.active img {
-	width: 490px;
-	height: 734px;
+	width: auto;
+	height: 534px;
 }
 
 
