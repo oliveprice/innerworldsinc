@@ -476,3 +476,50 @@
 		height: 974px;
 	}
 }
+
+
+
+
+
+
+/* DOCS HERE */
+
+.documentation img, video {
+width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+    border: 1px solid #ddbe97;
+}
+
+.inset-padding {
+padding: 5rem 100px;
+}
+
+.docs {
+	background-image: var(--bg-texture);
+    border: 1px solid #ddbe97;
+    color: #ddbe97;
+    width: max-content;
+    position: sticky;
+    top: 5rem;
+    align-self: flex-start;
+}
+
+.subsection {
+text-transform: uppercase;
+font-size: 10px;
+letter-spacing: 2px;
+   font-weight: bold;
+margin-bottom: 8px;
+}
+
+.docs .margin-bottom-plus-1 {
+margin-bottom: 30px;
+}
+
+.docs a {
+    text-decoration: none;
+    animation: none;
+    letter-spacing: .5px;
+}

@@ -150,3 +150,14 @@ h4 {
 font-size: 40px;
 text-transform: uppercase;
 }
+
+
+.italic {
+  font-family: 'PP Editorial';
+  font-style: italic;
+  letter-spacing: 3px;
+}
+
+.bold {
+   font-weight: bold;
+}
