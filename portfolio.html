@@ -28,7 +28,7 @@
    <body class="background-layer-1">
       <ul class="tabs" id="site-tabs"></ul>
       <div id="" class="background-layer-2">
-         <div class="flex-row inset-padding documentation ">
+         <div class="flex-row inset-padding documentation " style="gap: 2rem;">
             <div class="flex-column">
                <div class="docs">
                   <div
@@ -135,7 +135,7 @@
                         </a>
                      </li>
 
-               <li class="margin-bottom-plus-1">
+               <li class="">
                         <a
                            href="#misc"
                            >
@@ -149,7 +149,7 @@
             <div class="flex-column">
                <div class="margin-bottom-plus-3">
                   <section id="innerworldsinc">
-                  <img src="./resources/images/portfolio/innerworlds/1.png"/>
+                   <video src="./resources/images/portfolio/innerworlds/10.mp4"autoplay muted loop playsinline></video>
                   <img src="./resources/images/portfolio/innerworlds/6.png"/>
                   <img src="./resources/images/portfolio/innerworlds/5.png"/>
                   <video src="./resources/images/portfolio/innerworlds/2.mp4"autoplay muted loop playsinline></video>
@@ -196,8 +196,9 @@
                      <img src="./resources/images/portfolio/additive/1.png"/>   
                      <img src="./resources/images/portfolio/additive/2.png"/>   
                      <img src="./resources/images/portfolio/additive/3.png"/>   
+                      <img src="./resources/images/portfolio/additive/10.png"/> 
                      <img src="./resources/images/portfolio/additive/4.png"/>   
-                     <img src="./resources/images/portfolio/additive/5.png"/>   
+                     <img src="./resources/images/portfolio/additive/9.png"/>   
                   </section>
 
 
@@ -243,7 +244,8 @@
                      <img src="./resources/images/portfolio/posts/3.png"/>  
                      <img src="./resources/images/portfolio/posts/4.png"/> 
                      <img src="./resources/images/portfolio/posts/2.png"/>
-                     <img src="./resources/images/portfolio/posts/5.png"/>   
+                     <img src="./resources/images/portfolio/posts/5.png"/>
+                     <img src="./resources/images/portfolio/posts/8.png"/>     
                   </section>
 
 
@@ -297,7 +299,97 @@
       </div>
 
 
+<script>
 
+// Active section highlighter for portfolio navigation
+(function() {
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px', // Triggers when section is in the middle-upper portion of viewport
+    threshold: 0
+  };
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('#-interactive a');
+
+  // Create a map of section IDs to their corresponding nav links
+  const linkMap = new Map();
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      const sectionId = href.substring(1);
+      linkMap.set(sectionId, link);
+    }
+  });
+
+  // Remove active class from all links
+  function clearActive() {
+    navLinks.forEach(link => {
+      link.style.backgroundColor = '';
+      link.style.color = '';
+    });
+  }
+
+  // Set active link
+  function setActive(sectionId) {
+    clearActive();
+    const activeLink = linkMap.get(sectionId);
+    if (activeLink) {
+      activeLink.style.backgroundColor = '#dec09a';
+      activeLink.style.color = '#644b63';
+      activeLink.style.borderRadius = '2px';
+    }
+  }
+
+  // Intersection Observer callback
+  const observerCallback = (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setActive(entry.target.id);
+      }
+    });
+  };
+
+  // Create observer
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+  // Observe all sections
+  sections.forEach(section => {
+    if (section.id) {
+      observer.observe(section);
+    }
+  });
+
+  // Handle clicks for instant scrolling
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const sectionId = href.substring(1);
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+          setActive(sectionId);
+        }
+      }
+    });
+  });
+
+  // Handle initial load - highlight first visible section
+  window.addEventListener('load', () => {
+    const firstVisibleSection = Array.from(sections).find(section => {
+      const rect = section.getBoundingClientRect();
+      return rect.top < window.innerHeight / 2 && rect.bottom > 0;
+    });
+    
+    if (firstVisibleSection) {
+      setActive(firstVisibleSection.id);
+    }
+  });
+})();
+
+</script>
 
    </body>
 </html>

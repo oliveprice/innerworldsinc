@@ -493,7 +493,7 @@ width: 100%;
 }
 
 .inset-padding {
-padding: 5rem 100px;
+padding: 5rem 50px;
 }
 
 .docs {
@@ -521,5 +521,6 @@ margin-bottom: 30px;
 .docs a {
     text-decoration: none;
     animation: none;
-    letter-spacing: .5px;
+    letter-spacing: 1px;
+    line-height: 19px;
 }
