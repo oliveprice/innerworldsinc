@@ -485,37 +485,63 @@
 /* DOCS HERE */
 
 .documentation img, video {
-width: 100%;
+  width: 100%;
   height: auto;
   display: block;
   margin-bottom: 10px;
-    border: 1px solid #ddbe97;
+  border: 1px solid #ddbe97;
 }
 
-.inset-padding {
-padding: 5rem 50px;
+.inset-padding { 
+  padding: 5rem 50px; 
 }
 
-.docs {
-	background-image: var(--bg-texture);
-    border: 1px solid #ddbe97;
-    color: #ddbe97;
-    width: max-content;
-    position: sticky;
-    top: 5rem;
-    align-self: flex-start;
+.docs { 
+  background-image: var(--bg-texture);
+  border: 1px solid #ddbe97;
+  color: #ddbe97;
+  width: max-content;
+  min-width: 250px; /* or whatever minimum width you want */
+  position: sticky;
+  top: 5rem;
+  align-self: flex-start;
 }
 
-.subsection {
-text-transform: uppercase;
-font-size: 10px;
-letter-spacing: 2px;
-   font-weight: bold;
-margin-bottom: 8px;
+.subsection { 
+  text-transform: uppercase; 
+  font-size: 10px; 
+  letter-spacing: 2px;
+  font-weight: bold; 
+  margin-bottom: 8px; 
 }
 
-.docs .margin-bottom-plus-1 {
-margin-bottom: 30px;
+.docs .margin-bottom-plus-1 { 
+  margin-bottom: 30px; 
+}
+
+.docs a {
+  text-decoration: none;
+  animation: none;
+  letter-spacing: 1px;
+  line-height: 19px;
+}
+
+/* Mobile breakpoint */
+@media (max-width: 768px) {
+  .flex-row {
+    flex-direction: column;
+  }
+  
+  .docs {
+    position: relative;
+    top: 0;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+  .inset-padding {
+    padding: 2rem 20px;
+  }
 }
 
 .docs a {
