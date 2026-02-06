@@ -2,6 +2,7 @@
   const ROUTES = {
     "home.html": "Home",
     "projects.html": "Projects",
+    "portfolio.html": "Portfolio",
     "series.html": "Series",
     "writings.html": "Writings",
     "html-to-hiccup-converter.html": "Converter",
@@ -10,6 +11,7 @@
 
   const HOME_FILE = "home.html";
   const PROJECTS_FILE = "projects.html";
+  const PORTFOLIO_FILE = "portfolio.html";
   const SERIES_FILE = "series.html";
   const WRITINGS_FILE = "writings.html";
   const STORAGE_KEY = "IW_open_tabs_v1";
@@ -53,7 +55,7 @@
       if (!seen.has(t)) { seen.add(t); deduped.push(t); }
     }
 
-    const defaults = [HOME_FILE, PROJECTS_FILE, SERIES_FILE, WRITINGS_FILE];
+    const defaults = [HOME_FILE, PROJECTS_FILE, PORTFOLIO_FILE, SERIES_FILE, WRITINGS_FILE];
     defaults.forEach((file, idx) => {
       if (!deduped.includes(file)) deduped.splice(idx, 0, file);
     });
@@ -67,7 +69,7 @@
   }
 
   function closeTab(tabs, keyToClose) {
-    if ([HOME_FILE, PROJECTS_FILE, SERIES_FILE, WRITINGS_FILE].includes(keyToClose))
+    if ([HOME_FILE, PROJECTS_FILE, PORTFOLIO_FILE, SERIES_FILE, WRITINGS_FILE].includes(keyToClose))
       return tabs;
 
     const idx = tabs.indexOf(keyToClose);
@@ -108,7 +110,7 @@
       li.className = "tab" + (key === currentKey ? " active" : "");
       li.title = key;
       li.setAttribute("role", "tab");
-      li.setAttribute("tabindex", "0"); 
+      li.setAttribute("tabindex", "0");
       li.setAttribute("aria-selected", key === currentKey ? "true" : "false");
 
       const label = document.createElement("span");
@@ -119,14 +121,12 @@
         if (key !== currentKey) window.location.href = key;
       });
 
-  
       li.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           if (key !== currentKey) window.location.href = key;
         }
       });
-
 
       li.addEventListener("focus", () => {
         li.style.outline = "2px solid var(--primary)";
@@ -136,8 +136,7 @@
         li.style.outline = "";
       });
 
-      // close button
-      if (![HOME_FILE, PROJECTS_FILE, SERIES_FILE, WRITINGS_FILE].includes(key)) {
+      if (![HOME_FILE, PROJECTS_FILE, PORTFOLIO_FILE, SERIES_FILE, WRITINGS_FILE].includes(key)) {
         const closeBtn = document.createElement("button");
         closeBtn.className = "tab-close";
         closeBtn.type = "button";
@@ -158,7 +157,6 @@
 
       host.appendChild(li);
     });
-
 
     const allTabs = host.querySelectorAll(".tab");
     host.addEventListener("keydown", (e) => {
@@ -185,12 +183,11 @@
   }
 })();
 
-
 function addSafeClick(target, onClick) {
   let downX = 0, downY = 0, armed = false;
 
   target.addEventListener("pointerdown", (e) => {
-    if (e.button !== 0) return;           // left button only
+    if (e.button !== 0) return;
     armed = true;
     downX = e.clientX;
     downY = e.clientY;
@@ -203,13 +200,8 @@ function addSafeClick(target, onClick) {
     target.releasePointerCapture?.(e.pointerId);
     const dx = Math.abs(e.clientX - downX);
     const dy = Math.abs(e.clientY - downY);
-    if (dx <= 4 && dy <= 4) onClick(e);   // only count as click if not a drag
+    if (dx <= 4 && dy <= 4) onClick(e);
   });
 
   target.addEventListener("pointercancel", () => { armed = false; });
 }
-
-// …inside your render() loop:
-addSafeClick(li, () => {
-  if (key !== currentKey) window.location.href = key;
-});
