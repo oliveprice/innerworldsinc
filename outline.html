@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 — Approach</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=League+Gothic&family=Barlow+Condensed:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #674f67;
+    --fg: #ddbe97;
+    --border: rgba(221, 190, 151, 0.35);
+    --fg-dim: rgba(221, 190, 151, 0.5);
+    --fg-faint: rgba(221, 190, 151, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'PP Editorial';
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── TOP BAR ── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+  .topbar-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+
+  .topbar-num {
+    font-family: 'PP Editorial';
+    font-size: 22px;
+    letter-spacing: 0.05em;
+    color: var(--fg);
+  }
+
+  .topbar-nav {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .topbar-nav a {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+border: 1px solid;
+    padding: 4px 7px;
+    border-radius: 3px;
+  }
+
+  .topbar-nav a:hover { color: var(--fg); }
+
+  /* ── MAIN LAYOUT ── */
+.page {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 2.2fr;
+  height: calc(100vh - 57px);
+}
+
+.left {
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  position: sticky;
+  top: 57px;
+  height: calc(100vh - 57px);
+  overflow: hidden;
+}
+
+.right {
+  overflow-y: auto;
+  height: calc(100vh - 57px);
+  display: flex;
+  flex-direction: column;
+  padding: 40px 48px;
+  scrollbar-width: none;
+}
+
+  .big-number {
+    font-family: 'PP Editorial';
+    font-size: clamp(120px, 18vw, 240px);
+    line-height: 0.85;
+    padding: 32px 28px 0 28px;
+    color: var(--fg);
+    letter-spacing: -0.03em;
+  }
+
+  .chapter-label {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    padding: 16px 28px 8px 28px;
+  }
+
+  .chapter-title {
+    font-family: 'PP Editorial';
+    font-size: clamp(42px, 6vw, 80px);
+    line-height: 0.9;
+    padding: 0 28px 24px 28px;
+    letter-spacing: -0.01em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .left-steps {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .step-tab {
+    padding: 14px 28px;
+    border-bottom: 1px solid var(--faint);
+    border-bottom: 1px solid var(--fg-faint);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    cursor: default;
+    transition: background 0.2s;
+  }
+
+  .step-tab:hover {
+    background: rgba(221, 190, 151, 0.07);
+  }
+
+  .step-tab.active {
+    background: rgba(221, 190, 151, 0.1);
+  }
+
+  .step-num {
+    font-family: 'PP Editorial';
+    font-size: 28px;
+    line-height: 1;
+    color: var(--fg-dim);
+    flex-shrink: 0;
+    width: 28px;
+  }
+
+  .step-name {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding-top: 7px;
+    line-height: 1.3;
+  }
+
+  /* ── RIGHT COLUMN ── */
+  .right {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 40px 10px 40px 48px;
+    gap: 0;
+    scrollbar-width: none;
+  }
+
+  .right::-webkit-scrollbar { display: none; }
+
+  .section {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--fg-faint);
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeup 0.5s forwards;
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.15s; }
+  .section:nth-child(3) { animation-delay: 0.25s; }
+  .section:nth-child(4) { animation-delay: 0.35s; }
+  .section:nth-child(5) { animation-delay: 0.45s; }
+
+  @keyframes fadeup {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .section-index {
+    font-family: 'PP Editorial';
+    font-size: 30px;
+    line-height: 1;
+    color: var(--fg-faint);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'PP Editorial';
+ 
+    line-height: 1;
+    letter-spacing: -0.01em;
+text-transform: uppercase;
+    font-size: 30px;
+  }
+
+  .section-body {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--fg-dim);
+    font-weight: 300;
+max-width: 670px;
+   
+  }
+
+  .section-body p { margin-bottom: 10px; }
+  .section-body p:last-child { margin-bottom: 0; }
+
+  /* inline sub-items */
+  .sub-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .sub-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 12px;
+    color: var(--fg-dim);
+  }
+
+  .sub-bullet {
+    width: 18px;
+    flex-shrink: 0;
+    font-family: 'PP Editorial';
+    font-size: 14px;
+    color: var(--fg);
+    padding-top: 1px;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+    padding-left: 64px;
+  }
+
+  .tag {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    color: var(--fg-dim);
+  }
+
+  /* ── BOTTOM BAR ── */
+  .bottombar {
+    border-top: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .bottom-label {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+
+  .next-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--bg);
+    background: var(--fg);
+    padding: 9px 20px;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'PP Editorial';
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .next-btn:hover {
+    background: var(--bg);
+    color: var(--fg);
+    outline: 1px solid var(--fg);
+    cursor: pointer;
+  }
+
+  .next-btn .arrow {
+    font-size: 12px;
+    transition: transform 0.2s;
+  }
+
+  .next-btn:hover .arrow {
+    transform: translateX(4px);
+cursor: pointer;
+  }
+
+  /* progress dots */
+  .progress-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--fg-faint);
+  }
+
+  .dot.active {
+    background: var(--fg);
+  }
+
+.topbar-progress {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.topbar-bar {
+  width: 28px;
+  height: 3px;
+  background: var(--fg-faint);
+  transition: background 0.2s;
+height: 6px;
+    border-radius: 10px;
+}
+
+.topbar-bar.active {
+  background: var(--fg);
+}
+
+@media (max-width: 768px) {
+  .left {
+    display: none;
+  }
+
+  .page {
+    grid-template-columns: 1fr;
+  }
+
+  .right {
+    height: calc(100vh - 57px);
+    padding: 24px 24px;
+  }
+
+  .topbar-progress {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+<nav class="topbar-nav">
+<a href="my-solution.html">← Contents</a></nav>
+  <div class="topbar-progress">
+  <div class="topbar-bar active"></div>
+  <div class="topbar-bar"></div>
+  <div class="topbar-bar"></div>
+  <div class="topbar-bar"></div>
+  <div class="topbar-bar"></div>
+  <div class="topbar-bar"></div>
+  <div class="topbar-bar"></div>
+  <div class="topbar-bar"></div>
+</div>
+  <nav class="topbar-nav">
+  
+    <a href="faults.html">Next: Culprits →</a>
+  </nav>
+</div>
+
+<!-- MAIN -->
+<div class="page">
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="big-number">01</div>
+    <div class="chapter-title">Outline</div>
+    <div class="left-steps">
+      <div class="step-tab active">
+        <div class="step-num">01</div>
+        <div class="step-name">Client Discovery</div>
+      </div>
+      <div class="step-tab">
+        <div class="step-num">02</div>
+        <div class="step-name">UX / Tech Audit</div>
+      </div>
+      <div class="step-tab">
+        <div class="step-num">03</div>
+        <div class="step-name">Brand & UI Review</div>
+      </div>
+      <div class="step-tab">
+        <div class="step-num">04</div>
+        <div class="step-name">Benchmarking</div>
+      </div>
+      <div class="step-tab">
+        <div class="step-num">05</div>
+        <div class="step-name">Analytics Setup</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-index">01</div>
+        <div class="section-title">Client Discovery</div>
+      </div>
+      <div class="section-body">
+        <p>Schedule a meeting with the client, <a href="https://arizonamountaininn.com/" target="_blank">AZ Mountain Inn</a>, to establish shared understanding before any work begins. This conversation anchors all future decisions.</p>
+        <div class="sub-list">
+          <div class="sub-item"><div class="sub-bullet">—</div><div>What are you trying to say or do?</div></div>
+          <div class="sub-item"><div class="sub-bullet">—</div><div>Who are your competitors?</div></div>
+          <div class="sub-item"><div class="sub-bullet">—</div><div>How are you different?</div></div>
+          <div class="sub-item"><div class="sub-bullet">—</div><div>Why should a visitor care?</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-index">02</div>
+        <div class="section-title">UX / Technical Audit</div>
+      </div>
+      <div class="section-body">
+        <p>Conduct a structured review of the existing site. Evaluate navigation, content hierarchy, calls to action, page load speed, and mobile responsiveness.</p>
+        <p>Test across desktop, tablet, and mobile. Run accessibility checks against WCAG guidelines to identify barriers affecting usability or conversion.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-index">03</div>
+        <div class="section-title">Brand & UI Consistency</div>
+      </div>
+      <div class="section-body">
+        <p>Assess whether the site follows a consistent visual and interaction system. If a formal design system does not exist, document current typography, colors, spacing, and components.</p>
+        <p>Identify inconsistencies that create confusion or weaken brand clarity.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-index">04</div>
+        <div class="section-title">Competitive Benchmarking</div>
+      </div>
+      <div class="section-body">
+        <p>Analyze successful hospitality websites to understand common patterns in booking flows, page structure, messaging, and trust signals.</p>
+        <p>Document effective approaches used by competitors or leaders in the space to identify clear opportunities for improvement.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-index">05</div>
+        <div class="section-title">Analytics & Conversion Tracking</div>
+      </div>
+      <div class="section-body">
+        <p>Review existing analytics implementation and ensure key conversion events are tracked — booking completions, search submissions, contact forms, and calls to action.</p>
+        <p>Verify that Google Analytics or Google Tag Manager are configured to measure baseline performance before recommending any changes.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>
