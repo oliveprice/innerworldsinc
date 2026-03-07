@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magazine Spread</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=League+Gothic&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #674f67;
+    color: #ddbe97;
+    font-family: 'PP Editorial';
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.spread {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: #674f67;
+  overflow: hidden;
+  margin: 10px auto 0px auto;
+  border: 1px solid #ddbe97;
+  max-width: 1500px;
+
+}
+
+.destination {
+  font-family: 'PP Editorial';
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  transform: rotate(180deg);
+  font-size: clamp(40px, calc(min(100vw, 1250px) / 8), 126px);
+  writing-mode: vertical-rl;
+  padding: 0 2px;
+  transition: color 0.25s ease;
+    margin-bottom: 20px;
+}
+
+  .column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddbe97;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    color: #ddbe97;
+    background: #674f67;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+
+  .column:last-child {
+    border-right: none;
+  }
+
+  /* Full inversion on hover */
+  .column:hover {
+    background: #ddbe97;
+    color: #674f67;
+    border-color: #674f67;
+  }
+
+  .column:hover .divider,
+  .column:hover .divider-thin {
+    background: #674f67;
+  }
+
+  .column:hover .author {
+    color: #674f67;
+  }
+
+  .column:hover .description {
+    color: #674f67;
+  }
+
+  .column:hover .page-ref {
+    color: #674f67;
+  }
+
+  .column:hover .number {
+    color: #674f67;
+  }
+
+  .column:hover .destination {
+    color: #674f67;
+  }
+
+  .column:hover .page-num {
+    color: #674f67;
+  }
+
+  /* Number */
+  .number {
+    font-family: 'PP Editorial';
+    font-size: clamp(28px, 4.5vw, 76px);
+    line-height: 1;
+    padding: 10px 10px 8px 10px;
+    letter-spacing: -1px;
+    transition: color 0.4s ease;
+  }
+
+  .divider {
+    height: 1px;
+    background: #ddbe97;
+    margin: 0 8px;
+    transition: background 0.25s ease;
+  }
+
+  .divider-thin {
+    height: 1px;
+    background: #ddbe97;
+    margin: 0 8px;
+    transition: background 0.25s ease;
+  }
+
+  .author {
+       font-family: 'PP Editorial';
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 6px 10px 5px 10px;
+    font-weight: 700;
+    color: #ddbe97;
+    white-space: pre-wrap;
+    text-overflow: clip;
+    transition: color 0.25s ease;
+  }
+
+  .description {
+      font-family: 'PP Editorial';
+    font-size: 12px;
+    
+    line-height: 1.45;
+    padding: 6px 10px 6px 10px;
+    color: #ddbe97;
+    font-weight: 400;
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: color 0.25s ease;
+  }
+
+  .page-ref {
+     font-family: 'PP Editorial';
+    font-size: clamp(5px, 0.6vw, 8px);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 5px 10px 6px 10px;
+    font-weight: 700;
+    color: #ddbe97;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: color 0.25s ease;
+  }
+
+  .map-area {
+    flex: 1;
+    min-height: 40px;
+  }
+
+  .destination-wrap {
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+  }
+
+
+  .page-num {
+    position: absolute;
+    bottom: 6px;
+    right: 8px;
+    font-size: 8px;
+    color: #ddbe97;
+       font-family: 'PP Editorial';
+    letter-spacing: 0.1em;
+    transition: color 0.25s ease;
+  }
+
+@media (max-width: 768px) {
+  .author,
+  .description, .divider {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="spread">
+
+  <a class="column" href="#outline">
+    <div class="number">1</div>
+    <div class="divider"></div>
+    <div class="author">Outline</div>
+    <div class="description">First five steps to diagnosing a stale hospitality site.</div>
+
+
+    <div class="map-area"></div>
+    <div class="destination-wrap">
+      <div class="destination">Outline</div>
+    </div>
+  </a>
+
+  <a class="column" href="#risks">
+    <div class="number">2</div>
+    <div class="divider"></div>
+    <div class="author">Faults</div>
+
+    <div class="description">Three possible root causes of low conversion.</div>
+
+    <div class="map-area"></div>
+    <div class="destination-wrap">
+      <div class="destination">Faults</div>
+    </div>
+  </a>
+
+  <a class="column" href="#data">
+    <div class="number">3</div>
+    <div class="divider"></div>
+    <div class="author">Data Needed</div>
+    <div class="description">What to request before any recommendation is made.</div>
+
+    <div class="map-area"></div>
+    <div class="destination-wrap">
+      <div class="destination">Data</div>
+    </div>
+  </a>
+
+  <a class="column" href="#improvements">
+    <div class="number">4</div>
+    <div class="divider"></div>
+    <div class="author">Strides</div>
+    <div class="description">Two quick wins and two longer-term improvements.</div>
+
+    <div class="map-area"></div>
+    <div class="destination-wrap">
+      <div class="destination">Strides</div>
+    </div>
+  </a>
+
+  <a class="column" href="#review">
+    <div class="number">5</div>
+    <div class="divider"></div>
+    <div class="author">Page Review</div>
+    <div class="description">A critique of the homepage as it currently stands.</div>
+
+    <div class="map-area"></div>
+    <div class="destination-wrap">
+      <div class="destination">Review</div>
+    </div>
+  </a>
+
+  <a class="column" href="#ux">
+    <div class="number">6</div>
+    <div class="divider"></div>
+    <div class="author">UX</div>
+    <div class="description">Five UX improvement opportunities.</div>
+
+    <div class="map-area"></div>
+    <div class="destination-wrap">
+      <div class="destination">UX</div>
+    </div>
+  </a>
+
+  <a class="column" href="#gaps">
+    <div class="number">7</div>
+    <div class="divider"></div>
+    <div class="author">Conversion Gaps</div>
+    <div class="description">Conversion and clarity issues.</div>
+
+    <div class="map-area"></div>
+    <div class="destination-wrap">
+      <div class="destination">Gaps</div>
+    </div>
+  </a>
+
+  <a class="column" href="#impact">
+    <div class="number">8</div>
+    <div class="divider"></div>
+    <div class="author">Impact</div>
+    <div class="description">One measurable improvement tied to business impact.</div>
+
+    <div class="map-area"></div>
+    <div class="destination-wrap">
+      <div class="destination">Impact</div>
+    </div>
+
+  </a>
+
+</div>
+
+</body>
+</html>
