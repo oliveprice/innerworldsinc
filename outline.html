@@ -118,6 +118,8 @@ border: 1px solid;
     padding: 16px 28px 8px 28px;
   }
 
+a { color: var(--fg);}
+a:hover { curosr: pointer; color: white;}
   .chapter-title {
     font-family: 'PP Editorial';
     font-size: clamp(42px, 6vw, 80px);
@@ -251,7 +253,7 @@ max-width: 670px;
     display: flex;
     gap: 12px;
     align-items: flex-start;
-    font-size: 12px;
+    font-size: 16px;
     color: var(--fg-dim);
   }
 
@@ -388,6 +390,35 @@ height: 6px;
     display: none;
   }
 }
+
+@keyframes slideup {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.big-number {
+  animation: slideup 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.05s;
+  opacity: 0;
+}
+
+.chapter-title {
+  animation: slideup 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.15s;
+  opacity: 0;
+}
+
+.step-tab:nth-child(1) { animation: slideup 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.2s; opacity: 0; }
+.step-tab:nth-child(2) { animation: slideup 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.27s; opacity: 0; }
+.step-tab:nth-child(3) { animation: slideup 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.34s; opacity: 0; }
+.step-tab:nth-child(4) { animation: slideup 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.41s; opacity: 0; }
+.step-tab:nth-child(5) { animation: slideup 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.48s; opacity: 0; }
 </style>
 </head>
 <body>
@@ -452,12 +483,13 @@ height: 6px;
         <div class="section-title">Client Discovery</div>
       </div>
       <div class="section-body">
-        <p>Schedule a meeting with the client, <a href="https://arizonamountaininn.com/" target="_blank">AZ Mountain Inn</a>, to establish shared understanding before any work begins. This conversation anchors all future decisions.</p>
+        <p>First I must schedule a meeting with the client, <a href="https://arizonamountaininn.com/" target="_blank">AZ Mountain Inn</a>, to establish shared understanding before any work begins. These are the questions I usually have:</p>
         <div class="sub-list">
-          <div class="sub-item"><div class="sub-bullet">—</div><div>What are you trying to say or do?</div></div>
+          <div class="sub-item"><div class="sub-bullet">—</div><div>What are you trying to do?</div></div>
           <div class="sub-item"><div class="sub-bullet">—</div><div>Who are your competitors?</div></div>
-          <div class="sub-item"><div class="sub-bullet">—</div><div>How are you different?</div></div>
-          <div class="sub-item"><div class="sub-bullet">—</div><div>Why should a visitor care?</div></div>
+          <div class="sub-item"><div class="sub-bullet">—</div><div>What makes you different from them?</div></div>
+          <div class="sub-item"><div class="sub-bullet">—</div><div>Why is it important?</div></div>
+           <div class="sub-item"><div class="sub-bullet">—</div><div>If a visitor could take away one thing, what would it be?</div></div>
         </div>
       </div>
 
@@ -469,8 +501,14 @@ height: 6px;
         <div class="section-title">UX / Technical Audit</div>
       </div>
       <div class="section-body">
-        <p>Conduct a structured review of the existing site. Evaluate navigation, content hierarchy, calls to action, page load speed, and mobile responsiveness.</p>
-        <p>Test across desktop, tablet, and mobile. Run accessibility checks against WCAG guidelines to identify barriers affecting usability or conversion.</p>
+        <p>I always conduct a structured review of the existing site. I evaluate: </p>
+
+<div class="sub-item"><div class="sub-bullet">—</div><div>Navigation</div></div>
+<div class="sub-item"><div class="sub-bullet">—</div><div>Visual hierarchy</div></div>
+<div class="sub-item"><div class="sub-bullet">—</div><div>Calls to action</div></div>
+<div class="sub-item"><div class="sub-bullet">—</div><div>Screen size responsiveness</div></div>
+<div class="sub-item"><div class="sub-bullet">—</div><div>Emotional engagement. Does this site create desire, curiosity, or excitement within me? Does it make me WANT to stay?</div></div> <br>
+<p>I test across desktop, tablet, and mobile. I run accessibility checks against <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank">WCAG</a> guidelines to identify barriers affecting usability or conversion. I use <a href="https://www.accessibilitychecker.org" target="_blank">accessibilitychecker.org</a> for this.</p>
       </div>
     </div>
 
@@ -480,8 +518,8 @@ height: 6px;
         <div class="section-title">Brand & UI Consistency</div>
       </div>
       <div class="section-body">
-        <p>Assess whether the site follows a consistent visual and interaction system. If a formal design system does not exist, document current typography, colors, spacing, and components.</p>
-        <p>Identify inconsistencies that create confusion or weaken brand clarity.</p>
+        <p>I then assess whether the site follows a consistent visual and interaction system. If a formal design system is NOT currently established, then I'd like to establish one by documenting typography, colors, spacing, and other components. I create a style guide, either in Figma, or within a codebase and staged on a live webpage.</p>
+        <p>I make sure to identify inconsistencies that create confusion and/or weaken brand identity.</p>
       </div>
     </div>
 
@@ -490,10 +528,11 @@ height: 6px;
         <div class="section-index">04</div>
         <div class="section-title">Competitive Benchmarking</div>
       </div>
-      <div class="section-body">
-        <p>Analyze successful hospitality websites to understand common patterns in booking flows, page structure, messaging, and trust signals.</p>
-        <p>Document effective approaches used by competitors or leaders in the space to identify clear opportunities for improvement.</p>
-      </div>
+<div class="section-body">
+  <p>Early on in this stage, I always collect inspiration. I would look at successful hospitality websites to see some different methods of booking flows, page structure, hierarchy, and messaging.</p>
+  <p>My favorite sites for this purpose are <a href="https://www.awwwards.com" target="_blank">Awwwards</a>, <a href="https://www.behance.net" target="_blank">Behance</a>, <a href="https://dribbble.com" target="_blank">Dribbble</a>, and <a href="https://www.pinterest.com" target="_blank">Pinterest</a>. I create folders within my computer to keep my inspiration organized.</p>
+  <p>I'd make note of engaging approaches used by leaders in the space to identify clear opportunities for improvement.</p>
+</div>
     </div>
 
     <div class="section">
@@ -502,8 +541,8 @@ height: 6px;
         <div class="section-title">Analytics & Conversion Tracking</div>
       </div>
       <div class="section-body">
-        <p>Review existing analytics implementation and ensure key conversion events are tracked — booking completions, search submissions, contact forms, and calls to action.</p>
-        <p>Verify that Google Analytics or Google Tag Manager are configured to measure baseline performance before recommending any changes.</p>
+        <p>Do they have any analytic tools in place? I would review those to ensure key conversion events are being tracked.</p>
+        <p>I would verify that Google Analytics or Google Tag Manager are configured correctly to measure performance from this point forward.</p>
       </div>
     </div>
 
