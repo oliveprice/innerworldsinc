@@ -2,7 +2,6 @@
   const ROUTES = {
     "home.html": "Home",
     "projects.html": "Projects",
-    "portfolio.html": "Portfolio",
     "series.html": "Series",
     "writings.html": "Writings",
     "html-to-hiccup-converter.html": "Converter",
@@ -11,7 +10,6 @@
 
   const HOME_FILE = "home.html";
   const PROJECTS_FILE = "projects.html";
-  const PORTFOLIO_FILE = "portfolio.html";
   const SERIES_FILE = "series.html";
   const WRITINGS_FILE = "writings.html";
   const STORAGE_KEY = "IW_open_tabs_v1";
@@ -55,7 +53,7 @@
       if (!seen.has(t)) { seen.add(t); deduped.push(t); }
     }
 
-    const defaults = [HOME_FILE, PROJECTS_FILE, PORTFOLIO_FILE, SERIES_FILE, WRITINGS_FILE];
+    const defaults = [HOME_FILE, PROJECTS_FILE, SERIES_FILE, WRITINGS_FILE];
     defaults.forEach((file, idx) => {
       if (!deduped.includes(file)) deduped.splice(idx, 0, file);
     });
@@ -69,7 +67,7 @@
   }
 
   function closeTab(tabs, keyToClose) {
-    if ([HOME_FILE, PROJECTS_FILE, PORTFOLIO_FILE, SERIES_FILE, WRITINGS_FILE].includes(keyToClose))
+    if ([HOME_FILE, PROJECTS_FILE, SERIES_FILE, WRITINGS_FILE].includes(keyToClose))
       return tabs;
 
     const idx = tabs.indexOf(keyToClose);
@@ -136,7 +134,7 @@
         li.style.outline = "";
       });
 
-      if (![HOME_FILE, PROJECTS_FILE, PORTFOLIO_FILE, SERIES_FILE, WRITINGS_FILE].includes(key)) {
+      if (![HOME_FILE, PROJECTS_FILE, SERIES_FILE, WRITINGS_FILE].includes(key)) {
         const closeBtn = document.createElement("button");
         closeBtn.className = "tab-close";
         closeBtn.type = "button";
