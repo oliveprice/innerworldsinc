@@ -14,8 +14,9 @@ const projectKeyMap = {
 };
 
 const LOCKED_TITLES = new Set([
-  'music posters',
-  'book posters'
+  'olive price',
+  'shelby hagemann',
+  'nick augustine'
 ]);
 
 function isLockedPage(page) {
@@ -34,14 +35,15 @@ const chapters = [
   },
   {
     id: 'chapter-2',
-    blockImage: './resources/animations/chapter-2/images/img_0.png',
+    blockImage: './resources/animations/chapter-2/images/team.png',
     flowerLottie: './resources/animations/chapter-2/images/img_1.png',
     chapterNumber: '2',
-    chapterName: 'Series',
+    chapterName: 'Team',
     lineImage: './resources/animations/chapter-2/images/img_7.png',
     pages: [
-      { name: 'Music Posters', number: '6' },
-      { name: 'Book Posters', number: '7' }
+      { name: 'Olive Price', number: '6' },
+      { name: 'Shelby Hagemann', number: '7' },
+      { name: 'Nick Augustine', number: '8' }
     ]
   },
   {
@@ -60,7 +62,7 @@ const chapters = [
 // ========================= MOBILE DIRECT NAV =========================
 const MOBILE_ROUTES = {
   'chapter-1': { kind: 'url', href: './projects.html' },
-  'chapter-2': { kind: 'url', href: './series.html' },
+  'chapter-2': { kind: 'url', href: './team.html' },
   'chapter-3': { kind: 'url', href: './power-through-transmutation.html' },
 };
 
@@ -123,7 +125,7 @@ function createPageNode(page, index) {
   // Locked pages → go to series.html
   if (isLockedPage(page)) {
     const a = document.createElement('a');
-    a.href = './series.html';
+    a.href = './team.html';
     a.textContent = page.name;
     a.style.textDecoration = 'none';
     a.style.color = 'inherit';
