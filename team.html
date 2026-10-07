@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Team</title>
+    <meta name="viewport" content="width=1280, user-scalable=no">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <link rel="icon" type="image/png" href="./resources/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="stylesheet" href="./resources/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Spectral:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/ffd3aqy.css">
+    <script src="https://cdn.jsdelivr.net/npm/smooth-scrollbar@8.7.4/dist/smooth-scrollbar.js"></script>
+  </head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RZX19P08W"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-3RZX19P08W');
+  </script>
+  <body class="background-layer-1">
+    <ul class="tabs" id="site-tabs"></ul>
+    <div id="my-scrollbar" class="background-layer-2">
+      <div class="background-layer-3 sky ">
+        <div class="flex-column flex-align-center" style="height: max-content;">
+          <div style="margin-bottom: 6rem; text-align: center;" class="card title margin-bottom-plus-5">
+            <h2>Page under construction</h2>
+          </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js"></script>
+      </div>
+     <div class="footer-frame">
+       <div class="links flex-row flex-justify-center offset-margin-top flex-align-center gap-plus-1">
+         <div class="link-container">
+           <button class="footer-link-btn" aria-label="About Me">
+             <img src="./resources/drawn_typography/about me.png" alt="About Me" class="footer-link" />
+           </button>
+           <div id="underline-about-me" class="underline-animation"></div>
+         </div>
+
+         <div class="link-container">
+           <button class="footer-link-btn" aria-label="Colophon">
+             <img src="./resources/drawn_typography/colophon.png" alt="Colophon" class="footer-link" />
+           </button>
+           <div id="underline-colophon" class="underline-animation"></div>
+         </div>
+
+         <div class="link-container">
+           <button class="footer-link-btn" aria-label="Change Log">
+             <img src="./resources/drawn_typography/change log.png" alt="Change Log" class="footer-link link-offset" />
+           </button>
+           <div id="underline-change-log" class="underline-animation"></div>
+         </div>
+       </div>
+     </div>
+    </div>
+    <script>
+      Scrollbar.init(document.querySelector('#my-scrollbar'), {
+        damping: 0.09,
+        renderByPixels: true,
+        alwaysShowTracks: true
+      });
+    </script>
+    <script src="./scripts/hover.js"></script>
+    <script src="./scripts/load.js"></script>
+    <div id="change-log-container"></div>
+    <script src="./scripts/change-log.js"></script>
+    <script src="./scripts/tabs.js"></script>
+    <div id="about-me-container"></div>
+    <script src="./scripts/about-me.js"></script>
+    <div id="colophon-container"></div>
+    <script src="./scripts/colophon-modal.js"></script>
+  </body>
+</html>
