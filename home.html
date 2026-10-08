@@ -40,6 +40,9 @@
   (async function(){
     if (!window.__PRELOAD_ONLY__) return;
 
+    if (document.readyState !== 'complete') {
+      await new Promise(res => window.addEventListener('load', res, { once: true }));
+    }
 
     try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch(_) {}
 
@@ -85,6 +88,16 @@
       link.rel = 'preload'; link.as = 'script'; link.href = src;
       link.onload = link.onerror = () => res();
       document.head.appendChild(link);
+    })));
+
+    const anims = (window.lottie && lottie.getRegisteredAnimations) ? lottie.getRegisteredAnimations() : [];
+    await Promise.all(anims.filter(a => a && a.wrapper).map(a => new Promise((res) => {
+      const done = () => a.isLoaded && a.imagePreloader && a.imagePreloader.loadedImages();
+      if (done()) return res();
+      const check = () => { if (done()) res(); };
+      a.addEventListener('DOMLoaded', check);
+      a.addEventListener('loaded_images', check);
+      a.addEventListener('data_failed', res);
     })));
 
     // 4) Signal ready to the loader

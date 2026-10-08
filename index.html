@@ -13,12 +13,12 @@
 
   <style>
     html, body { height: 100%; margin: 0; }
-    body { background: #0b0b0b; overflow: hidden; }
+    body { background: #674f67; overflow: hidden; }
     .screen-container {
       position: fixed; inset: 0; display:flex; align-items:center; justify-content:center;
-      background: var(--background, #0b0b0b);
+      background: #674f67 url('./resources/images/pink-paper-cover.webp') center / auto 375vh repeat;
     }
-    .lottie-wrapper { width: min(700px, 90vw); height: min(700px, 90vw); }
+    .lottie-wrapper { width: 100vw; height: 100vh; }
     .fade-out { animation: fadeOut .35s ease forwards; }
     @keyframes fadeOut { to { opacity: 0; } }
   </style>
@@ -38,15 +38,15 @@
       try {
         window.__loaderAnim = lottie.loadAnimation({
           container: el, renderer: 'svg', loop: true, autoplay: true,
-          // TODO: set this to your actual opening JSON path
-          path: './resources/animations/opening.json'
+          rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
+          path: './resources/animations/open-screen/data.json'
         });
       } catch (e) {}
     })();
   </script>
 
   <!-- Hidden preloader iframe (puts home.html assets into cache without booting heavy JS) -->
-  <iframe id="preload-frame" src="home.html?preload=1" style="display:none;" aria-hidden="true"></iframe>
+  <iframe id="preload-frame" src="home.html?preload=1" style="position:fixed; inset:0; width:100%; height:100%; border:0; visibility:hidden; pointer-events:none; z-index:-1;" aria-hidden="true" tabindex="-1"></iframe>
 
   <script>
     const iframe = document.getElementById('preload-frame');
@@ -54,12 +54,14 @@
     // Safety fallback if "ready" never arrives
     const FAILSAFE_MS = 20000;
     const failsafe = setTimeout(() => jump(), FAILSAFE_MS);
+    const MIN_MS = 3000;
+    const startedAt = performance.now();
 
     window.addEventListener('message', (e) => {
       try {
         if (e.source === iframe.contentWindow && e.data && e.data.type === 'HOME_READY') {
           clearTimeout(failsafe);
-          jump();
+          setTimeout(jump, Math.max(0, MIN_MS - (performance.now() - startedAt)));
         }
       } catch (_) {}
     }, false);
