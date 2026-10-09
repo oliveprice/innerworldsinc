@@ -36,7 +36,7 @@
                <div class="card title margin-bottom-plus-5">
                   <img src="./resources/drawn_typography/passion-projects.png" alt="Passion Projects">
                </div>
-               <ul class="gallery">
+               <ul class="gallery passion-gallery">
                   <li class="piece" data-key="aberration" data-video="./resources/videos/aber.mp4">
                      <div class="header">
                         <h4>Aberration</h4>
@@ -118,25 +118,6 @@
                                          <p class="handwritten"> Scent is a game about a dog finding his missing owner. <br>
   <a href="https://zksx.itch.io/scent" class="handwritten" target="_blank" rel="noopener noreferrer">Play it here!</a> </p>
                   </li>
-          
-                  <li class="piece" data-key="hiccup-tool" data-video="./resources/videos/converter.mov">
-                     <div class="header">
-                        <h4> hiccup tool </h4>
-                        <img src="./resources/images/project_stamps/code.png" class="stamp" >
-                     </div>
-                                                     <video class="illustration" autoplay muted loop playsinline>
-                       <source src="./resources/images/project_stamps/code.mp4" type="video/mp4">
-                       Your browser does not support the video tag.
-                     </video>
-                  </li>
-                  <li class="project-info" data-key="hiccup-tool">
-                     <div class="inliner flex-space-between">
-                        <h4>Hiccup Tool</h4>
-                        <img class="stamp" src="./resources/images/project_stamps/code.png">
-                     </div>
-                     <p class="handwritten">At Clean Coders, I often need to convert HTML into Hiccup since we work in Clojure. I built a simple tool to make that process easier. <br>
-  <a href="html-to-hiccup-converter.html" class="handwritten">Check it out here!</a></p>
-                  </li>
                </ul>
                <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
                <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.0/lottie.min.js"></script>
@@ -196,15 +177,6 @@
                </li>
                <li class="work-card">
                   <img class="work-card-media" src="./resources/images/portfolio/posters/7.png" alt="Pink and red &quot;Snow, Glass, Apples&quot; book cover">
-               </li>
-               <li class="work-card">
-                  <img class="work-card-media" src="./resources/images/portfolio/posters/10.png" alt="&quot;The Girls&quot; by Emma Cline book cover">
-               </li>
-               <li class="work-card">
-                  <img class="work-card-media" src="./resources/images/portfolio/posters/1.png" alt="Kishi Bashi &quot;Hahaha Pt. 1&quot; poster">
-               </li>
-               <li class="work-card">
-                  <img class="work-card-media" src="./resources/images/portfolio/posters/5.png" alt="The Dear Hunter &quot;Hymns with the Devil in Confessional&quot; tour poster">
                </li>
             </ul>
          </section>
@@ -306,6 +278,14 @@
         });
       </script>
       <script src="./scripts/projects.js"></script>
+      <script>
+        document.addEventListener('click', (e) => {
+          if (e.target.closest('.passion-gallery .piece')) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }, true);
+      </script>
 <script>
   (function () {
     const OPEN_DELAY_MS = 1000; // "see all closed" → open after a beat

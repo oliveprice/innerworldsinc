@@ -8,6 +8,27 @@
 	justify-content: center;
 }
 
+.gallery.passion-gallery {
+	display: grid;
+	grid-template-columns: repeat(2, 330px);
+	justify-content: center;
+	align-items: start;
+}
+
+.passion-gallery .piece {
+	width: 330px;
+	height: 275px;
+	box-sizing: border-box;
+}
+
+.passion-gallery .piece h4 {
+	font-size: 28px;
+}
+
+.passion-gallery .piece.is-animating {
+	cursor: default;
+}
+
 .project-info {
 	width: 770px;
 	position: relative;
