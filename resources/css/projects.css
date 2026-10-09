@@ -551,3 +551,117 @@
     line-height: 19px;
 
 }
+
+.work-section {
+  background-image: var(--bg-texture);
+  background-repeat: repeat;
+  background-size: auto 375vh;
+  background-position: center top;
+  border-bottom: 1px solid var(--primary);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.work-card-media {
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--primary);
+  background-color: #8f8a91;
+}
+
+img.work-card-media,
+video.work-card-media {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+img.work-card-media:hover,
+video.work-card-media:hover,
+img.work-card-media:focus-visible,
+video.work-card-media:focus-visible {
+  transform: scale(1.03);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  z-index: 1;
+}
+
+.work-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(20, 12, 20, 0.92);
+}
+
+.work-lightbox[hidden] {
+  display: none;
+}
+
+.work-lightbox-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 72px 0 24px;
+  box-sizing: border-box;
+}
+
+.work-lightbox-media {
+  display: block;
+  border: none;
+  outline: none;
+}
+
+.work-lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 48px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.work-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(20, 12, 20, 0.6);
+  color: var(--primary);
+  font-size: 44px;
+  line-height: 1;
+  padding: 0 0 6px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.work-lightbox-prev {
+  left: 20px;
+}
+
+.work-lightbox-next {
+  right: 20px;
+}
