@@ -230,14 +230,16 @@
 
 .contact-form input:focus,
 .contact-form textarea:focus,
-.contact-form button:focus {
+.contact-form button:focus,
+.notice-ok:focus {
 	outline: 2px solid var(--primary);
 	outline-offset: 2px;
 	border-color: var(--primary);
 
 }
 
-.contact-form button {
+.contact-form button,
+.notice-ok {
 	background-color: #674f67;
 	color: var(--primary);
 	border: 1px solid #ddbe97;
@@ -249,7 +251,8 @@
 	transition: background-color 0.2s ease;
 }
 
-.contact-form button:hover {
+.contact-form button:hover,
+.notice-ok:hover {
 	background-color: var(--primary);
 	color: #674f67;
 }
@@ -396,7 +399,58 @@
 }
 
 .footer-link-btn:focus-visible {
-  
+
   outline-offset: 4px;
   border-radius: 4px;
+}
+
+.notice-close {
+	position: absolute;
+	top: 12px;
+	right: 20px;
+	z-index: 1001;
+	background: none;
+	border: none;
+	color: var(--primary);
+	font-size: 40px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.notice-body {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	height: 100%;
+	padding: 0 40px;
+	box-sizing: border-box;
+	text-align: left;
+}
+
+.notice-body .notice-ok {
+	margin-top: 24px;
+	align-self: flex-end;
+	font-size: 20px;
+	padding: 0.75rem 2rem;
+}
+
+.notice-body .notice-heading {
+	font-family: 'PP Editorial';
+	font-size: 15px;
+	text-transform: uppercase;
+	letter-spacing: 8px;
+	line-height: 1;
+	margin: 0 0 24px;
+	color: var(--primary);
+}
+
+.notice-text {
+	font-family: 'Olive Full';
+	font-size: 37px;
+	line-height: 1;
+	letter-spacing: 0;
+	color: var(--primary);
+	margin: 0;
+	padding-bottom: 35px;
 }
